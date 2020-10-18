@@ -15,7 +15,7 @@ __Authors__: [Boyu Zhou](http://boyuzhou.net) and [Shaojie Shen](http://uav.ust.
   <!-- <img src="files/icra20_1.gif" width = "320" height = "180"/> -->
 </p>
 
-Complete videos: [video1](https://www.youtube.com/watch?v=NvR8Lq2pmPg&feature=emb_logo).
+Complete videos: [video1](https://www.youtube.com/watch?v=_dGgZUrWk-8).
 
 The associated paper is submitted to RA-L with ICRA 2021 option.
 Its preprint is on the way.
