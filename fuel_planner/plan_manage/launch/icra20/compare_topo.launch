@@ -1,0 +1,121 @@
+<launch>
+  <arg name="obj_num" value="1" />
+  <arg name="max_vel" value="2.0" />
+  <arg name="max_acc" value="1.0" />
+  <arg name="dynamic" value="0" />
+
+  <!-- main node -->
+  <node pkg="plan_manage" name="compare_topo" type="compare_topo" output="screen">
+  
+    <param name="sdf_map/resolution"      value="0.1" /> 
+    <param name="sdf_map/global/x_size"   value="40.0" /> 
+    <param name="sdf_map/global/y_size"   value="20.0" /> 
+    <param name="sdf_map/global/z_size"   value="5.0" /> 
+    <param name="sdf_map/local_radius_x"  value="5.5" /> 
+    <param name="sdf_map/local_radius_y"  value="5.5" /> 
+    <param name="sdf_map/local_radius_z"  value="4.5" /> 
+    <param name="sdf_map/inflate_val"     value="0.099" /> 
+    <param name="sdf_map/esdf_inflate"    value="0.075"/>
+    <param name="sdf_map/local_map_margin" value="20"/>
+    <param name="sdf_map/ground_z"        value="-1.0"/>
+    <!-- camera parameter -->
+    <param name="sdf_map/cx" value="385.754"/>
+    <param name="sdf_map/cy" value="236.743"/>
+    <param name="sdf_map/fx" value="385.754"/>
+    <param name="sdf_map/fy" value="257.296"/>
+    <!-- <param name="sdf_map/cx" value="3.2247735741936430e+02"/> -->
+    <!-- <param name="sdf_map/cy" value="2.3707634648111778e+02"/> -->
+    <!-- <param name="sdf_map/fx" value="3.8445808939187248e+02"/> -->
+    <!-- <param name="sdf_map/fy" value="3.8398275569654390e+02"/> -->
+    <!-- depth filter -->
+    <param name="sdf_map/use_depth_filter" value="true"/>
+    <param name="sdf_map/depth_filter_tolerance" value="0.15"/>
+    <param name="sdf_map/depth_filter_maxdist"   value="4.5"/>
+    <param name="sdf_map/depth_filter_mindist"   value="0.2"/>
+    <param name="sdf_map/depth_filter_margin"    value="2"/>
+    <param name="sdf_map/k_depth_scaling_factor" value="1000.0"/>
+    <param name="sdf_map/skip_pixel" value="3"/>
+    <!-- local fusion -->
+    <param name="sdf_map/p_hit"  value="0.65"/>
+    <param name="sdf_map/p_miss" value="0.35"/>
+    <param name="sdf_map/p_min"  value="0.12"/>
+    <param name="sdf_map/p_max"  value="0.90"/>
+    <param name="sdf_map/p_occ"  value="0.80"/>
+    <param name="sdf_map/min_ray_length" value="0.5"/>
+    <param name="sdf_map/max_ray_length" value="4.6"/>
+
+    <param name="sdf_map/slice_height" value="0.3"/>
+    <param name="sdf_map/cut_height"   value="2.0"/>
+    <param name="sdf_map/show_occ_time"  value="true"/>
+    <param name="sdf_map/show_esdf_time" value="true"/>
+    <param name="sdf_map/use_uniform_update" value="true"/>
+
+    <param name="sdf_map/pose_type"     value="1"/>  
+    <param name="sdf_map/frame_id"      value="world"/>
+
+  <!-- planner manager -->
+    <param name="manager/time_sample" value="0.5" type="double"/>
+    <param name="manager/max_vel" value="$(arg max_vel)" type="double"/>
+    <param name="manager/dynamic" value="$(arg dynamic)" type="int"/>
+    <param name="manager/local_length" value="9.0" type="double"/>
+    <param name="manager/margin" value="0.2" type="double"/>
+    <param name="manager/dist_pt" value="0.3" type="double"/>
+
+  <!-- geometric path searching -->
+    <param name="astar/lambda_heu" value="10.0" type="double"/>
+    <param name="astar/resolution_astar" value="0.1" type="double"/>
+    <param name="astar/time_resolution" value="0.8" type="double"/>
+    <param name="astar/margin" value="0.1" type="double"/>
+    <param name="astar/allocate_num" value="100000" type="int"/>
+
+  <!-- topology path finding -->
+    <param name="topo_prm/sample_inflate_x" value="1.0" type="double"/>
+    <param name="topo_prm/sample_inflate_y" value="3.5" type="double"/>
+    <param name="topo_prm/sample_inflate_z" value="1.0" type="double"/>
+    <param name="topo_prm/clearance" value="0.3" type="double"/>
+    <param name="topo_prm/max_sample_time" value="0.005" type="double"/>
+    <param name="topo_prm/max_sample_num" value="2000" type="int"/>
+    <param name="topo_prm/max_raw_path" value="300" type="int"/>
+    <param name="topo_prm/max_raw_path2" value="25" type="int"/>
+    <param name="topo_prm/short_cut_num" value="1" type="int"/>
+    <param name="topo_prm/reserve_num" value="6" type="int"/>
+    <param name="topo_prm/ratio_to_short" value="5.5" type="double"/>
+    <param name="topo_prm/parallel_shortcut" value="true" type="bool"/>
+
+  <!-- kinodynamic path searching -->
+    <param name="search/max_tau" value="0.8" type="double"/>
+    <param name="search/init_max_tau" value="0.8" type="double"/>
+    <param name="search/max_vel" value="$(arg max_vel)" type="double"/>
+    <param name="search/max_acc" value="$(arg max_acc)" type="double"/>
+    <param name="search/w_time" value="15.0" type="double"/>
+    <param name="search/horizon" value="7.0" type="double"/>
+    <param name="search/lambda_heu" value="5.0" type="double"/>
+    <param name="search/resolution_astar" value="0.1" type="double"/>
+    <param name="search/time_resolution" value="0.8" type="double"/>
+    <param name="search/margin" value="0.4" type="double"/>
+    <param name="search/allocate_num" value="100000" type="int"/>
+    <param name="search/check_num" value="5" type="int"/>
+
+  <!-- trajectory optimization -->
+    <param name="optimization/ld_smooth" value="10.0" type="double"/>
+    <param name="optimization/ld_dist" value="0.8" type="double"/>
+    <param name="optimization/ld_feasi" value="0.0000" type="double"/>
+    <param name="optimization/lambda4" value="0.001" type="double"/>
+    <param name="optimization/ld_guide" value="1.5" type="double"/>
+    <param name="optimization/dist0" value="0.7" type="double"/>
+    <param name="optimization/dist1" value="0.0" type="double"/>
+    <param name="optimization/max_vel" value="$(arg max_vel)" type="double"/>
+    <param name="optimization/max_acc" value="$(arg max_acc)" type="double"/>
+
+    <param name="optimization/algorithm1" value="15" type="int"/>
+    <param name="optimization/algorithm2" value="11" type="int"/>
+    <param name="optimization/max_iteration_num1" value="2" type="int"/>
+    <param name="optimization/max_iteration_num2" value="100" type="int"/>
+
+    <param name="bspline/limit_vel" value="$(arg max_vel)" type="double"/>
+    <param name="bspline/limit_acc" value="$(arg max_acc)" type="double"/>
+    <param name="bspline/limit_ratio" value="1.1" type="double"/>
+
+  </node>
+
+</launch>

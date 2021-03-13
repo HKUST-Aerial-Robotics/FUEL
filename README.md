@@ -17,7 +17,53 @@ __Authors__: [Boyu Zhou](http://boyuzhou.net) and [Shaojie Shen](http://uav.ust.
 
 Complete videos: [video1](https://www.youtube.com/watch?v=_dGgZUrWk-8).
 
-The associated paper is submitted to RA-L with ICRA 2021 option. [Preprint](https://arxiv.org/abs/2010.11561) is available.
+Please cite our paper if you use this project in your research:
+- [__FUEL: Fast UAV Exploration using Incremental Frontier Structure and Hierarchical Planning__](https://arxiv.org/abs/2010.11561), Boyu Zhou, Yichen Zhang, Xinyi Chen, Shaojie Shen, IEEE Robotics and Automation Letters (**RA-L**) with ICRA 2021 option
 
-The code will be made public after publication.
+```
+@article{zhou2021fuel,
+  title={FUEL: Fast UAV Exploration Using Incremental Frontier Structure and Hierarchical Planning},
+  author={Zhou, Boyu and Zhang, Yichen and Chen, Xinyi and Shen, Shaojie},
+  journal={IEEE Robotics and Automation Letters},
+  volume={6},
+  number={2},
+  pages={779--786},
+  year={2021},
+  publisher={IEEE}
+}
+```
 
+Please kindly star :star: this project if it helps you. We take great efforts to develope and maintain it :grin::grin:.
+
+
+## Quick Start
+
+This project is mostly based on [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner). 
+It has been tested on Ubuntu 16.04(ROS Kinetic) and 18.04(ROS Melodic). Take Ubuntu 18.04 as an example, run the following commands to setup:
+
+```
+  sudo apt-get install libarmadillo-dev ros-melodic-nlopt
+  cd ${YOUR_WORKSPACE_PATH}/src
+  git clone https://github.com/HKUST-Aerial-Robotics/FUEL.git
+  cd ../ 
+  catkin_make
+```
+
+After compilation you can start the visualization by: 
+
+```
+  source devel/setup.bash && roslaunch exploration_manager rviz.launch
+```
+and start a simulation (run in a new terminals): 
+```
+  source devel/setup.bash && roslaunch exploration_manager exploration.launch
+```
+You will find a cluttered scene to be explored and the drone in ```Rviz```. You can trigger the exploration to start by the ```2D Nav Goal``` tool. A sample simulation is showed in the figure. The unknown obstacles are shown in grey, while the frontiers are shown as colorful voxels. The planned and executed trajectories are also displayed.
+
+ <p id="demo1" align="center">
+  <img src="files/5.gif" width = "500" height = "418"/>
+ </p>
+
+
+## Acknowledgements
+  We use **NLopt** for non-linear optimization and use **LKH** for travelling salesman problem.

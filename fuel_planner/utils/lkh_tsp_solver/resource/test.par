@@ -1,0 +1,4 @@
+PROBLEM_FILE = /home/boboyu/workspaces/catkin_ws/src/fast_planner/utils/lkh_tsp_solver/resource/test.tsp
+GAIN23 = NO
+OUTPUT_TOUR_FILE =/home/boboyu/workspaces/catkin_ws/src/fast_planner/utils/lkh_tsp_solver/resource/test.txt
+RUNS = 1

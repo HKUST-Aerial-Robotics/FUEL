@@ -1,0 +1,13 @@
+NAME : test.-989520.tour
+COMMENT : Length = -989520
+COMMENT : Found by LKH [Keld Helsgaun] Fri Jan 22 21:50:50 2021
+TYPE : TOUR
+DIMENSION : 5
+TOUR_SECTION
+1
+4
+3
+2
+5
+-1
+EOF

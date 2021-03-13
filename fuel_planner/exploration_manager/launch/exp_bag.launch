@@ -1,0 +1,49 @@
+<launch>
+  <!-- size of map, change the size in x, y, z according to your application -->
+  <arg name="map_size_x" value="40.0"/>
+  <arg name="map_size_y" value="20.0"/>
+  <arg name="map_size_z" value=" 10.0"/>
+
+  <!-- Topic of your odometry such as VIO or LIO -->
+  <arg name="odom_topic" value="/loop_fusion/odometry_rect" />
+  <!-- <arg name="odom_topic" value="/vins_estimator/imu_propagate" /> -->
+
+  <!-- Main algorithm params -->
+  <include file="$(find exploration_manager)/launch/alg_bag.xml">
+
+    <arg name="map_size_x_" value="$(arg map_size_x)"/>
+    <arg name="map_size_y_" value="$(arg map_size_y)"/>
+    <arg name="map_size_z_" value="$(arg map_size_z)"/>
+    <arg name="odometry_topic" value="$(arg odom_topic)"/>
+
+    <!-- Sensor pose: transform of camera frame in the world frame -->
+    <arg name="sensor_pose_topic" value="/loop_fusion/camera_pose"/>
+    <!-- <arg name="sensor_pose_topic" value="/vins_estimator/camera_pose"/> -->
+
+    <!-- Depth topic: depth image, 640x480 by default -->
+    <!-- Cloud topic: point cloud measurement  -->
+    <!-- Subscribe ONLY TO ONE of the two topics -->
+    <arg name="depth_topic" value="/camera/depth/image_rect_raw"/>
+    <arg name="cloud_topic" value="/pcl_render_node/cloud"/>
+
+    <!-- Intrinsic params of the depth camera -->
+    <arg name="cx" value="321.2137756347656"/>
+    <arg name="cy" value="236.26803588867188"/>
+    <arg name="fx" value="386.6743469238281"/>
+    <arg name="fy" value="386.6743469238281"/>
+
+    <!-- Maximum velocity and acceleration the drone will reach -->
+    <arg name="max_vel" value="1.5" />
+    <arg name="max_acc" value="0.8" />
+  </include>
+
+  <!-- /loop_fusion/camera_pose -->
+  <!-- /vins_estimator/camera_pose -->
+  <!-- /planning/position_cmd_vis /planning/travel_traj /planning_vis/trajectory /planning_vis/viewpoints -->
+  <node pkg="rosbag" type="play" name="player" output="screen" args="-s 30 /home/boboyu/data/bag/ral_icra21_useful/large/exp_loop_large2.bag --topics /loop_fusion/camera_pose /camera/depth/image_rect_raw"/>
+
+  <node pkg="plan_manage" name="proc_msg2" type="proc_msg2" output="screen">
+    <param name="process_msg/alpha" value="0.98" type="double"/>
+  </node>
+
+</launch>
