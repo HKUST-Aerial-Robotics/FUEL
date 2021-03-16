@@ -47,7 +47,7 @@ add_executable(exploration_node
   )
 target_link_libraries(exploration_node 
   ${catkin_LIBRARIES}
-  -ldw
+  # -ldw
   )
 
 # add_library(exploration_manager

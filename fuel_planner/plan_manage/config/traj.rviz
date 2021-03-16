@@ -49,12 +49,12 @@ Visualization Manager:
   Class: ""
   Displays:
     - Class: rviz/Axes
-      Enabled: true
+      Enabled: false
       Length: 20
       Name: Axes
       Radius: 0.10000000149011612
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Alpha: 0.5
       Cell Size: 1
       Class: rviz/Grid
@@ -80,7 +80,7 @@ Visualization Manager:
           Marker Topic: /planning_vis/trajectory
           Name: bspline_traj
           Namespaces:
-            {}
+            B-Spline: true
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -104,7 +104,7 @@ Visualization Manager:
           Marker Topic: /planning/travel_traj
           Name: executed_traj
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -112,7 +112,7 @@ Visualization Manager:
           Marker Topic: /planning/position_cmd_vis
           Name: position_cmd
           Namespaces:
-            {}
+            current_pose: true
           Queue Size: 100
           Value: true
       Enabled: true
@@ -124,7 +124,7 @@ Visualization Manager:
           Marker Topic: /planning_vis/frontier
           Name: frontier
           Namespaces:
-            {}
+            frontier: true
           Queue Size: 10000
           Value: true
         - Class: rviz/Marker
@@ -428,7 +428,7 @@ Visualization Manager:
           Marker Topic: /odom_visualization/robot
           Name: robot
           Namespaces:
-            {}
+            mesh: true
           Queue Size: 100
           Value: true
       Enabled: true
@@ -707,25 +707,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 25.546091079711914
+      Distance: 21.523319244384766
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -5.770474433898926
-        Y: 0.38959556818008423
+        X: -4.899638652801514
+        Y: -0.15801429748535156
         Z: -2.5082706997636706e-5
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.324796438217163
+      Pitch: 1.2247966527938843
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 3.146415948867798
+      Yaw: 3.1214160919189453
     Saved:
       - Class: rviz/ThirdPersonFollower
         Distance: 17.48538589477539
