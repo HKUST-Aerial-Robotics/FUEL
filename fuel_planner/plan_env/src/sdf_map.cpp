@@ -72,6 +72,7 @@ void SDFMap::initMap(ros::NodeHandle& nh) {
   md_->tmp_buffer2_ = vector<double>(buffer_size, 0);
   md_->raycast_num_ = 0;
   md_->reset_updated_box_ = true;
+  md_->update_min_ = md_->update_max_ = Eigen::Vector3d(0, 0, 0);
 
   // Try retriving bounding box of map, set box to map size if not specified
   vector<string> axis = { "x", "y", "z" };
@@ -182,17 +183,19 @@ void SDFMap::updateESDF3d() {
 
   for (int x = min_esdf[0]; x <= max_esdf[0]; x++)
     for (int z = min_esdf[2]; z <= max_esdf[2]; z++) {
-      fillESDF([&](int y) { return md_->tmp_buffer1_[toAddress(x, y, z)]; },
-               [&](int y, double val) { md_->tmp_buffer2_[toAddress(x, y, z)] = val; }, min_esdf[1],
-               max_esdf[1], 1);
+      fillESDF(
+          [&](int y) { return md_->tmp_buffer1_[toAddress(x, y, z)]; },
+          [&](int y, double val) { md_->tmp_buffer2_[toAddress(x, y, z)] = val; }, min_esdf[1],
+          max_esdf[1], 1);
     }
   for (int y = min_esdf[1]; y <= max_esdf[1]; y++)
     for (int z = min_esdf[2]; z <= max_esdf[2]; z++) {
-      fillESDF([&](int x) { return md_->tmp_buffer2_[toAddress(x, y, z)]; },
-               [&](int x, double val) {
-                 md_->distance_buffer_[toAddress(x, y, z)] = mp_->resolution_ * std::sqrt(val);
-               },
-               min_esdf[0], max_esdf[0], 0);
+      fillESDF(
+          [&](int x) { return md_->tmp_buffer2_[toAddress(x, y, z)]; },
+          [&](int x, double val) {
+            md_->distance_buffer_[toAddress(x, y, z)] = mp_->resolution_ * std::sqrt(val);
+          },
+          min_esdf[0], max_esdf[0], 0);
     }
 
   if (mp_->signed_dist_) {
@@ -201,8 +204,9 @@ void SDFMap::updateESDF3d() {
       for (int y = min_esdf[1]; y <= max_esdf[1]; y++) {
         fillESDF(
             [&](int z) {
-              return md_->occupancy_buffer_inflate_[x * mp_->map_voxel_num_(1) * mp_->map_voxel_num_(2) +
-                                                    y * mp_->map_voxel_num_(2) + z] == 0 ?
+              return md_->occupancy_buffer_inflate_
+                          [x * mp_->map_voxel_num_(1) * mp_->map_voxel_num_(2) +
+                           y * mp_->map_voxel_num_(2) + z] == 0 ?
                   0 :
                   std::numeric_limits<double>::max();
             },
@@ -211,17 +215,19 @@ void SDFMap::updateESDF3d() {
       }
     for (int x = min_esdf[0]; x <= max_esdf[0]; x++)
       for (int z = min_esdf[2]; z <= max_esdf[2]; z++) {
-        fillESDF([&](int y) { return md_->tmp_buffer1_[toAddress(x, y, z)]; },
-                 [&](int y, double val) { md_->tmp_buffer2_[toAddress(x, y, z)] = val; }, min_esdf[1],
-                 max_esdf[1], 1);
+        fillESDF(
+            [&](int y) { return md_->tmp_buffer1_[toAddress(x, y, z)]; },
+            [&](int y, double val) { md_->tmp_buffer2_[toAddress(x, y, z)] = val; }, min_esdf[1],
+            max_esdf[1], 1);
       }
     for (int y = min_esdf[1]; y <= max_esdf[1]; y++)
       for (int z = min_esdf[2]; z <= max_esdf[2]; z++) {
-        fillESDF([&](int x) { return md_->tmp_buffer2_[toAddress(x, y, z)]; },
-                 [&](int x, double val) {
-                   md_->distance_buffer_neg_[toAddress(x, y, z)] = mp_->resolution_ * std::sqrt(val);
-                 },
-                 min_esdf[0], max_esdf[0], 0);
+        fillESDF(
+            [&](int x) { return md_->tmp_buffer2_[toAddress(x, y, z)]; },
+            [&](int x, double val) {
+              md_->distance_buffer_neg_[toAddress(x, y, z)] = mp_->resolution_ * std::sqrt(val);
+            },
+            min_esdf[0], max_esdf[0], 0);
       }
     // Merge negative distance with positive
     for (int x = min_esdf(0); x <= max_esdf(0); ++x)
@@ -250,8 +256,9 @@ void SDFMap::setCacheOccupancy(const int& adr, const int& occ) {
   //   md_->cache_voxel_.push(adr);
 }
 
-void SDFMap::inputPointCloud(const pcl::PointCloud<pcl::PointXYZ>& points, const int& point_num,
-                             const Eigen::Vector3d& camera_pos) {
+void SDFMap::inputPointCloud(
+    const pcl::PointCloud<pcl::PointXYZ>& points, const int& point_num,
+    const Eigen::Vector3d& camera_pos) {
   if (point_num == 0) return;
   md_->raycast_num_ += 1;
 
@@ -331,13 +338,14 @@ void SDFMap::inputPointCloud(const pcl::PointCloud<pcl::PointXYZ>& points, const
     if (md_->occupancy_buffer_[adr] < mp_->clamp_min_log_ - 1e-3)
       md_->occupancy_buffer_[adr] = mp_->min_occupancy_log_;
 
-    md_->occupancy_buffer_[adr] =
-        std::min(std::max(md_->occupancy_buffer_[adr] + log_odds_update, mp_->clamp_min_log_),
-                 mp_->clamp_max_log_);
+    md_->occupancy_buffer_[adr] = std::min(
+        std::max(md_->occupancy_buffer_[adr] + log_odds_update, mp_->clamp_min_log_),
+        mp_->clamp_max_log_);
   }
 }
 
-Eigen::Vector3d SDFMap::closetPointInMap(const Eigen::Vector3d& pt, const Eigen::Vector3d& camera_pt) {
+Eigen::Vector3d
+SDFMap::closetPointInMap(const Eigen::Vector3d& pt, const Eigen::Vector3d& camera_pt) {
   Eigen::Vector3d diff = pt - camera_pt;
   Eigen::Vector3d max_tc = mp_->map_max_boundary_ - camera_pt;
   Eigen::Vector3d min_tc = mp_->map_min_boundary_ - camera_pt;
@@ -444,7 +452,8 @@ void SDFMap::clearAndInflateLocalMap() {
           for (auto inf_pt : inf_pts) {
             int idx_inf = toAddress(inf_pt);
             if (idx_inf >= 0 &&
-                idx_inf < mp_->map_voxel_num_(0) * mp_->map_voxel_num_(1) * mp_->map_voxel_num_(2)) {
+                idx_inf <
+                    mp_->map_voxel_num_(0) * mp_->map_voxel_num_(1) * mp_->map_voxel_num_(2)) {
               md_->occupancy_buffer_inflate_[idx_inf] = 1;
             }
           }
@@ -525,5 +534,5 @@ double SDFMap::getDistWithGrad(const Eigen::Vector3d& pos, Eigen::Vector3d& grad
 
   return dist;
 }
-}
+}  // namespace fast_planner
 // SDFMap
