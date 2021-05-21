@@ -4,6 +4,10 @@
   <arg name="map_size_y" value="50.0"/>
   <arg name="map_size_z" value=" 10.0"/>
 
+  <arg name="init_x" value="-3.5"/>
+  <arg name="init_y" value="-1.0"/>
+  <arg name="init_z" value="1.0"/> 
+
   <!-- topic of your odometry such as VIO or LIO -->
   <arg name="odom_topic" value="/state_ukf/odom" />
 
@@ -41,12 +45,16 @@
     <remap from="/odom_world" to="$(arg odom_topic)"/>
     <param name="traj_server/time_forward" value="1.5" type="double"/>
     <param name="traj_server/pub_traj_id" value="4" type="int"/>
+    <param name="traj_server/init_x" value="$(arg init_x)" type="double"/>
+    <param name="traj_server/init_y" value="$(arg init_y)" type="double"/>
+    <param name="traj_server/init_z" value="$(arg init_z)" type="double"/>
 
     <param name="perception_utils/top_angle" value="0.56125" type="double"/>
     <param name="perception_utils/left_angle" value="0.69222" type="double"/>
     <param name="perception_utils/right_angle" value="0.68901" type="double"/>
     <param name="perception_utils/max_dist" value="4.5" type="double"/>
     <param name="perception_utils/vis_dist" value="1.0" type="double"/>
+    
 
   </node>
 
@@ -62,6 +70,10 @@
     <arg name="map_size_x_" value="$(arg map_size_x)"/>
     <arg name="map_size_y_" value="$(arg map_size_y)"/>
     <arg name="map_size_z_" value="$(arg map_size_z)"/>
+
+    <arg name="init_x" value="$(arg init_x)"/>
+    <arg name="init_y" value="$(arg init_y)"/>
+    <arg name="init_z" value="$(arg init_z)"/>
 
     <arg name="odometry_topic" value="$(arg odom_topic)" />
     <arg name="c_num" value="0"/>

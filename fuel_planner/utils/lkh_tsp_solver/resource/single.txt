@@ -1,6 +1,6 @@
-NAME : single.541.tour
-COMMENT : Length = 541
-COMMENT : Found by LKH [Keld Helsgaun] Thu Apr  8 13:26:21 2021
+NAME : single.492.tour
+COMMENT : Length = 492
+COMMENT : Found by LKH [Keld Helsgaun] Fri May 21 14:54:24 2021
 TYPE : TOUR
 DIMENSION : 3
 TOUR_SECTION

@@ -1,14 +1,14 @@
 <launch>
-  <arg name="init_x" value="-3.0"/>
-  <arg name="init_y" value="0.0"/>
-  <arg name="init_z" value="1.0"/> 
-  <arg name="obj_num" value="1" />
+  <arg name="init_x"/>
+  <arg name="init_y"/>
+  <arg name="init_z"/> 
   <arg name="map_size_x_"/>
   <arg name="map_size_y_"/>
   <arg name="map_size_z_"/>
   <arg name="c_num"/>
   <arg name="p_num"/>
   <arg name="odometry_topic"/>
+  <arg name="obj_num" value="1" />
 
   <!-- map generation 1-->
   <node pkg ="map_generator" name ="map_pub" type ="map_pub" output = "screen" args="$(find map_generator)/resource/explore1.pcd">    

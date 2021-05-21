@@ -455,6 +455,11 @@ int main(int argc, char** argv) {
   nh.param("fsm/replan_time", replan_time_, 0.1);
   nh.param("loop_correction/isLoopCorrection", isLoopCorrection, false);
 
+  Eigen::Vector3d init_pos;
+  nh.param("traj_server/init_x", init_pos[0], 0.0);
+  nh.param("traj_server/init_y", init_pos[1], 0.0);
+  nh.param("traj_server/init_z", init_pos[2], 0.0);
+
   ROS_WARN("[Traj server]: init...");
   ros::Duration(1.0).sleep();
 
@@ -469,9 +474,9 @@ int main(int argc, char** argv) {
   cmd.header.frame_id = "world";
   cmd.trajectory_flag = quadrotor_msgs::PositionCommand::TRAJECTORY_STATUS_READY;
   cmd.trajectory_id = traj_id_;
-  cmd.position.x = -3.0;
-  cmd.position.y = 0.0;
-  cmd.position.z = 0.0;
+  cmd.position.x = init_pos[0];
+  cmd.position.y = init_pos[1];
+  cmd.position.z = init_pos[2];
   cmd.velocity.x = 0.0;
   cmd.velocity.y = 0.0;
   cmd.velocity.z = 0.0;
@@ -484,9 +489,14 @@ int main(int argc, char** argv) {
   percep_utils_.reset(new PerceptionUtils(nh));
 
   // test();
-  // Initialization for exploration
+  // Initialization for exploration, move upward and downward
   for (int i = 0; i < 100; ++i) {
     cmd.position.z += 0.01;
+    pos_cmd_pub.publish(cmd);
+    ros::Duration(0.01).sleep();
+  }
+  for (int i = 0; i < 100; ++i) {
+    cmd.position.z -= 0.01;
     pos_cmd_pub.publish(cmd);
     ros::Duration(0.01).sleep();
   }
