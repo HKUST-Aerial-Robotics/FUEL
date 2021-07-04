@@ -147,10 +147,13 @@ void renderSensedPoints(const ros::TimerEvent& event)
       pt3[2] = pt.z;
       auto dir = pt3 - pos;
 
-      if (fabs(dir[2]) > dir.head<2>().norm() * tan(M_PI / 6.0))
+      if (fabs(dir[2]) > dir.head<2>().norm() * tan(M_PI *0.1944))  //35 angle fov
         continue;
 
-      if (dir.dot(yaw_vec) < 0)
+      if (dir.dot(yaw_vec) < 0) 
+        continue;
+
+      if (acos(dir.dot(yaw_vec) / (dir.norm()*yaw_vec.norm())) > (M_PI *0.1944))//add yaw fov 
         continue;
 
       local_map.points.push_back(pt);

@@ -40,23 +40,33 @@
     <param name="sdf_map/p_max"  value="0.90"/>
     <param name="sdf_map/p_occ"  value="0.80"/>
     <param name="sdf_map/min_ray_length" value="0.5"/>
-    <param name="sdf_map/max_ray_length" value="4.5"/>
+    <param name="sdf_map/max_ray_length" value="5.0"/>
     <param name="sdf_map/virtual_ceil_height"   value="-10"/>
     <param name="sdf_map/optimistic" value="false" type="bool"/>
     <param name="sdf_map/signed_dist" value="false" type="bool"/>
-    <param name="sdf_map/box_min_x" value="-10" type="double"/>
-    <param name="sdf_map/box_min_y" value="-6" type="double"/>
+
+    <!-- bridge param -->
+    <!-- <param name="sdf_map/box_min_x" value="-6" type="double"/>
+    <param name="sdf_map/box_min_y" value="-15" type="double"/>
     <param name="sdf_map/box_min_z" value="0" type="double"/>
-    <param name="sdf_map/box_max_x" value="10" type="double"/>
-    <param name="sdf_map/box_max_y" value="6" type="double"/>
-    <param name="sdf_map/box_max_z" value="2.0" type="double"/>
+    <param name="sdf_map/box_max_x" value="6" type="double"/>
+    <param name="sdf_map/box_max_y" value="15" type="double"/>
+    <param name="sdf_map/box_max_z" value="2.0" type="double"/> -->
+
+    <!-- industry param -->
+    <param name="sdf_map/box_min_x" value="-5" type="double"/>
+    <param name="sdf_map/box_min_y" value="-15" type="double"/>
+    <param name="sdf_map/box_min_z" value="0" type="double"/>
+    <param name="sdf_map/box_max_x" value="30" type="double"/>
+    <param name="sdf_map/box_max_y" value="15" type="double"/>
+    <param name="sdf_map/box_max_z" value="8.0" type="double"/>
 
     <param name="map_ros/cx" value="$(arg cx)"/>
     <param name="map_ros/cy" value="$(arg cy)"/>
     <param name="map_ros/fx" value="$(arg fx)"/>
     <param name="map_ros/fy" value="$(arg fy)"/>
     <param name="map_ros/depth_filter_maxdist"   value="5.0"/>
-    <param name="map_ros/depth_filter_mindist"   value="0.2"/>
+    <param name="map_ros/depth_filter_mindist"   value="0.5"/>
     <param name="map_ros/depth_filter_margin"    value="2"/>
     <param name="map_ros/k_depth_scaling_factor" value="1000.0"/>
     <param name="map_ros/skip_pixel" value="2"/>
@@ -107,11 +117,17 @@
     <param name="frontier/min_view_finish_fraction" value="0.2" type="double"/>;
 
     <!-- Perception utils -->
-    <param name="perception_utils/top_angle" value="0.56125" type="double"/>;
+    <!-- <param name="perception_utils/top_angle" value="0.56125" type="double"/>;
     <param name="perception_utils/left_angle" value="0.69222" type="double"/>;
     <param name="perception_utils/right_angle" value="0.68901" type="double"/>;
     <param name="perception_utils/max_dist" value="4.5" type="double"/>;
-    <param name="perception_utils/vis_dist" value="1.0" type="double"/>;
+    <param name="perception_utils/vis_dist" value="1.0" type="double"/>; -->
+
+    <param name="perception_utils/top_angle" value="0.62" type="double"/>;
+    <param name="perception_utils/left_angle" value="0.62" type="double"/>;
+    <param name="perception_utils/right_angle" value="0.62" type="double"/>;
+    <param name="perception_utils/max_dist" value="5.0" type="double"/>;
+    <param name="perception_utils/vis_dist" value="0.5" type="double"/>;
 
 
     <param name="heading_planner/yaw_diff" value="$(eval 30 * 3.1415926 / 180.0)" type="double"/>

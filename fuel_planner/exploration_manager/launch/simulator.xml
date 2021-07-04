@@ -11,7 +11,7 @@
   <arg name="obj_num" value="1" />
 
   <!-- map generation 1-->
-  <node pkg ="map_generator" name ="map_pub" type ="map_pub" output = "screen" args="$(find map_generator)/resource/explore1.pcd">    
+  <node pkg ="map_generator" name ="map_pub" type ="map_pub" output = "screen" args="$(find map_generator)/resource/circlesuccess.pcd">    
   </node>
 
   <!-- map generation 2-->
@@ -38,7 +38,7 @@
     <param name="ObstacleShape/z_h" value="0.8"/>        
     <param name="ObstacleShape/theta" value="0.5"/>        
 
-    <param name="sensing/radius" value="5.0"/>        
+    <param name="sensing/radius" value="10.0"/>        
     <param name="sensing/rate"   value="10.0"/>        
   </node> -->
 
