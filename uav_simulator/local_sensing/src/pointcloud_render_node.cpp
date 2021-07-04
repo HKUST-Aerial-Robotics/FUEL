@@ -12,7 +12,9 @@
 #include <fstream>
 #include <iostream>
 #include <pcl/search/impl/kdtree.hpp>
+#include <pcl/common/common.h>
 #include <vector>
+// #include <plan_env/raycast.h>
 
 using namespace std;
 using namespace Eigen;
@@ -93,6 +95,10 @@ sensor_msgs::PointCloud2 local_map_pcd;
 pcl::search::KdTree<pcl::PointXYZ> _kdtreeLocalMap;
 vector<int> pointIdxRadiusSearch;
 vector<float> pointRadiusSquaredDistance;
+vector<int> pointIdxRadiusSearch2;
+vector<float> pointRadiusSquaredDistance2;
+  pcl::PointXYZ global_mapmin;
+  pcl::PointXYZ global_mapmax;
 
 void rcvGlobalPointCloudCallBack(const sensor_msgs::PointCloud2& pointcloud_map)
 {
@@ -104,6 +110,65 @@ void rcvGlobalPointCloudCallBack(const sensor_msgs::PointCloud2& pointcloud_map)
   pcl::PointCloud<pcl::PointXYZ> cloud_input;
   pcl::fromROSMsg(pointcloud_map, cloud_input);
 
+  pcl::getMinMax3D(cloud_input,global_mapmin,global_mapmax);
+
+  //add boundary
+  pcl::PointCloud<pcl::PointXYZ> cloud_boundary;
+  int max_x = (int)global_mapmax.x + 5;
+  int min_x = (int)global_mapmin.x - 5;
+  int max_y = (int)global_mapmax.y + 5;
+  int min_y = (int)global_mapmin.y - 5;
+  int max_z = (int)global_mapmax.z + 5;
+  int min_z = (int)global_mapmin.z - 5;
+  int box_x = (max_x - min_x)*10;
+  int box_y = (max_y - min_y)*10;
+  int box_z = (max_z - min_z)*10;
+  //draw six plane
+  cloud_boundary.width = (box_x+1) * (box_y+1) *(box_z+1) - (box_x-1) * (box_y-1) *(box_z-1);//points number
+  cloud_boundary.height=1;
+  cloud_boundary.points.resize(cloud_boundary.width*cloud_boundary.height);
+  int point_count = 0;
+  //draw 2 xy plane
+  for (int i = min_x+1;i < max_x;i++)
+  {
+    for (int j = min_y+1;j < max_y;j++)
+    {
+      cloud_boundary.points[point_count].x = i;
+      cloud_boundary.points[point_count].y = j;
+      cloud_boundary.points[point_count].z = min_z;
+      point_count++;
+    }
+  }
+  //draw 4 plane
+  for (int k = min_z;k <= max_z;k++)
+  {
+    //draw x two lines
+    for (int i = min_x;i <= max_x;i++)
+    {
+      cloud_boundary.points[point_count].x = i;
+      cloud_boundary.points[point_count].y = min_y;
+      cloud_boundary.points[point_count].z = k;
+      point_count++;
+      cloud_boundary.points[point_count].x = i;
+      cloud_boundary.points[point_count].y = max_y;
+      cloud_boundary.points[point_count].z = k;
+      point_count++;
+    }
+    for (int j = min_y+1; j < max_y; j++)
+    {
+      cloud_boundary.points[point_count].x = min_x;
+      cloud_boundary.points[point_count].y = j;
+      cloud_boundary.points[point_count].z = k;
+      point_count++;
+      cloud_boundary.points[point_count].x = max_x;
+      cloud_boundary.points[point_count].y = j;
+      cloud_boundary.points[point_count].z = k;
+      point_count++;
+    }
+  }
+
+  cloud_input = cloud_input + cloud_boundary;
+
   _voxel_sampler.setLeafSize(0.1f, 0.1f, 0.1f);
   _voxel_sampler.setInputCloud(cloud_input.makeShared());
   _voxel_sampler.filter(cloud_all_map);
@@ -112,6 +177,9 @@ void rcvGlobalPointCloudCallBack(const sensor_msgs::PointCloud2& pointcloud_map)
 
   has_global_map = true;
 }
+
+// class RayCaster;
+// unique_ptr<RayCaster> caster_;
 
 void renderSensedPoints(const ros::TimerEvent& event)
 {
@@ -136,6 +204,11 @@ void renderSensedPoints(const ros::TimerEvent& event)
   pointIdxRadiusSearch.clear();
   pointRadiusSquaredDistance.clear();
 
+  //raycast 
+  // caster_.reset(new RayCaster);
+  // Eigen::Vector3d origin(0.0,0.0,0.0);
+  // caster_->setParams(0.1, origin);
+
   if (_kdtreeLocalMap.radiusSearch(searchPoint, sensing_horizon, pointIdxRadiusSearch, pointRadiusSquaredDistance) > 0)
   {
     for (size_t i = 0; i < pointIdxRadiusSearch.size(); ++i)
@@ -155,6 +228,18 @@ void renderSensedPoints(const ros::TimerEvent& event)
 
       if (acos(dir.dot(yaw_vec) / (dir.norm()*yaw_vec.norm())) > (M_PI *0.1944))//add yaw fov 
         continue;
+
+      //check raycast
+      // caster_->input(pos, pt3);
+      // caster_->nextPos(pos);
+      // while (caster_->nextPos(pos))
+      // {
+      //   pcl::PointXYZ raycastPoint(, , );
+      //   if(_kdtreeLocalMap.radiusSearch(searchPoint, 0.1, pointIdxRadiusSearch2, pointRadiusSquaredDistance2) > 0)
+      // }
+
+
+      // Raycast(pos,pt3,)
 
       local_map.points.push_back(pt);
     }

@@ -79,7 +79,9 @@ else(ENABLE_CUDA)
   add_executable(
     pcl_render_node
     src/pointcloud_render_node.cpp
+    #src/raycast.cpp
   )
+
 
   target_link_libraries( pcl_render_node
     ${catkin_LIBRARIES}
