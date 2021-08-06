@@ -1,12 +1,16 @@
 <launch>
   <!-- size of map, change the size in x, y, z according to your application -->
-  <arg name="map_size_x" value="50.0"/>
+  <arg name="map_size_x" value="80.0"/>
   <arg name="map_size_y" value="50.0"/>
   <arg name="map_size_z" value=" 10.0"/>
 
   <arg name="init_x" value="-3.5"/>
   <arg name="init_y" value="-1.0"/>
   <arg name="init_z" value="1.0"/> 
+
+  <!-- <arg name="init_x" value="0.0"/>
+  <arg name="init_y" value="0.0"/>
+  <arg name="init_z" value="1.0"/>  -->
 
   <!-- topic of your odometry such as VIO or LIO -->
   <arg name="odom_topic" value="/state_ukf/odom" />
