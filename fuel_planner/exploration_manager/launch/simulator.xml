@@ -38,7 +38,7 @@
     <param name="ObstacleShape/z_h" value="0.8"/>        
     <param name="ObstacleShape/theta" value="0.5"/>        
 
-    <param name="sensing/radius" value="10.0"/>        
+    <param name="sensing/radius" value="5.0"/>        
     <param name="sensing/rate"   value="10.0"/>        
   </node> -->
 
@@ -92,16 +92,9 @@
 
   <node pkg="local_sensing_node" type="pcl_render_node" name="pcl_render_node" output="screen">
         <rosparam command="load" file="$(find local_sensing_node)/params/camera.yaml" />
-        <param name="sensing_horizon"  value="20.0" />
-        <param name="sensing_rate"     value="10.0"/>
-        <param name="estimation_rate"  value="10.0"/>
-        <param name="polar_resolution" value="0.15"/>  <!-- angle resolution 1.5-->
-​        <param name="yaw_fov" value="70.0"/>
-        <param name="vertical_fov" value="70.0"/>
-        <param name="min_raylength" value="0.0"/>
-        <param name="downsample_res" value="0.2"/> 
-        <param name="use_lidar_pattern" value="1"/>
-        
+        <param name="sensing_horizon"  value="5.0" />
+        <param name="sensing_rate"     value="30.0"/>
+        <param name="estimation_rate"  value="30.0"/>
 
         <param name="map/x_size"     value="$(arg map_size_x_)"/>
         <param name="map/y_size"     value="$(arg map_size_y_)"/>

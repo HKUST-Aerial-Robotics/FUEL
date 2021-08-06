@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Planning1
+        - /Planning1/executed_traj1/Status1
         - /active_perception1
         - /active_perception1/frontier1
         - /active_perception1/frontier1/Namespaces1
@@ -18,8 +19,8 @@ Panels:
         - /processed_msg1/Namespaces1
         - /Image1
         - /PointCloud21/Autocompute Value Bounds1
-      Splitter Ratio: 0.521613836
-    Tree Height: 422
+      Splitter Ratio: 0.5216138362884521
+    Tree Height: 416
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -28,7 +29,7 @@ Panels:
       - /2D Nav Goal1
       - /Publish Point1
     Name: Tool Properties
-    Splitter Ratio: 0.588679016
+    Splitter Ratio: 0.5886790156364441
   - Class: rviz/Views
     Expanded:
       - /Current View1
@@ -39,7 +40,9 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: occupied_local_inflate
+    SyncSource: simulation_map
+Preferences:
+  PromptSaveOnExit: true
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
@@ -49,7 +52,7 @@ Visualization Manager:
       Enabled: false
       Length: 20
       Name: Axes
-      Radius: 0.100000001
+      Radius: 0.10000000149011612
       Reference Frame: <Fixed Frame>
       Value: false
     - Alpha: 0.5
@@ -58,7 +61,7 @@ Visualization Manager:
       Color: 160; 160; 164
       Enabled: true
       Line Style:
-        Line Width: 0.0299999993
+        Line Width: 0.029999999329447746
         Value: Lines
       Name: Grid
       Normal Cell Count: 0
@@ -77,7 +80,7 @@ Visualization Manager:
           Marker Topic: /planning_vis/trajectory
           Name: bspline_traj
           Namespaces:
-            {}
+            B-Spline: true
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -109,7 +112,7 @@ Visualization Manager:
           Marker Topic: /planning/position_cmd_vis
           Name: position_cmd
           Namespaces:
-            {}
+            current_pose: true
           Queue Size: 100
           Value: true
       Enabled: true
@@ -149,7 +152,7 @@ Visualization Manager:
           Queue Size: 100
           Value: false
         - Class: rviz/Image
-          Enabled: false
+          Enabled: true
           Image Topic: /pcl_render_node/depth
           Max Value: 1
           Median window: 5
@@ -159,7 +162,7 @@ Visualization Manager:
           Queue Size: 2
           Transport Hint: raw
           Unreliable: false
-          Value: false
+          Value: true
       Enabled: true
       Name: active_perception
     - Class: rviz/Group
@@ -168,7 +171,7 @@ Visualization Manager:
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
             Max Value: 1.25
-            Min Value: -0.699999988
+            Min Value: -0.699999988079071
             Value: false
           Axis: Z
           Channel Name: intensity
@@ -187,7 +190,7 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Boxes
           Topic: /sdf_map/occupancy_local
           Unreliable: false
@@ -224,11 +227,11 @@ Visualization Manager:
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
-        - Alpha: 0.300000012
+        - Alpha: 0.30000001192092896
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 1.89999998
-            Min Value: -0.699999988
+            Max Value: 1.899999976158142
+            Min Value: -0.699999988079071
             Value: false
           Axis: Z
           Channel Name: intensity
@@ -247,18 +250,18 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Boxes
           Topic: /sdf_map/occupancy_local_inflate
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
-        - Alpha: 0.100000001
+        - Alpha: 0.10000000149011612
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 1.89999998
-            Min Value: -0.699999988
+            Max Value: 1.899999976158142
+            Min Value: -0.699999988079071
             Value: false
           Axis: Z
           Channel Name: intensity
@@ -277,14 +280,14 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Flat Squares
           Topic: /sdf_map/unknown
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
-        - Alpha: 0.699999988
+        - Alpha: 0.699999988079071
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
             Max Value: 10
@@ -299,7 +302,7 @@ Visualization Manager:
           Enabled: false
           Invert Rainbow: false
           Max Color: 0; 0; 0
-          Max Intensity: 0.634209931
+          Max Intensity: 0.634209930896759
           Min Color: 0; 0; 0
           Min Intensity: 0
           Name: local_esdf
@@ -307,7 +310,7 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Flat Squares
           Topic: /sdf_map/esdf
           Unreliable: false
@@ -345,7 +348,7 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.0199999996
+          Size (m): 0.019999999552965164
           Style: Boxes
           Topic: /sdf_map/depth_cloud
           Unreliable: false
@@ -359,8 +362,8 @@ Visualization Manager:
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 2.75925088
-            Min Value: -0.922850013
+            Max Value: 2.7592508792877197
+            Min Value: -0.9228500127792358
             Value: false
           Axis: Z
           Channel Name: intensity
@@ -373,13 +376,13 @@ Visualization Manager:
           Max Color: 255; 255; 255
           Max Intensity: 1
           Min Color: 0; 0; 0
-          Min Intensity: 0.30000037
+          Min Intensity: 0.3000003695487976
           Name: real_map
           Position Transformer: XYZ
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.200000003
+          Size (m): 0.20000000298023224
           Style: Boxes
           Topic: /laser_cloud_surround
           Unreliable: false
@@ -390,7 +393,7 @@ Visualization Manager:
       Name: Mapping
     - Class: rviz/Group
       Displays:
-        - Alpha: 0.0199999996
+        - Alpha: 0.019999999552965164
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
             Max Value: 2
@@ -413,7 +416,7 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Flat Squares
           Topic: /map_generator/global_cloud
           Unreliable: false
@@ -442,20 +445,20 @@ Visualization Manager:
           Value: true
         - Alpha: 1
           Axes Length: 0.5
-          Axes Radius: 0.0199999996
+          Axes Radius: 0.019999999552965164
           Class: rviz/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: camera
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
           Topic: /pcl_render_node/camera_pose
           Unreliable: false
           Value: true
-        - Angle Tolerance: 0.00999999978
+        - Angle Tolerance: 0.009999999776482582
           Class: rviz/Odometry
           Covariance:
             Orientation:
@@ -467,7 +470,7 @@ Visualization Manager:
               Scale: 1
               Value: true
             Position:
-              Alpha: 0.300000012
+              Alpha: 0.30000001192092896
               Color: 204; 51; 204
               Scale: 1
               Value: true
@@ -478,28 +481,28 @@ Visualization Manager:
           Position Tolerance: 0
           Shape:
             Alpha: 1
-            Axes Length: 0.300000012
-            Axes Radius: 0.0500000007
+            Axes Length: 0.30000001192092896
+            Axes Radius: 0.05000000074505806
             Color: 0; 255; 0
-            Head Length: 0.300000012
-            Head Radius: 0.100000001
+            Head Length: 0.30000001192092896
+            Head Radius: 0.10000000149011612
             Shaft Length: 1
-            Shaft Radius: 0.0500000007
+            Shaft Radius: 0.05000000074505806
             Value: Axes
           Topic: /uart_odom/out_odom
           Unreliable: false
           Value: true
         - Alpha: 1
           Axes Length: 1
-          Axes Radius: 0.100000001
+          Axes Radius: 0.10000000149011612
           Class: rviz/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: opti_track
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Arrow
           Topic: /Robot_1/pose
           Unreliable: false
@@ -529,7 +532,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.100000001
+      Size (m): 0.10000000149011612
       Style: Boxes
       Topic: /sdf_map/depth_cloud
       Unreliable: false
@@ -539,8 +542,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 3.40000033
-        Min Value: -0.200000033
+        Max Value: 3.4000003337860107
+        Min Value: -0.20000003278255463
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -559,7 +562,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.100000001
+      Size (m): 0.10000000149011612
       Style: Flat Squares
       Topic: /firefly/nbvPlanner/octomap_pcl
       Unreliable: false
@@ -569,7 +572,7 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 4.09753084
+        Max Value: 4.097530841827393
         Min Value: -1
         Value: false
       Axis: Z
@@ -589,7 +592,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.0299999993
+      Size (m): 0.029999999329447746
       Style: Boxes
       Topic: /load_obj/cloud
       Unreliable: false
@@ -614,15 +617,15 @@ Visualization Manager:
       Value: true
     - Alpha: 1
       Axes Length: 1
-      Axes Radius: 0.100000001
+      Axes Radius: 0.10000000149011612
       Class: rviz/Pose
       Color: 255; 25; 0
       Enabled: false
-      Head Length: 0.300000012
-      Head Radius: 0.100000001
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
       Name: Pose
       Shaft Length: 1
-      Shaft Radius: 0.0500000007
+      Shaft Radius: 0.05000000074505806
       Shape: Axes
       Topic: /vins_estimator/camera_pose
       Unreliable: false
@@ -650,8 +653,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 2.96000004
-        Min Value: -2.94000006
+        Max Value: 2.9600000381469727
+        Min Value: -2.940000057220459
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -691,7 +694,10 @@ Visualization Manager:
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
     - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
       Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
     - Class: rviz/SetGoal
       Topic: /move_base_simple/goal
     - Class: rviz/PublishPoint
@@ -701,135 +707,135 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 21.5233192
+      Distance: 21.523319244384766
       Enable Stereo Rendering:
-        Stereo Eye Separation: 0.0599999987
+        Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -5.203197
-        Y: -3.59772968
-        Z: -2.5082707e-05
+        X: -4.899638652801514
+        Y: -0.15801429748535156
+        Z: -2.5082706997636706e-5
       Focal Shape Fixed Size: true
-      Focal Shape Size: 0.0500000007
+      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
-      Near Clip Distance: 0.00999999978
-      Pitch: 1.22479665
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 1.2247966527938843
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 3.12141609
+      Yaw: 3.1214160919189453
     Saved:
       - Class: rviz/ThirdPersonFollower
-        Distance: 17.4853859
+        Distance: 17.48538589477539
         Enable Stereo Rendering:
-          Stereo Eye Separation: 0.0599999987
+          Stereo Eye Separation: 0.05999999865889549
           Stereo Focal Distance: 1
           Swap Stereo Eyes: false
           Value: false
         Focal Point:
-          X: -16.3080025
-          Y: 0.44920516
-          Z: 8.5896736e-06
+          X: -16.308002471923828
+          Y: 0.4492051601409912
+          Z: 8.589673598180525e-6
         Focal Shape Fixed Size: true
-        Focal Shape Size: 0.0500000007
+        Focal Shape Size: 0.05000000074505806
         Invert Z Axis: false
         Name: ThirdPersonFollower
-        Near Clip Distance: 0.00999999978
-        Pitch: 1.03479683
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 1.0347968339920044
         Target Frame: <Fixed Frame>
         Value: ThirdPersonFollower (rviz)
-        Yaw: 3.15040731
+        Yaw: 3.150407314300537
       - Class: rviz/ThirdPersonFollower
-        Distance: 19.1239166
+        Distance: 19.123916625976562
         Enable Stereo Rendering:
-          Stereo Eye Separation: 0.0599999987
+          Stereo Eye Separation: 0.05999999865889549
           Stereo Focal Distance: 1
           Swap Stereo Eyes: false
           Value: false
         Focal Point:
-          X: -15.8170557
-          Y: 0.350732148
-          Z: -1.79293056e-05
+          X: -15.817055702209473
+          Y: 0.35073214769363403
+          Z: -1.7929305613506585e-5
         Focal Shape Fixed Size: true
-        Focal Shape Size: 0.0500000007
+        Focal Shape Size: 0.05000000074505806
         Invert Z Axis: false
         Name: ThirdPersonFollower
-        Near Clip Distance: 0.00999999978
-        Pitch: 1.09979713
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 1.0997971296310425
         Target Frame: <Fixed Frame>
         Value: ThirdPersonFollower (rviz)
-        Yaw: 3.18087554
+        Yaw: 3.180875539779663
       - Class: rviz/ThirdPersonFollower
-        Distance: 9.99999905
+        Distance: 9.999999046325684
         Enable Stereo Rendering:
-          Stereo Eye Separation: 0.0599999987
+          Stereo Eye Separation: 0.05999999865889549
           Stereo Focal Distance: 1
           Swap Stereo Eyes: false
           Value: false
         Focal Point:
-          X: 9.53674316e-07
-          Y: 4.76837158e-07
-          Z: -4.76837158e-07
+          X: 9.5367431640625e-7
+          Y: 4.76837158203125e-7
+          Z: -4.76837158203125e-7
         Focal Shape Fixed Size: true
-        Focal Shape Size: 0.0500000007
+        Focal Shape Size: 0.05000000074505806
         Invert Z Axis: false
         Name: ThirdPersonFollower
-        Near Clip Distance: 0.00999999978
-        Pitch: 0.785398245
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 0.7853982448577881
         Target Frame: <Fixed Frame>
         Value: ThirdPersonFollower (rviz)
-        Yaw: 0.785398185
+        Yaw: 0.7853981852531433
       - Class: rviz/ThirdPersonFollower
-        Distance: 13.3224239
+        Distance: 13.322423934936523
         Enable Stereo Rendering:
-          Stereo Eye Separation: 0.0599999987
+          Stereo Eye Separation: 0.05999999865889549
           Stereo Focal Distance: 1
           Swap Stereo Eyes: false
           Value: false
         Focal Point:
-          X: -17.5276794
-          Y: 0.0419223011
+          X: -17.527679443359375
+          Y: 0.041922301054000854
           Z: 0
         Focal Shape Fixed Size: true
-        Focal Shape Size: 0.0500000007
+        Focal Shape Size: 0.05000000074505806
         Invert Z Axis: false
         Name: ThirdPersonFollower
-        Near Clip Distance: 0.00999999978
-        Pitch: 1.26039779
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 1.2603977918624878
         Target Frame: <Fixed Frame>
         Value: ThirdPersonFollower (rviz)
-        Yaw: -3.09278011
+        Yaw: -3.092780113220215
       - Class: rviz/ThirdPersonFollower
-        Distance: 19.0428429
+        Distance: 19.042842864990234
         Enable Stereo Rendering:
-          Stereo Eye Separation: 0.0599999987
+          Stereo Eye Separation: 0.05999999865889549
           Stereo Focal Distance: 1
           Swap Stereo Eyes: false
           Value: false
         Focal Point:
-          X: -3.29512835
-          Y: -0.876304209
-          Z: -4.36453411e-05
+          X: -3.295128345489502
+          Y: -0.8763042092323303
+          Z: -4.364534106571227e-5
         Focal Shape Fixed Size: true
-        Focal Shape Size: 0.0500000007
+        Focal Shape Size: 0.05000000074505806
         Invert Z Axis: false
         Name: ThirdPersonFollower
-        Near Clip Distance: 0.00999999978
-        Pitch: 1.35479653
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 1.3547965288162231
         Target Frame: <Fixed Frame>
         Value: ThirdPersonFollower (rviz)
-        Yaw: 3.15535927
+        Yaw: 3.1553592681884766
 Window Geometry:
   Displays:
-    collapsed: true
+    collapsed: false
   Height: 1023
-  Hide Left Dock: true
+  Hide Left Dock: false
   Hide Right Dock: false
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000016a000003b9fc0200000010fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c0061007900730000000028000001e7000000d700fffffffb0000000a0049006d00610067006500000001900000007f0000001600fffffffb0000000a005600690065007700730000000215000000ea000000ad00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006100000001d1000000b50000000000000000fb0000000a006400650070007400680000000305000000dc0000001600fffffffb0000000a0049006d0061006700650100000415000000f80000000000000000fb0000000a0049006d00610067006501000003f4000001190000000000000000fb0000000a0049006d0061006700650100000385000001c90000000000000000fb0000000a0049006d0061006700650000000476000000d80000000000000000000000010000010f00000385fc0200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006100000003bfc0100000002fb0000000800540069006d00650000000000000006100000030000fffffffb0000000800540069006d00650100000000000004500000000000000000000005c7000003b900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000040000000000000156000003a5fc0200000010fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d000001dd000000c900fffffffb0000000a0049006d00610067006500000001900000007f0000001600fffffffb0000000a005600690065007700730100000220000000e5000000a400fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006100000001d1000000b50000000000000000fb0000000a00640065007000740068010000030b000000d70000001600fffffffb0000000a0049006d0061006700650100000415000000f80000000000000000fb0000000a0049006d00610067006501000003f4000001190000000000000000fb0000000a0049006d0061006700650100000385000001c90000000000000000fb0000000a0049006d0061006700650000000476000000d80000000000000000000000010000010f00000385fc0200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006100000003bfc0100000002fb0000000800540069006d0065000000000000000610000002eb00fffffffb0000000800540069006d006501000000000000045000000000000000000000046b000003a500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -837,9 +843,9 @@ Window Geometry:
   Tool Properties:
     collapsed: false
   Views:
-    collapsed: true
+    collapsed: false
   Width: 1479
-  X: 430
-  Y: 31
+  X: 55
+  Y: 27
   depth:
-    collapsed: true
+    collapsed: false

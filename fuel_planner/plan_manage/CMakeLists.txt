@@ -49,7 +49,7 @@ add_executable(fast_planner_node
   )
 target_link_libraries(fast_planner_node 
   ${catkin_LIBRARIES}
-  # -ldw
+  -ldw
   )
 
 add_library(plan_manage 
@@ -59,7 +59,7 @@ add_library(plan_manage
 target_link_libraries(plan_manage ${catkin_LIBRARIES})
 
 add_executable(traj_server src/traj_server.cpp)
-target_link_libraries(traj_server ${catkin_LIBRARIES} )#-ldw
+target_link_libraries(traj_server ${catkin_LIBRARIES} -ldw)
 # add_dependencies(traj_server ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
 # benchmark node
