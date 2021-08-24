@@ -116,7 +116,7 @@ _office3.pcd_:
 </p>
 
 _pillar.pcd_:
-<p id="demo2" align="center">
+<p id="demo4" align="center">
 <img src="files/pillar.gif" width = "320" height = "325"/>
 </p>
 
@@ -137,7 +137,26 @@ Check the [next section](#creating-a-pcd-environment) to create your own .pcd en
 ## Creating a _.pcd_ Environment
 
 We provide a simple tool to create environments and store them in .pcd files.
-_Coming soon_.
+First, run:
+
+```
+  rosrun map_generator click_map
+```
+
+Then in ```Rviz```, use the ```2D Nav Goal``` tool to create your map, two consecutively clicked points form a wall.
+An example is illustrated:
+
+<p id="demo5" align="center">
+<img src="files/create_map.gif" width = "600" height = "340"/>
+</p>
+
+After you've finished, run the following node to save the map:
+
+```
+  rosrun map_generator map_recorder ~/
+```
+
+Normally, a file named __tmp.pcd__ will be saved at ~/. You may replace '~/' with any locations you want.
 
 ## Acknowledgements
   We use **NLopt** for non-linear optimization and use **LKH** for travelling salesman problem.

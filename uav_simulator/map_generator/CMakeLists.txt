@@ -38,3 +38,8 @@ add_executable (map_pub src/map_publisher.cpp )
 target_link_libraries(map_pub
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES})
+
+add_executable (click_map src/click_map.cpp )
+target_link_libraries(click_map
+  ${catkin_LIBRARIES}
+  ${PCL_LIBRARIES}) 
