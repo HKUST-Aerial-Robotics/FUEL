@@ -208,6 +208,7 @@ void FastExplorationFSM::visualize() {
   // 4);
 
   // Draw frontier
+  static int last_ftr_num = 0;
   for (int i = 0; i < ed_ptr->frontiers_.size(); ++i) {
     visualization_->drawCubes(ed_ptr->frontiers_[i], 0.1,
                               visualization_->getColor(double(i) / ed_ptr->frontiers_.size(), 0.4),
@@ -215,11 +216,12 @@ void FastExplorationFSM::visualize() {
     // visualization_->drawBox(ed_ptr->frontier_boxes_[i].first, ed_ptr->frontier_boxes_[i].second,
     //                         Vector4d(0.5, 0, 1, 0.3), "frontier_boxes", i, 4);
   }
-  for (int i = ed_ptr->frontiers_.size(); i < 15; ++i) {
+  for (int i = ed_ptr->frontiers_.size(); i < last_ftr_num; ++i) {
     visualization_->drawCubes({}, 0.1, Vector4d(0, 0, 0, 1), "frontier", i, 4);
     // visualization_->drawBox(Vector3d(0, 0, 0), Vector3d(0, 0, 0), Vector4d(1, 0, 0, 0.3),
     // "frontier_boxes", i, 4);
   }
+  last_ftr_num = ed_ptr->frontiers_.size();
   // for (int i = 0; i < ed_ptr->dead_frontiers_.size(); ++i)
   //   visualization_->drawCubes(ed_ptr->dead_frontiers_[i], 0.1, Vector4d(0, 0, 0, 0.5), "dead_frontier",
   //                             i, 4);

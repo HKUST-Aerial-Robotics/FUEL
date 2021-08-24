@@ -4,8 +4,8 @@
   <arg name="map_size_y" value="50.0"/>
   <arg name="map_size_z" value=" 10.0"/>
 
-  <arg name="init_x" value="-3.5"/>
-  <arg name="init_y" value="-1.0"/>
+  <arg name="init_x" value="0"/>
+  <arg name="init_y" value="0"/>
   <arg name="init_z" value="1.0"/> 
 
   <!-- topic of your odometry such as VIO or LIO -->
@@ -17,8 +17,15 @@
     <arg name="map_size_x_" value="$(arg map_size_x)"/>
     <arg name="map_size_y_" value="$(arg map_size_y)"/>
     <arg name="map_size_z_" value="$(arg map_size_z)"/>
-    <arg name="odometry_topic" value="$(arg odom_topic)"/>
 
+    <arg name="box_min_x" value="-10.0"/>
+    <arg name="box_min_y" value="-15.0"/>
+    <arg name="box_min_z" value=" 0.0"/>
+    <arg name="box_max_x" value="10.0"/>
+    <arg name="box_max_y" value="15.0"/>
+    <arg name="box_max_z" value=" 2.0"/>
+
+    <arg name="odometry_topic" value="$(arg odom_topic)"/>
     <!-- sensor pose: transform of camera frame in the world frame -->
     <arg name="sensor_pose_topic" value="/pcl_render_node/sensor_pose"/>
     <!-- depth topic: depth image, 640x480 by default -->

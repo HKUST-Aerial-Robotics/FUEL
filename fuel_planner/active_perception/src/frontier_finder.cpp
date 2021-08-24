@@ -148,6 +148,7 @@ void FrontierFinder::expandFrontier(
         continue;
 
       edt_env_->sdf_map_->indexToPos(nbr, pos);
+      if (pos[2] < 0.4) continue;  // Remove noise close to ground
       expanded.push_back(pos);
       cell_queue.push(nbr);
       frontier_flag_[adr] = 1;

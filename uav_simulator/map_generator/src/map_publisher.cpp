@@ -8,12 +8,12 @@
 using namespace std;
 string file_name;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
   ros::init(argc, argv, "map_recorder");
   ros::NodeHandle node;
 
-  ros::Publisher cloud_pub = node.advertise<sensor_msgs::PointCloud2>("/map_generator/global_cloud", 10, true);
+  ros::Publisher cloud_pub =
+      node.advertise<sensor_msgs::PointCloud2>("/map_generator/global_cloud", 10, true);
   file_name = argv[1];
 
   ros::Duration(1.0).sleep();
@@ -21,13 +21,12 @@ int main(int argc, char** argv)
   /* load cloud from pcd */
   pcl::PointCloud<pcl::PointXYZ> cloud;
   int status = pcl::io::loadPCDFile<pcl::PointXYZ>(file_name, cloud);
-  if (status == -1)
-  {
+  if (status == -1) {
     cout << "can't read file." << endl;
     return -1;
   }
 
-  // // Process map
+  // // Transform map
   // for (int i = 0; i < cloud.points.size(); ++i)
   // {
   //   auto pt = cloud.points[i];
@@ -38,9 +37,18 @@ int main(int argc, char** argv)
   //   cloud.points[i] = pr;
   // }
 
-  for (double x = -10; x <= 10; x += 0.05)
-    for (double y = -10; y <= 10; y += 0.05)
-    {
+  // Find range of map
+  Eigen::Vector2d mmin(0, 0), mmax(0, 0);
+  for (auto pt : cloud) {
+    mmin[0] = min(mmin[0], double(pt.x));
+    mmin[1] = min(mmin[1], double(pt.y));
+    mmax[0] = max(mmax[0], double(pt.x));
+    mmax[1] = max(mmax[1], double(pt.y));
+  }
+
+  // Add ground
+  for (double x = mmin[0]; x <= mmax[0]; x += 0.1)
+    for (double y = mmin[1]; y <= mmax[1]; y += 0.1) {
       cloud.push_back(pcl::PointXYZ(x, y, 0));
     }
 
@@ -51,13 +59,11 @@ int main(int argc, char** argv)
   msg.header.frame_id = "world";
 
   int count = 0;
-  while (ros::ok())
-  {
+  while (ros::ok()) {
     ros::Duration(0.3).sleep();
     cloud_pub.publish(msg);
     ++count;
-    if (count > 10)
-    {
+    if (count > 10) {
       // break;
     }
   }

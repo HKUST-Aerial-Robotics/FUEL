@@ -73,7 +73,7 @@ int Astar::search(const Eigen::Vector3d& start_pt, const Eigen::Vector3d& end_pt
 
     // Early termination if time up
     if ((ros::Time::now() - t1).toSec() > max_search_time_) {
-      std::cout << "early";
+      // std::cout << "early";
       early_terminate_cost_ = cur_node->g_score + getDiagHeu(cur_node->position, end_pt);
       return NO_PATH;
     }

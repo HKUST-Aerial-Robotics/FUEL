@@ -238,28 +238,36 @@ int FastExplorationManager::planExploreMotion(
   ed_->path_next_goal_ = planner_manager_->path_finder_->getPath();
   shortenPath(ed_->path_next_goal_);
 
-  const double radius = 5.0;
+  const double radius_far = 5.0;
+  const double radius_close = 1.5;
   const double len = Astar::pathLength(ed_->path_next_goal_);
-  if (len < 1.5) {
-    // Next viewpoint is very close, no need to search kinodynamic path, just use waypoints-based +
+  if (len < radius_close) {
+    // Next viewpoint is very close, no need to search kinodynamic path, just use waypoints-based
     // optimization
     planner_manager_->planExploreTraj(ed_->path_next_goal_, vel, acc, time_lb);
-    std::cout << "Close goal." << std::endl;
+    ed_->next_goal_ = next_pos;
+
+  } else if (len > radius_far) {
+    // Next viewpoint is far away, select intermediate goal on geometric path (this also deal with
+    // dead end)
+    std::cout << "Far goal." << std::endl;
+    double len2 = 0.0;
+    vector<Eigen::Vector3d> truncated_path = { ed_->path_next_goal_.front() };
+    for (int i = 1; i < ed_->path_next_goal_.size() && len2 < radius_far; ++i) {
+      auto cur_pt = ed_->path_next_goal_[i];
+      len2 += (cur_pt - truncated_path.back()).norm();
+      truncated_path.push_back(cur_pt);
+    }
+    ed_->next_goal_ = truncated_path.back();
+    planner_manager_->planExploreTraj(truncated_path, vel, acc, time_lb);
+    // if (!planner_manager_->kinodynamicReplan(
+    //         pos, vel, acc, ed_->next_goal_, Vector3d(0, 0, 0), time_lb))
+    //   return FAIL;
+    // ed_->kino_path_ = planner_manager_->kino_path_finder_->getKinoTraj(0.02);
   } else {
-    if (len > radius) {
-      // Next viewpoint is far away, select intermediate goal on geometric path (this also deal with
-      // dead end)
-      double len = 0.0;
-      Vector3d prev_pt = ed_->path_next_goal_.front();
-      for (int i = 1; i < ed_->path_next_goal_.size() && len < radius; ++i) {
-        auto cur_pt = ed_->path_next_goal_[i];
-        len += (cur_pt - prev_pt).norm();
-        prev_pt = cur_pt;
-        ed_->next_goal_ = cur_pt;
-      }
-      std::cout << "Far goal." << std::endl;
-    } else  // Search kino path to exactly next viewpoint and optimize
-      ed_->next_goal_ = next_pos;
+    // Search kino path to exactly next viewpoint and optimize
+    std::cout << "Mid goal" << std::endl;
+    ed_->next_goal_ = next_pos;
 
     if (!planner_manager_->kinodynamicReplan(
             pos, vel, acc, ed_->next_goal_, Vector3d(0, 0, 0), time_lb))

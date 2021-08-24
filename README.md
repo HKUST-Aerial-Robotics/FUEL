@@ -1,9 +1,8 @@
 # FUEL
 
-**FUEL** is a hierarchical framework for **F**ast **U**AV **E**xp**L**oration.
-It contains a Frontier Information Structure (FIS), which can be incrementally updated with the online built map and facilitate exploration planning in high frequency.
-Based on FIS, a hierarchical planner plans optimal global coverage paths, refine local viewpoints, and generates minimum-time local trajectories successively.  
-Our method is demonstrated to complete challenging exploration tasks **3-8 times** faster than state-of-the-art approaches.
+**FUEL** is a powerful framework for **F**ast **U**AV **E**xp**L**oration.
+Central to it is a Frontier Information Structure (FIS), which maintains crucial information for exploration planning incrementally along with the online built map. Based on the FIS, a hierarchical planner plans frontier coverage paths, refine local viewpoints, and generates minimum-time trajectories in sequence to explore unknown environment agilely and safely.   
+Our method is demonstrated to complete challenging exploration tasks **3-8 times** faster than state-of-the-art approaches at the time of publication.
 
 __Authors__: [Boyu Zhou](http://boyuzhou.net) and [Shaojie Shen](http://uav.ust.hk/group/) from the [HUKST Aerial Robotics Group](http://uav.ust.hk/).
 
@@ -35,17 +34,22 @@ Please cite our paper if you use this project in your research:
 
 Please kindly star :star: this project if it helps you. We take great efforts to develope and maintain it :grin::grin:.
 
+## Table of Contents
+
+* [Quick Start](#quick-start)
+* [Exploring Different Environments](#exploring-different-environments)
+* [Setup and Config](#3-Setup-and-Config)
+* [Updates](#6-updates)
 
 ## Quick Start
 
-This project is mostly based on [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner). 
-It has been tested on Ubuntu 16.04(ROS Kinetic) and 18.04(ROS Melodic). Take Ubuntu 18.04 as an example, run the following commands to setup:
+This project has been tested on Ubuntu 16.04(ROS Kinetic) and 18.04(ROS Melodic). Take Ubuntu 18.04 as an example, run the following commands to install required tools:
 
 ```
   sudo apt-get install libarmadillo-dev ros-melodic-nlopt
 ```
 
-To simulate the depth camera, we use a simulator based on CUDA Toolkit. Please install it first following the [instruction of CUDA](https://developer.nvidia.com/zh-cn/cuda-toolkit). 
+<!-- To simulate the depth camera, we use a simulator based on CUDA Toolkit. Please install it first following the [instruction of CUDA](https://developer.nvidia.com/zh-cn/cuda-toolkit). 
 
 After successful installation, in the **local_sensing** package in **uav_simulator**, remember to change the 'arch' and 'code' flags in CMakelist.txt according to your graphics card devices. You can check the right code [here](https://github.com/tpruvot/ccminer/wiki/Compatibility). For example:
 
@@ -53,32 +57,83 @@ After successful installation, in the **local_sensing** package in **uav_simulat
   set(CUDA_NVCC_FLAGS 
     -gencode arch=compute_61,code=sm_61;
   ) 
-```
+``` -->
 
-Finally, clone and compile our package:
+Then simply clone and compile our package (using ssh here):
 
 ```
   cd ${YOUR_WORKSPACE_PATH}/src
-  git clone https://github.com/HKUST-Aerial-Robotics/FUEL.git
+  git clone git@github.com:HKUST-Aerial-Robotics/FUEL.git
   cd ../ 
   catkin_make
 ```
 
-After compilation you can start the visualization by: 
+After compilation you can start a sample exploration demo. Firstly run ```Rviz``` for visualization: 
 
 ```
   source devel/setup.bash && roslaunch exploration_manager rviz.launch
 ```
-and start a simulation (run in a new terminals): 
+then run the simulation (run in a new terminals): 
 ```
   source devel/setup.bash && roslaunch exploration_manager exploration.launch
 ```
-You will find a cluttered scene to be explored (20m x 12m x 2m) and the drone in ```Rviz```. You can trigger the exploration to start by the ```2D Nav Goal``` tool. A sample simulation is shown in the figure. The unknown obstacles are shown in grey, while the frontiers are shown as colorful voxels. The planned and executed trajectories are also displayed.
+
+By default you can see an office-like environment. Trigger the quadrotor to start exploration by the ```2D Nav Goal``` tool in ```Rviz```. A sample is shown below, where unexplored structures are shown in grey and explored ones are shown in colorful voxels. The FoV and trajectories of the quadrotor are also displayed.
+
+<!-- You will find a cluttered scene to be explored (20m x 12m x 2m) and the drone . You can trigger the exploration to start by  A sample simulation is shown in the figure. The unknown obstacles are shown in grey, while the frontiers are shown as colorful voxels. The planned and executed trajectories are also displayed. -->
 
  <p id="demo1" align="center">
-  <img src="files/5.gif" width = "500" height = "418"/>
+  <img src="files/office.gif" width = "600" height = "325"/>
  </p>
 
+
+## Exploring Different Environments
+
+The exploration environments are represented by [.pcd files](https://pointclouds.org/documentation/tutorials/pcd_file_format.html).
+We provide several environments, which can be selected in [simulator.xml](fuel_planner/exploration_manager/launch/simulator.xml):
+
+
+```xml
+  <!-- Change office.pcd to specify the exploration environment -->
+  <!-- We provide office.pcd, office2.pcd, office3.pcd and pillar.pcd in this repo -->
+  <node pkg ="map_generator" name ="map_pub" type ="map_pub" output = "screen" args="$(find map_generator)/resource/office.pcd"/>    
+```
+
+All examples are listed below.
+
+_office2.pcd_:
+<p id="demo2" align="center">
+<img src="files/office2.gif" width = "600" height = "325"/>
+</p>
+
+_office3.pcd_:
+<p id="demo3" align="center">
+<img src="files/office3.gif" width = "600" height = "325"/>
+</p>
+
+_pillar.pcd_:
+<p id="demo2" align="center">
+<img src="files/pillar.gif" width = "320" height = "325"/>
+</p>
+
+If you want to use your own environments, simply place the .pcd files in [map_generator/resource](uav_simulator/map_generator/resource), and follow the comments above to choose the .pcd file.
+You may also need to change the bounding box of explored space in [exploration.launch](/home/boboyu/FUEL/src/FUEL/fuel_planner/exploration_manager/launch/exploration.launch):
+
+```xml
+    <arg name="box_min_x" value="-10.0"/>
+    <arg name="box_min_y" value="-15.0"/>
+    <arg name="box_min_z" value=" 0.0"/>
+    <arg name="box_max_x" value="10.0"/>
+    <arg name="box_max_y" value="15.0"/>
+    <arg name="box_max_z" value=" 2.0"/>
+```
+
+Check the [next section](#create-an-pcd-environment) to create your own .pcd environments easily.
+
+## Create an _.pcd_ Environment
+
+We provide a simple tool to create environments and store them in .pcd files.
+_Coming soon_.
 
 ## Acknowledgements
   We use **NLopt** for non-linear optimization and use **LKH** for travelling salesman problem.

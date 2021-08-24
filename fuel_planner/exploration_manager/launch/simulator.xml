@@ -5,14 +5,21 @@
   <arg name="map_size_x_"/>
   <arg name="map_size_y_"/>
   <arg name="map_size_z_"/>
+  <arg name="box_min_x"/>
+  <arg name="box_min_y"/>
+  <arg name="box_min_z"/>
+  <arg name="box_max_x"/>
+  <arg name="box_max_y"/>
+  <arg name="box_max_z"/>
   <arg name="c_num"/>
   <arg name="p_num"/>
   <arg name="odometry_topic"/>
   <arg name="obj_num" value="1" />
 
   <!-- map generation 1-->
-  <node pkg ="map_generator" name ="map_pub" type ="map_pub" output = "screen" args="$(find map_generator)/resource/explore1.pcd">    
-  </node>
+  <!-- Change office.pcd to specify the exploration environment -->
+  <!-- We provide office2.pcd, office3.pcd and pillar.pcd in this repo -->
+  <node pkg ="map_generator" name ="map_pub" type ="map_pub" output = "screen" args="$(find map_generator)/resource/office.pcd"/>    
 
   <!-- map generation 2-->
   <!-- <node pkg ="map_generator" name ="random_forest" type ="random_forest" output = "screen">    
@@ -93,8 +100,8 @@
   <node pkg="local_sensing_node" type="pcl_render_node" name="pcl_render_node" output="screen">
         <rosparam command="load" file="$(find local_sensing_node)/params/camera.yaml" />
         <param name="sensing_horizon"  value="5.0" />
-        <param name="sensing_rate"     value="30.0"/>
-        <param name="estimation_rate"  value="30.0"/>
+        <param name="sensing_rate"     value="15.0"/>
+        <param name="estimation_rate"  value="15.0"/>
 
         <param name="map/x_size"     value="$(arg map_size_x_)"/>
         <param name="map/y_size"     value="$(arg map_size_y_)"/>
