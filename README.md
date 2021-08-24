@@ -156,7 +156,7 @@ After you've finished, run the following node to save the map in another termina
   rosrun map_generator map_recorder ~/
 ```
 
-Normally, a file named __tmp.pcd__ will be saved at ~/. You may replace '~/' with any locations you want.
+Normally, a file named __tmp.pcd__ will be saved at ```~/```. You may replace ```~/``` with any locations you want.
 Lastly, you can use this file for exploration, as mentioned [here](#exploring-different-environments).
 
 ## Acknowledgements
