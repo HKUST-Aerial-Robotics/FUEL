@@ -4,6 +4,11 @@
 Central to it is a Frontier Information Structure (FIS), which maintains crucial information for exploration planning incrementally along with the online built map. Based on the FIS, a hierarchical planner plans frontier coverage paths, refine local viewpoints, and generates minimum-time trajectories in sequence to explore unknown environment agilely and safely.   
 Our method is demonstrated to complete challenging exploration tasks **3-8 times** faster than state-of-the-art approaches at the time of publication.
 
+__News:__
+
+- Aug 24, 2021: The CPU-based simulation is released, CUDA is no longer required. Richer exploration environments are provided.
+
+
 __Authors__: [Boyu Zhou](http://boyuzhou.net) and [Shaojie Shen](http://uav.ust.hk/group/) from the [HUKST Aerial Robotics Group](http://uav.ust.hk/).
 
 <p align="center">
@@ -36,10 +41,9 @@ Please kindly star :star: this project if it helps you. We take great efforts to
 
 ## Table of Contents
 
-* [Quick Start](#quick-start)
-* [Exploring Different Environments](#exploring-different-environments)
-* [Setup and Config](#3-Setup-and-Config)
-* [Updates](#6-updates)
+  - [Quick Start](#quick-start)
+  - [Exploring Different Environments](#exploring-different-environments)
+  - [Creating a _.pcd_ Environment](#creating-a-pcd-environment)
 
 ## Quick Start
 
@@ -128,9 +132,9 @@ You may also need to change the bounding box of explored space in [exploration.l
     <arg name="box_max_z" value=" 2.0"/>
 ```
 
-Check the [next section](#create-an-pcd-environment) to create your own .pcd environments easily.
+Check the [next section](#creating-a-pcd-environment) to create your own .pcd environments easily.
 
-## Create an _.pcd_ Environment
+## Creating a _.pcd_ Environment
 
 We provide a simple tool to create environments and store them in .pcd files.
 _Coming soon_.
