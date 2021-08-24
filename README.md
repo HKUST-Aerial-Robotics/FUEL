@@ -93,8 +93,8 @@ By default you can see an office-like environment. Trigger the quadrotor to star
 
 ## Exploring Different Environments
 
-The exploration environments are represented by [.pcd files](https://pointclouds.org/documentation/tutorials/pcd_file_format.html).
-We provide several environments, which can be selected in [simulator.xml](fuel_planner/exploration_manager/launch/simulator.xml):
+The exploration environments in our simulator are represented by [.pcd files](https://pointclouds.org/documentation/tutorials/pcd_file_format.html).
+We provide several sample environments, which can be selected in [simulator.xml](fuel_planner/exploration_manager/launch/simulator.xml):
 
 
 ```xml
@@ -103,7 +103,7 @@ We provide several environments, which can be selected in [simulator.xml](fuel_p
   <node pkg ="map_generator" name ="map_pub" type ="map_pub" output = "screen" args="$(find map_generator)/resource/office.pcd"/>    
 ```
 
-All examples are listed below.
+Other examples are listed below.
 
 _office2.pcd_:
 <p id="demo2" align="center">
@@ -120,7 +120,7 @@ _pillar.pcd_:
 <img src="files/pillar.gif" width = "320" height = "325"/>
 </p>
 
-If you want to use your own environments, simply place the .pcd files in [map_generator/resource](uav_simulator/map_generator/resource), and follow the comments above to choose the .pcd file.
+If you want to use your own environments, simply place the .pcd files in [map_generator/resource](uav_simulator/map_generator/resource), and follow the comments above to specify it.
 You may also need to change the bounding box of explored space in [exploration.launch](/home/boboyu/FUEL/src/FUEL/fuel_planner/exploration_manager/launch/exploration.launch):
 
 ```xml
@@ -132,31 +132,32 @@ You may also need to change the bounding box of explored space in [exploration.l
     <arg name="box_max_z" value=" 2.0"/>
 ```
 
-Check the [next section](#creating-a-pcd-environment) to create your own .pcd environments easily.
+To create your own .pcd environments easily, check the [next section](#creating-a-pcd-environment).
 
 ## Creating a _.pcd_ Environment
 
-We provide a simple tool to create environments and store them in .pcd files.
+We provide a simple tool to create .pcd environments.
 First, run:
 
 ```
   rosrun map_generator click_map
 ```
 
-Then in ```Rviz```, use the ```2D Nav Goal``` tool to create your map, two consecutively clicked points form a wall.
+Then in ```Rviz```, use the ```2D Nav Goal``` tool (shortcut G) to create your map. Two consecutively clicked points form a wall.
 An example is illustrated:
 
 <p id="demo5" align="center">
 <img src="files/create_map.gif" width = "600" height = "340"/>
 </p>
 
-After you've finished, run the following node to save the map:
+After you've finished, run the following node to save the map in another terminal:
 
 ```
   rosrun map_generator map_recorder ~/
 ```
 
 Normally, a file named __tmp.pcd__ will be saved at ~/. You may replace '~/' with any locations you want.
+Lastly, you can use this file for exploration, as mentioned [here](#exploring-different-environments).
 
 ## Acknowledgements
   We use **NLopt** for non-linear optimization and use **LKH** for travelling salesman problem.
