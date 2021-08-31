@@ -6,7 +6,7 @@ __News:__
   
 **FUEL** is a powerful framework for **F**ast **U**AV **E**xp**L**oration.
 Our method is demonstrated to complete challenging exploration tasks **3-8 times** faster than state-of-the-art approaches at the time of publication.
-Central to it is a Frontier Information Structure (FIS), which maintains crucial information for exploration planning incrementally along with the online built map. Based on the FIS, a hierarchical planner plans frontier coverage paths, refine local viewpoints, and generates minimum-time trajectories in sequence to explore unknown environment agilely and safely.   
+Central to it is a Frontier Information Structure (FIS), which maintains crucial information for exploration planning incrementally along with the online built map. Based on the FIS, a hierarchical planner plans frontier coverage paths, refine local viewpoints, and generates minimum-time trajectories in sequence to explore unknown environment agilely and safely. Try [Quick Start](#quick-start) to run a demo in a few minutes!  
 
 <p align="center">
   <img src="files/1.gif" width = "400" height = "225"/>
@@ -17,7 +17,7 @@ Central to it is a Frontier Information Structure (FIS), which maintains crucial
 </p>
 
 
-Recently, we further develop a fully decentralized approach for exploration tasks using a fleet of quadrotors. The quadrotor team operates with asynchronous and limited communication, and does not require any central control. The coverage paths and workload allocations of the team are optimized and balanced in order to fully realize the system's potential. The associated paper is under review, so its code will be released in the future.
+Recently, we further develop a fully decentralized approach for exploration tasks using a fleet of quadrotors. The quadrotor team operates with asynchronous and limited communication, and does not require any central control. The coverage paths and workload allocations of the team are optimized and balanced in order to fully realize the system's potential. The associated paper is under review, so code of this part will be released in the future.
 
 <p align="center">
   <img src="files/racer1.gif" width = "400" height = "225"/>
