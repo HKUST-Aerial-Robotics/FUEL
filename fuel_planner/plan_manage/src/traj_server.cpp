@@ -165,7 +165,7 @@ void drawCmd(const Eigen::Vector3d& pos, const Eigen::Vector3d& vec, const int& 
 
 void replanCallback(std_msgs::Empty msg) {
   // Informed of new replan, end the current traj after some time
-  const double time_out = 0.1;
+  const double time_out = 0.3;
   ros::Time time_now = ros::Time::now();
   double t_stop = (time_now - start_time_).toSec() + time_out + replan_time_;
   traj_duration_ = min(t_stop, traj_duration_);

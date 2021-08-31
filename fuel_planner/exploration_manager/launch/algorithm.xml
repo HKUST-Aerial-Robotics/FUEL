@@ -77,7 +77,7 @@
 
     <!-- Fsm -->
     <param name="fsm/thresh_replan1" value="0.5" type="double"/>
-    <param name="fsm/thresh_replan2" value="0.2" type="double"/>
+    <param name="fsm/thresh_replan2" value="0.5" type="double"/>
     <param name="fsm/thresh_replan3" value="1.5" type="double"/>
 
     <!-- <param name="fsm/thresh_replan1" value="0.00001" type="double"/> -->
@@ -103,7 +103,7 @@
     <param name="frontier/cluster_min" value="100" type="int"/>
     <param name="frontier/cluster_size_xy" value="2.0" type="double"/>
     <param name="frontier/cluster_size_z" value="10.0" type="double"/>
-    <param name="frontier/min_candidate_dist" value="0.5" type="double"/>
+    <param name="frontier/min_candidate_dist" value="0.75" type="double"/>
     <param name="frontier/min_candidate_clearance" value="0.21" type="double"/>
     <param name="frontier/candidate_dphi" value="$(eval 15 * 3.1415926 / 180.0)" type="double"/>
     <param name="frontier/candidate_rnum" value="3" type="int"/>
@@ -167,7 +167,7 @@
     <param name="astar/max_search_time" value="0.001" type="double"/>
 
   <!-- trajectory optimization -->
-    <param name="optimization/ld_smooth" value="5.0" type="double"/>
+    <param name="optimization/ld_smooth" value="20.0" type="double"/>
     <param name="optimization/ld_dist" value="10.0" type="double"/>
     <param name="optimization/ld_feasi" value="2.0" type="double"/>
     <param name="optimization/ld_start" value="100.0" type="double"/>

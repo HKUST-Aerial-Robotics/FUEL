@@ -1,15 +1,12 @@
 # FUEL
 
-**FUEL** is a powerful framework for **F**ast **U**AV **E**xp**L**oration.
-Central to it is a Frontier Information Structure (FIS), which maintains crucial information for exploration planning incrementally along with the online built map. Based on the FIS, a hierarchical planner plans frontier coverage paths, refine local viewpoints, and generates minimum-time trajectories in sequence to explore unknown environment agilely and safely.   
-Our method is demonstrated to complete challenging exploration tasks **3-8 times** faster than state-of-the-art approaches at the time of publication.
-
 __News:__
 
 - Aug 24, 2021: The CPU-based simulation is released, CUDA is no longer required. Richer exploration environments are provided.
-
-
-__Authors__: [Boyu Zhou](http://boyuzhou.net) and [Shaojie Shen](http://uav.ust.hk/group/) from the [HUKST Aerial Robotics Group](http://uav.ust.hk/).
+  
+**FUEL** is a powerful framework for **F**ast **U**AV **E**xp**L**oration.
+Our method is demonstrated to complete challenging exploration tasks **3-8 times** faster than state-of-the-art approaches at the time of publication.
+Central to it is a Frontier Information Structure (FIS), which maintains crucial information for exploration planning incrementally along with the online built map. Based on the FIS, a hierarchical planner plans frontier coverage paths, refine local viewpoints, and generates minimum-time trajectories in sequence to explore unknown environment agilely and safely.   
 
 <p align="center">
   <img src="files/1.gif" width = "400" height = "225"/>
@@ -19,7 +16,17 @@ __Authors__: [Boyu Zhou](http://boyuzhou.net) and [Shaojie Shen](http://uav.ust.
   <!-- <img src="files/icra20_1.gif" width = "320" height = "180"/> -->
 </p>
 
-Complete videos: [video1](https://www.youtube.com/watch?v=_dGgZUrWk-8).
+
+Recently, we further develop a fully decentralized approach for exploration tasks using a fleet of quadrotors. The quadrotor team operates with asynchronous and limited communication, and does not require any central control. The coverage paths and workload allocations of the team are optimized and balanced in order to fully realize the system's potential. The associated paper is under review, so its code will be released in the future.
+
+<p align="center">
+  <img src="files/racer1.gif" width = "400" height = "225"/>
+  <img src="files/racer2.gif" width = "400" height = "225"/>
+</p>
+
+__Complete videos__: [video1](https://www.youtube.com/watch?v=_dGgZUrWk-8), [video2](https://www.bilibili.com/video/BV1yf4y1P7Vj).
+
+__Authors__: [Boyu Zhou](http://boyuzhou.net) and [Shaojie Shen](http://uav.ust.hk/group/) from the [HUKST Aerial Robotics Group](http://uav.ust.hk/).
 
 Please cite our paper if you use this project in your research:
 - [__FUEL: Fast UAV Exploration using Incremental Frontier Structure and Hierarchical Planning__](https://arxiv.org/abs/2010.11561), Boyu Zhou, Yichen Zhang, Xinyi Chen, Shaojie Shen, IEEE Robotics and Automation Letters (**RA-L**) with ICRA 2021 option
