@@ -32,7 +32,7 @@
   <!-- main node -->
   <node pkg="plan_manage" name="fast_planner_node" type="fast_planner_node" output="screen">
     <remap from ="/odom_world" to="$(arg odometry_topic)"/>
-    <remap from ="/map_ros/pose"   to = "$(arg sensor_pose_topic)"/> 
+    <remap from ="/map_ros/pose"   to = "$(arg sensor_pose_topic)"/>
     <remap from ="/map_ros/depth" to = "$(arg depth_topic)"/>
     <remap from ="/map_ros/cloud" to="$(arg cloud_topic)"/>
 
@@ -55,24 +55,24 @@
     <param name="fsm/waypoint2_y" value="$(arg point2_y)" type="double"/>
     <param name="fsm/waypoint2_z" value="$(arg point2_z)" type="double"/>
 
-       <param name="sdf_map/resolution"      value="0.1" /> 
-    <param name="sdf_map/map_size_x"   value="$(arg map_size_x_)" /> 
-    <param name="sdf_map/map_size_y"   value="$(arg map_size_y_)" /> 
-    <param name="sdf_map/map_size_z"   value="$(arg map_size_z_)" /> 
-    <param name="sdf_map/obstacles_inflation"     value="0.099" /> 
-    <param name="sdf_map/local_bound_inflate"    value="0.5"/>
+    <param name="sdf_map/resolution" value="0.1" />
+    <param name="sdf_map/map_size_x" value="$(arg map_size_x_)" />
+    <param name="sdf_map/map_size_y" value="$(arg map_size_y_)" />
+    <param name="sdf_map/map_size_z" value="$(arg map_size_z_)" />
+    <param name="sdf_map/obstacles_inflation" value="0.099" />
+    <param name="sdf_map/local_bound_inflate" value="0.5"/>
     <param name="sdf_map/local_map_margin" value="50"/>
-    <param name="sdf_map/ground_height"        value="-1.0"/>
-    <param name="sdf_map/default_dist"        value="5.0"/>
+    <param name="sdf_map/ground_height" value="0.0"/>
+    <param name="sdf_map/default_dist" value="5.0"/>
 
-    <param name="sdf_map/p_hit"  value="0.65"/>
+    <param name="sdf_map/p_hit" value="0.65"/>
     <param name="sdf_map/p_miss" value="0.43"/>
-    <param name="sdf_map/p_min"  value="0.12"/>
-    <param name="sdf_map/p_max"  value="0.90"/>
-    <param name="sdf_map/p_occ"  value="0.80"/>
+    <param name="sdf_map/p_min" value="0.12"/>
+    <param name="sdf_map/p_max" value="0.90"/>
+    <param name="sdf_map/p_occ" value="0.80"/>
     <param name="sdf_map/min_ray_length" value="0.5"/>
     <param name="sdf_map/max_ray_length" value="4.5"/>
-    <param name="sdf_map/virtual_ceil_height"   value="3.2"/>
+    <param name="sdf_map/virtual_ceil_height" value="3.2"/>
     <param name="sdf_map/optimistic" value="true" type="bool"/>
     <param name="sdf_map/signed_dist" value="false" type="bool"/>
 
@@ -80,20 +80,20 @@
     <param name="map_ros/cy" value="$(arg cy)"/>
     <param name="map_ros/fx" value="$(arg fx)"/>
     <param name="map_ros/fy" value="$(arg fy)"/>
-    <param name="map_ros/depth_filter_maxdist"   value="5.0"/>
-    <param name="map_ros/depth_filter_mindist"   value="0.2"/>
-    <param name="map_ros/depth_filter_margin"    value="2"/>
+    <param name="map_ros/depth_filter_maxdist" value="5.0"/>
+    <param name="map_ros/depth_filter_mindist" value="0.2"/>
+    <param name="map_ros/depth_filter_margin" value="2"/>
     <param name="map_ros/k_depth_scaling_factor" value="1000.0"/>
     <param name="map_ros/skip_pixel" value="2"/>
     <param name="map_ros/esdf_slice_height" value="0.3"/>
-    <param name="map_ros/visualization_truncate_height"   value="3.09"/>
-    <param name="map_ros/visualization_truncate_low"   value="-2.0"/>
-    <param name="map_ros/show_occ_time"  value="false"/>
+    <param name="map_ros/visualization_truncate_height" value="2.29"/>
+    <param name="map_ros/visualization_truncate_low" value="-2.0"/>
+    <param name="map_ros/show_occ_time" value="false"/>
     <param name="map_ros/show_esdf_time" value="false"/>
     <param name="map_ros/show_all_map" value="true"/>
-    <param name="map_ros/frame_id"      value="world"/>
+    <param name="map_ros/frame_id" value="world"/>
 
-  <!-- planner manager -->
+    <!-- planner manager -->
     <param name="manager/max_vel" value="$(arg max_vel)" type="double"/>
     <param name="manager/max_acc" value="$(arg max_acc)" type="double"/>
     <param name="manager/max_jerk" value="4" type="double"/>
@@ -109,7 +109,7 @@
     <param name="manager/use_optimization" value="true" type="bool"/>
     <param name="manager/use_active_perception" value="false" type="bool"/>
 
-  <!-- kinodynamic path searching -->
+    <!-- kinodynamic path searching -->
     <param name="search/max_tau" value="0.5" type="double"/>
     <param name="search/init_max_tau" value="1.0" type="double"/>
     <param name="search/max_vel" value="$(arg max_vel)" type="double"/>
@@ -124,7 +124,7 @@
     <param name="search/allocate_num" value="100000" type="int"/>
     <param name="search/check_num" value="10" type="int"/>
 
-  <!-- trajectory optimization -->
+    <!-- trajectory optimization -->
     <param name="optimization/ld_smooth" value="5.0" type="double"/>
     <param name="optimization/ld_dist" value="10.0" type="double"/>
     <param name="optimization/ld_feasi" value="1.0" type="double"/>
