@@ -30,7 +30,7 @@
   <arg name="flight_type"/>
 
   <!-- main node -->
-  <node pkg="plan_manage" name="fast_planner_node" type="fast_planner_node" output="screen">
+  <node pkg="plan_manage" name="fast_planner_node" type="fast_planner_node" output="log">
     <remap from ="/odom_world" to="$(arg odometry_topic)"/>
     <remap from ="/map_ros/pose"   to = "$(arg sensor_pose_topic)"/>
     <remap from ="/map_ros/depth" to = "$(arg depth_topic)"/>
@@ -59,7 +59,7 @@
     <param name="sdf_map/map_size_x" value="$(arg map_size_x_)" />
     <param name="sdf_map/map_size_y" value="$(arg map_size_y_)" />
     <param name="sdf_map/map_size_z" value="$(arg map_size_z_)" />
-    <param name="sdf_map/obstacles_inflation" value="0.099" />
+    <param name="sdf_map/obstacles_inflation" value="0.3" />
     <param name="sdf_map/local_bound_inflate" value="0.5"/>
     <param name="sdf_map/local_map_margin" value="50"/>
     <param name="sdf_map/ground_height" value="0.0"/>
