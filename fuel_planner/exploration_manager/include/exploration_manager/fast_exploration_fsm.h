@@ -6,6 +6,7 @@
 #include <ros/ros.h>
 #include <nav_msgs/Path.h>
 #include <std_msgs/Empty.h>
+#include <std_srvs/Empty.h>
 #include <nav_msgs/Odometry.h>
 #include <visualization_msgs/Marker.h>
 
@@ -59,6 +60,7 @@ namespace fast_planner
     ros::Timer exec_timer_, safety_timer_, vis_timer_, frontier_timer_;
     ros::Subscriber start_sub_, pause_sub_, odom_sub_;
     ros::Publisher replan_pub_, new_pub_, bspline_pub_;
+    ros::ServiceServer reset_service_;
 
     /* helper functions */
     int callExplorationPlanner();
@@ -71,6 +73,7 @@ namespace fast_planner
     void startCallback(const std_msgs::Empty &msg);
     void pauseCallback(const std_msgs::Empty &msg);
     void odometryCallback(const nav_msgs::OdometryConstPtr &msg);
+    bool resetCallback(std_srvs::EmptyRequest &request, std_srvs::EmptyResponse &response);
     void visualize();
     void clearVisMarker();
 

@@ -34,6 +34,7 @@ namespace fast_planner
     fd_->state_str_ = {"INIT", "PAUSED", "PLAN_TRAJ", "PUB_TRAJ", "EXEC_TRAJ", "FINISH"};
     fd_->static_state_ = true;
     fd_->is_running_ = false;
+    node_ = ros::NodeHandle(nh);
 
     /* Ros sub, pub and timer */
     exec_timer_ = nh.createTimer(ros::Duration(0.01), &FastExplorationFSM::FSMCallback, this);
@@ -43,6 +44,8 @@ namespace fast_planner
     start_sub_ = nh.subscribe("/fuel/start", 1, &FastExplorationFSM::startCallback, this);
     pause_sub_ = nh.subscribe("/fuel/pause", 1, &FastExplorationFSM::pauseCallback, this);
     odom_sub_ = nh.subscribe("/odom_world", 1, &FastExplorationFSM::odometryCallback, this);
+    // reset_sub_ = nh.subscribe("/fuel/reset", 1, &FastExplorationFSM::resetCallback, this);
+    reset_service_ = nh.advertiseService("/fuel/reset", &FastExplorationFSM::resetCallback, this);
 
     replan_pub_ = nh.advertise<std_msgs::Empty>("/planning/replan", 10);
     new_pub_ = nh.advertise<std_msgs::Empty>("/planning/new", 10);
@@ -95,8 +98,8 @@ namespace fast_planner
         fd_->start_acc_.setZero();
 
         fd_->start_yaw_(0) = fd_->odom_yaw_;
-        cout << "START YAW 1:" << fd_->odom_yaw_ << endl;
         fd_->start_yaw_(1) = fd_->start_yaw_(2) = 0.0;
+        new_pub_.publish(std_msgs::Empty());
       }
       else
       {
@@ -110,10 +113,10 @@ namespace fast_planner
         fd_->start_yaw_(0) = info->yaw_traj_.evaluateDeBoorT(t_r)[0];
         fd_->start_yaw_(1) = info->yawdot_traj_.evaluateDeBoorT(t_r)[0];
         fd_->start_yaw_(2) = info->yawdotdot_traj_.evaluateDeBoorT(t_r)[0];
+        replan_pub_.publish(std_msgs::Empty());
       }
 
       // Inform traj_server the replanning
-      replan_pub_.publish(std_msgs::Empty());
       int res = callExplorationPlanner();
       if (res == SUCCEED)
       {
@@ -188,12 +191,6 @@ namespace fast_planner
                                                fd_->start_yaw_);
     classic_ = false;
 
-    // int res = expl_manager_->classicFrontier(fd_->start_pt_, fd_->start_yaw_[0]);
-    // classic_ = true;
-
-    // int res = expl_manager_->rapidFrontier(fd_->start_pt_, fd_->start_vel_, fd_->start_yaw_[0],
-    // classic_);
-
     if (res == SUCCEED)
     {
       auto info = &planner_manager_->local_data_;
@@ -235,12 +232,6 @@ namespace fast_planner
     auto plan_data = &planner_manager_->plan_data_;
     auto ed_ptr = expl_manager_->ed_;
 
-    // Draw updated box
-    // Vector3d bmin, bmax;
-    // planner_manager_->edt_environment_->sdf_map_->getUpdatedBox(bmin, bmax);
-    // visualization_->drawBox((bmin + bmax) / 2.0, bmax - bmin, Vector4d(0, 1, 0, 0.3), "updated_box", 0,
-    // 4);
-
     // Draw frontier
     static int last_ftr_num = 0;
     for (int i = 0; i < ed_ptr->frontiers_.size(); ++i)
@@ -248,66 +239,18 @@ namespace fast_planner
       visualization_->drawCubes(ed_ptr->frontiers_[i], 0.1,
                                 visualization_->getColor(double(i) / ed_ptr->frontiers_.size(), 0.4),
                                 "frontier", i, 4);
-      // visualization_->drawBox(ed_ptr->frontier_boxes_[i].first, ed_ptr->frontier_boxes_[i].second,
-      //                         Vector4d(0.5, 0, 1, 0.3), "frontier_boxes", i, 4);
     }
     for (int i = ed_ptr->frontiers_.size(); i < last_ftr_num; ++i)
     {
       visualization_->drawCubes({}, 0.1, Vector4d(0, 0, 0, 1), "frontier", i, 4);
-      // visualization_->drawBox(Vector3d(0, 0, 0), Vector3d(0, 0, 0), Vector4d(1, 0, 0, 0.3),
-      // "frontier_boxes", i, 4);
     }
     last_ftr_num = ed_ptr->frontiers_.size();
-    // for (int i = 0; i < ed_ptr->dead_frontiers_.size(); ++i)
-    //   visualization_->drawCubes(ed_ptr->dead_frontiers_[i], 0.1, Vector4d(0, 0, 0, 0.5), "dead_frontier",
-    //                             i, 4);
-    // for (int i = ed_ptr->dead_frontiers_.size(); i < 5; ++i)
-    //   visualization_->drawCubes({}, 0.1, Vector4d(0, 0, 0, 0.5), "dead_frontier", i, 4);
-
-    // Draw global top viewpoints info
-    // visualization_->drawSpheres(ed_ptr->points_, 0.2, Vector4d(0, 0.5, 0, 1), "points", 0, 6);
-    // visualization_->drawLines(ed_ptr->global_tour_, 0.07, Vector4d(0, 0.5, 0, 1), "global_tour", 0, 6);
-    // visualization_->drawLines(ed_ptr->points_, ed_ptr->views_, 0.05, Vector4d(0, 1, 0.5, 1), "view", 0, 6);
-    // visualization_->drawLines(ed_ptr->points_, ed_ptr->averages_, 0.03, Vector4d(1, 0, 0, 1),
-    // "point-average", 0, 6);
-
-    // Draw local refined viewpoints info
-    // visualization_->drawSpheres(ed_ptr->refined_points_, 0.2, Vector4d(0, 0, 1, 1), "refined_pts", 0, 6);
-    // visualization_->drawLines(ed_ptr->refined_points_, ed_ptr->refined_views_, 0.05,
-    //                           Vector4d(0.5, 0, 1, 1), "refined_view", 0, 6);
-    // visualization_->drawLines(ed_ptr->refined_tour_, 0.07, Vector4d(0, 0, 1, 1), "refined_tour", 0, 6);
-    // visualization_->drawLines(ed_ptr->refined_views1_, ed_ptr->refined_views2_, 0.04, Vector4d(0, 0, 0,
-    // 1),
-    //                           "refined_view", 0, 6);
-    // visualization_->drawLines(ed_ptr->refined_points_, ed_ptr->unrefined_points_, 0.05, Vector4d(1, 1,
-    // 0, 1),
-    //                           "refine_pair", 0, 6);
-    // for (int i = 0; i < ed_ptr->n_points_.size(); ++i)
-    //   visualization_->drawSpheres(ed_ptr->n_points_[i], 0.1,
-    //                               visualization_->getColor(double(ed_ptr->refined_ids_[i]) /
-    //                               ed_ptr->frontiers_.size()),
-    //                               "n_points", i, 6);
-    // for (int i = ed_ptr->n_points_.size(); i < 15; ++i)
-    //   visualization_->drawSpheres({}, 0.1, Vector4d(0, 0, 0, 1), "n_points", i, 6);
-
-    // Draw trajectory
-    // visualization_->drawSpheres({ ed_ptr->next_goal_ }, 0.3, Vector4d(0, 1, 1, 1), "next_goal", 0, 6);
     visualization_->drawBspline(info->position_traj_, 0.1, Vector4d(1.0, 0.0, 0.0, 1), false, 0.15,
                                 Vector4d(1, 1, 0, 1));
-    // visualization_->drawSpheres(plan_data->kino_path_, 0.1, Vector4d(1, 0, 1, 1), "kino_path", 0, 0);
-    // visualization_->drawLines(ed_ptr->path_next_goal_, 0.05, Vector4d(0, 1, 1, 1), "next_goal", 1, 6);
   }
 
   void FastExplorationFSM::clearVisMarker()
   {
-    // visualization_->drawSpheres({}, 0.2, Vector4d(0, 0.5, 0, 1), "points", 0, 6);
-    // visualization_->drawLines({}, 0.07, Vector4d(0, 0.5, 0, 1), "global_tour", 0, 6);
-    // visualization_->drawSpheres({}, 0.2, Vector4d(0, 0, 1, 1), "refined_pts", 0, 6);
-    // visualization_->drawLines({}, {}, 0.05, Vector4d(0.5, 0, 1, 1), "refined_view", 0, 6);
-    // visualization_->drawLines({}, 0.07, Vector4d(0, 0, 1, 1), "refined_tour", 0, 6);
-    // visualization_->drawSpheres({}, 0.1, Vector4d(0, 0, 1, 1), "B-Spline", 0, 0);
-
-    // visualization_->drawLines({}, {}, 0.03, Vector4d(1, 0, 0, 1), "current_pose", 0, 6);
   }
 
   void FastExplorationFSM::frontierCallback(const ros::TimerEvent &e)
@@ -333,37 +276,12 @@ namespace fast_planner
         visualization_->drawCubes(ed->frontiers_[i], 0.1,
                                   visualization_->getColor(double(i) / ed->frontiers_.size(), 0.4),
                                   "frontier", i, 4);
-        // visualization_->drawBox(ed->frontier_boxes_[i].first, ed->frontier_boxes_[i].second,
-        // Vector4d(0.5, 0, 1, 0.3),
-        //                         "frontier_boxes", i, 4);
       }
       for (int i = ed->frontiers_.size(); i < 50; ++i)
       {
         visualization_->drawCubes({}, 0.1, Vector4d(0, 0, 0, 1), "frontier", i, 4);
-        // visualization_->drawBox(Vector3d(0, 0, 0), Vector3d(0, 0, 0), Vector4d(1, 0, 0, 0.3),
-        // "frontier_boxes", i, 4);
       }
     }
-
-    // if (!fd_->static_state_)
-    // {
-    //   static double astar_time = 0.0;
-    //   static int astar_num = 0;
-    //   auto t1 = ros::Time::now();
-
-    //   planner_manager_->path_finder_->reset();
-    //   planner_manager_->path_finder_->setResolution(0.4);
-    //   if (planner_manager_->path_finder_->search(fd_->odom_pos_, Vector3d(-5, 0, 1)))
-    //   {
-    //     auto path = planner_manager_->path_finder_->getPath();
-    //     visualization_->drawLines(path, 0.05, Vector4d(1, 0, 0, 1), "astar", 0, 6);
-    //     auto visit = planner_manager_->path_finder_->getVisited();
-    //     visualization_->drawCubes(visit, 0.3, Vector4d(0, 0, 1, 0.4), "astar-visit", 0, 6);
-    //   }
-    //   astar_num += 1;
-    //   astar_time = (ros::Time::now() - t1).toSec();
-    //   ROS_WARN("Average astar time: %lf", astar_time);
-    // }
   }
 
   void FastExplorationFSM::startCallback(const std_msgs::Empty &msg)
@@ -417,6 +335,23 @@ namespace fast_planner
     fd_->have_odom_ = true;
   }
 
+  bool FastExplorationFSM::resetCallback(std_srvs::EmptyRequest &request, std_srvs::EmptyResponse &response)
+  {
+    fp_.reset(new FSMParam);
+    fd_.reset(new FSMData);
+
+    /* Initialize main modules */
+    expl_manager_.reset(new FastExplorationManager);
+    expl_manager_->initialize(node_);
+    visualization_.reset(new PlanningVisualization(node_));
+
+    fd_->have_odom_ = false;
+    fd_->state_str_ = {"INIT", "PAUSED", "PLAN_TRAJ", "PUB_TRAJ", "EXEC_TRAJ", "FINISH"};
+    fd_->static_state_ = true;
+    fd_->is_running_ = false;
+    return true;
+  }
+
   void FastExplorationFSM::transitState(EXPL_STATE new_state, string pos_call)
   {
     int pre_s = int(state_);
@@ -424,4 +359,4 @@ namespace fast_planner
     cout << "[" + pos_call + "]: from " + fd_->state_str_[pre_s] + " to " + fd_->state_str_[int(new_state)]
          << endl;
   }
-} // namespace fast_planner
+}
