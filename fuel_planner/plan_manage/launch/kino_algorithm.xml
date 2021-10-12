@@ -1,4 +1,5 @@
 <launch>
+  <arg name="output" default="log"/>
   <arg name="map_size_x_"/>
   <arg name="map_size_y_"/>
   <arg name="map_size_z_"/>
@@ -30,7 +31,7 @@
   <arg name="flight_type"/>
 
   <!-- main node -->
-  <node pkg="plan_manage" name="fast_planner_node" type="fast_planner_node" output="log">
+  <node pkg="plan_manage" name="fast_planner_node" type="fast_planner_node" output="$(arg output)">
     <remap from ="/odom_world" to="$(arg odometry_topic)"/>
     <remap from ="/map_ros/pose"   to = "$(arg sensor_pose_topic)"/>
     <remap from ="/map_ros/depth" to = "$(arg depth_topic)"/>
@@ -72,7 +73,7 @@
     <param name="sdf_map/p_occ" value="0.80"/>
     <param name="sdf_map/min_ray_length" value="0.5"/>
     <param name="sdf_map/max_ray_length" value="4.5"/>
-    <param name="sdf_map/virtual_ceil_height" value="3.2"/>
+    <param name="sdf_map/virtual_ceil_height" value="3.0"/>
     <param name="sdf_map/optimistic" value="true" type="bool"/>
     <param name="sdf_map/signed_dist" value="false" type="bool"/>
 
