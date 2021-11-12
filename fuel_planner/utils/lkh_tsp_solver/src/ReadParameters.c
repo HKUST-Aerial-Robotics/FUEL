@@ -465,7 +465,6 @@ void ReadParameters()
         if (!(ParameterFile = fopen(ParameterFileName, "r")))
             eprintf("Cannot open PARAMETER_FILE: \"%s\"",
                     ParameterFileName);
-        // printff("PARAMETER_FILE = %s\n", ParameterFileName);
     } else {
         while (1) {
             printff("PARAMETER_FILE = ");
@@ -938,8 +937,18 @@ void ReadParameters()
         if ((Token = strtok(0, Delimiters)) && Token[0] != '#')
             eprintf("Junk at end of line: %s", Token);
     }
-    if (!ProblemFileName)
-        eprintf("Problem file name is missing");
+    if (!ProblemFileName) {
+        ProblemFileName = malloc(strlen(ParameterFileName) * sizeof(char));
+        strcpy(ProblemFileName, ParameterFileName);
+        *strstr(ProblemFileName, ".par") = 0;
+        strcat(ProblemFileName, ".tsp");
+    }
+    if (!OutputTourFileName) {
+        OutputTourFileName = malloc(strlen(ParameterFileName) * sizeof(char));
+        strcpy(OutputTourFileName, ParameterFileName);
+        *strstr(OutputTourFileName, ".par") = 0;
+        strcat(OutputTourFileName, ".txt");
+    }
     if (SubproblemSize == 0 && SubproblemTourFileName != 0)
         eprintf("SUBPROBLEM_SIZE specification is missing");
     if (SubproblemSize > 0 && SubproblemTourFileName == 0)
