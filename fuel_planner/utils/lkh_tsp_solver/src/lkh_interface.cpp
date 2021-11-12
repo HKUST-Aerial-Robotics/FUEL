@@ -5,8 +5,6 @@ int solveTSPLKH(const char* input_file) {
   double Time, LastTime = GetTime();
 
   /* Read the specification of the problem */
-  // ParameterFileName =
-  // "/home/boboyu/workspaces/plan_ws/src/fast_planner/utils/lkh_tsp_solver/resource/test.par";
   ParameterFileName = const_cast<char*>(input_file);
   ReadParameters();
   MaxMatrixDimension = 20000;
