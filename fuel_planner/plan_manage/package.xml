@@ -51,7 +51,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
-  
+  <build_depend>quadrotor_msgs</build_depend>
   <build_depend>poly_traj</build_depend>
   <build_depend>plan_env</build_depend>
   <build_depend>path_searching</build_depend>
@@ -73,7 +73,7 @@
   <exec_depend>bspline_opt</exec_depend>
   <exec_depend>active_perception</exec_depend>
   <exec_depend>traj_utils</exec_depend>
-  
+
 
 
   <!-- The export tag contains other, unspecified, tags -->
