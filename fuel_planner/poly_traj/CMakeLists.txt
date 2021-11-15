@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0)
 project(poly_traj)
 
 set(CMAKE_BUILD_TYPE "Release")
@@ -20,7 +20,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/include
-  ${EIGEN3_INCLUDE_DIR}
+  ${EIGEN3_INCLUDE_DIRS}
 )
 
 add_library( poly_traj 
@@ -28,4 +28,5 @@ add_library( poly_traj
     )
 target_link_libraries( poly_traj
     ${catkin_LIBRARIES} 
+    Eigen3::Eigen
     )  
