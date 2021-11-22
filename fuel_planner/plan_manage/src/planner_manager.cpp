@@ -129,7 +129,7 @@ bool FastPlannerManager::kinodynamicReplan(const Eigen::Vector3d& start_pt,
             << end_vel.transpose() << endl;
 
   if ((start_pt - end_pt).norm() < 1e-2) {
-    cout << "Close goal" << endl;
+    ROS_ERROR_STREAM("Close goal");
     return false;
   }
 
@@ -149,7 +149,7 @@ bool FastPlannerManager::kinodynamicReplan(const Eigen::Vector3d& start_pt,
     kino_path_finder_->reset();
     status = kino_path_finder_->search(start_pt, start_vel, start_acc, end_pt, end_vel, false);
     if (status == KinodynamicAstar::NO_PATH) {
-      cout << "[Kino replan]: Can't find path." << endl;
+      ROS_ERROR_STREAM("[Kino replan]: Can't find path.");
       return false;
     }
   }
@@ -191,7 +191,7 @@ bool FastPlannerManager::kinodynamicReplan(const Eigen::Vector3d& start_pt,
             << std::endl;
 
   double t_opt = (ros::Time::now() - t1).toSec();
-  ROS_WARN("Kino t: %lf, opt: %lf", t_search, t_opt);
+  // ROS_WARN("Kino t: %lf, opt: %lf", t_search, t_opt);
 
   // t1 = ros::Time::now();
 

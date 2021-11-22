@@ -75,7 +75,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
         std::cout << "reach end" << std::endl;
         return REACH_END;
       } else {
-        std::cout << "reach horizon" << std::endl;
+        ROS_ERROR_STREAM("reach horizon");
         return REACH_HORIZON;
       }
     }
@@ -85,10 +85,10 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
         std::cout << "reach end" << std::endl;
         return REACH_END;
       } else if (cur_node->parent != NULL) {
-        std::cout << "near end" << std::endl;
+        ROS_ERROR_STREAM("near end");
         return NEAR_END;
       } else {
-        std::cout << "no path" << std::endl;
+        ROS_ERROR_STREAM("no path");
         return NO_PATH;
       }
     }
@@ -234,7 +234,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
 
             use_node_num_ += 1;
             if (use_node_num_ == allocate_num_) {
-              cout << "run out of memory." << endl;
+              ROS_ERROR_STREAM("run out of memory.");
               return NO_PATH;
             }
           } else if (pro_node->node_state == IN_OPEN_SET) {
@@ -249,14 +249,14 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
               if (dynamic) pro_node->time = cur_node->time + tau;
             }
           } else {
-            cout << "error type in searching: " << pro_node->node_state << endl;
+            ROS_ERROR_STREAM("error type in searching: " << pro_node->node_state);
           }
         }
       }
     // init_search = false;
   }
 
-  cout << "open set empty, no path!" << endl;
+  ROS_ERROR_STREAM("open set empty, no path!");
   cout << "use node num: " << use_node_num_ << endl;
   cout << "iter num: " << iter_num_ << endl;
   return NO_PATH;
