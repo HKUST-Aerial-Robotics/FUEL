@@ -283,8 +283,8 @@ void cmdCallback(const ros::TimerEvent& e) {
     // Report info of the whole flight
     double len = calcPathLength(traj_cmd_);
     double flight_t = (end_time - start_time).toSec();
-    ROS_WARN_THROTTLE(2, "flight time: %lf, path length: %lf, mean vel: %lf, energy is: % lf ", flight_t,
-                      len, len / flight_t, energy);
+    // ROS_WARN_THROTTLE(2, "flight time: %lf, path length: %lf, mean vel: %lf, energy is: % lf ", flight_t,
+    //                   len, len / flight_t, energy);
   } else {
     cout << "[Traj server]: invalid time." << endl;
   }

@@ -339,7 +339,7 @@ namespace fast_planner
       for (auto t : replan_time_)
         mean1 += t;
       mean1 /= replan_time_.size();
-      ROS_WARN("Replan number: %d, mean traj: %lf", replan_time_.size(), mean1);
+      // ROS_WARN("Replan number: %d, mean traj: %lf", replan_time_.size(), mean1);
     }
 
     if (plan_success)
