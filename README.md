@@ -51,6 +51,7 @@ Please kindly star :star: this project if it helps you. We take great efforts to
   - [Quick Start](#quick-start)
   - [Exploring Different Environments](#exploring-different-environments)
   - [Creating a _.pcd_ Environment](#creating-a-pcd-environment)
+  - [Known issues](#known-issues)
 
 ## Quick Start
 
@@ -128,7 +129,7 @@ _pillar.pcd_:
 </p>
 
 If you want to use your own environments, simply place the .pcd files in [map_generator/resource](uav_simulator/map_generator/resource), and follow the comments above to specify it.
-You may also need to change the bounding box of explored space in [exploration.launch](/home/boboyu/FUEL/src/FUEL/fuel_planner/exploration_manager/launch/exploration.launch):
+You may also need to change the bounding box of explored space in [exploration.launch](https://github.com/HKUST-Aerial-Robotics/FUEL/blob/main/fuel_planner/exploration_manager/launch/exploration.launch):
 
 ```xml
     <arg name="box_min_x" value="-10.0"/>
@@ -165,6 +166,41 @@ After you've finished, run the following node to save the map in another termina
 
 Normally, a file named __tmp.pcd__ will be saved at ```~/```. You may replace ```~/``` with any locations you want.
 Lastly, you can use this file for exploration, as mentioned [here](#exploring-different-environments).
+
+## Known issues
+
+### Compilation issue
+
+When running this project on Ubuntu 20.04, C++14 is required. Please add the following line in all CMakelists.txt files:
+
+```
+set(CMAKE_CXX_STANDARD 14)
+```
+
+### Unexpected crash
+
+If the ```exploration_node``` dies after triggering a 2D Nav Goal, it is possibly caused by the ros-nlopt library. In this case, we recommend to uninstall it and [install nlopt following the official document](https://nlopt.readthedocs.io/en/latest/NLopt_Installation/). Then in the [CMakeLists.txt of bspline_opt package](https://github.com/HKUST-Aerial-Robotics/FUEL/blob/main/fuel_planner/bspline_opt/CMakeLists.txt), change the associated lines to link the nlopt library:
+
+```
+include_directories( 
+    SYSTEM 
+    include 
+    ${catkin_INCLUDE_DIRS}
+    ${Eigen3_INCLUDE_DIRS} 
+    ${PCL_INCLUDE_DIRS}
+    ${NLOPT_INCLUDE_DIR}
+)
+
+add_library( bspline_opt 
+    src/bspline_optimizer.cpp 
+    )
+target_link_libraries( bspline_opt
+    ${catkin_LIBRARIES} 
+    ${NLOPT_LIBRARIES}
+    # /usr/local/lib/libnlopt.so
+    )  
+
+```
 
 ## Acknowledgements
   We use **NLopt** for non-linear optimization and use **LKH** for travelling salesman problem.
