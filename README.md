@@ -182,6 +182,11 @@ set(CMAKE_CXX_STANDARD 14)
 If the ```exploration_node``` dies after triggering a 2D Nav Goal, it is possibly caused by the ros-nlopt library. In this case, we recommend to uninstall it and [install nlopt following the official document](https://nlopt.readthedocs.io/en/latest/NLopt_Installation/). Then in the [CMakeLists.txt of bspline_opt package](https://github.com/HKUST-Aerial-Robotics/FUEL/blob/main/fuel_planner/bspline_opt/CMakeLists.txt), change the associated lines to link the nlopt library:
 
 ```
+find_package(NLopt REQUIRED)
+set(NLopt_INCLUDE_DIRS ${NLOPT_INCLUDE_DIR})
+
+...
+
 include_directories( 
     SYSTEM 
     include 
@@ -190,6 +195,8 @@ include_directories(
     ${PCL_INCLUDE_DIRS}
     ${NLOPT_INCLUDE_DIR}
 )
+
+...
 
 add_library( bspline_opt 
     src/bspline_optimizer.cpp 
