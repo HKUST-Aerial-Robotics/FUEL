@@ -44,7 +44,7 @@ Please cite our paper if you use this project in your research:
 }
 ```
 
-Please kindly star :star: this project if it helps you. We take great efforts to develope and maintain it :grin::grin:.
+Please kindly star :star: this project if it helps you. We take great efforts to develop and maintain it :grin::grin:.
 
 ## Table of Contents
 
