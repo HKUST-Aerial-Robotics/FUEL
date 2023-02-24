@@ -2,6 +2,7 @@
 
 __News:__
 
+- Feb 24, 2023: the code for multi-UAV exploration is released! check [this link](https://github.com/SYSU-STAR/RACER).
 - Aug 24, 2021: The CPU-based simulation is released, CUDA is no longer required. Richer exploration environments are provided.
   
 **FUEL** is a powerful framework for **F**ast **U**AV **E**xp**L**oration.
@@ -17,7 +18,7 @@ Central to it is a Frontier Information Structure (FIS), which maintains crucial
 </p>
 
 
-Recently, we further develop a fully decentralized approach for exploration tasks using a fleet of quadrotors. The quadrotor team operates with asynchronous and limited communication, and does not require any central control. The coverage paths and workload allocations of the team are optimized and balanced in order to fully realize the system's potential. The associated paper is under review, so code of this part will be released in the future.
+Recently, we further develop a fully decentralized approach for exploration tasks using a fleet of quadrotors. The quadrotor team operates with asynchronous and limited communication, and does not require any central control. The coverage paths and workload allocations of the team are optimized and balanced in order to fully realize the system's potential. The associated paper has been published in IEEE TRO. Check code [here](https://github.com/SYSU-STAR/RACER).
 
 <p align="center">
   <img src="files/racer1.gif" width = "400" height = "225"/>
@@ -26,7 +27,7 @@ Recently, we further develop a fully decentralized approach for exploration task
 
 __Complete videos__: [video1](https://www.youtube.com/watch?v=_dGgZUrWk-8), [video2](https://www.bilibili.com/video/BV1yf4y1P7Vj).
 
-__Authors__: [Boyu Zhou](http://boyuzhou.net) and [Shaojie Shen](http://uav.ust.hk/group/) from the [HUKST Aerial Robotics Group](http://uav.ust.hk/).
+__Authors__: [Boyu Zhou](http://boyuzhou.net) from SYSU and [Shaojie Shen](http://uav.ust.hk/group/) from the [HUKST Aerial Robotics Group](http://uav.ust.hk/).
 
 Please cite our paper if you use this project in your research:
 - [__FUEL: Fast UAV Exploration using Incremental Frontier Structure and Hierarchical Planning__](https://arxiv.org/abs/2010.11561), Boyu Zhou, Yichen Zhang, Xinyi Chen, Shaojie Shen, IEEE Robotics and Automation Letters (**RA-L**) with ICRA 2021 option
