@@ -2,7 +2,7 @@
 
 __News:__
 
-- Feb 24, 2023: the code for multi-UAV exploration is released! check [this link](https://github.com/SYSU-STAR/RACER).
+- Feb 24, 2023: the code for **multi-UAV exploration** is released! check [this link](https://github.com/SYSU-STAR/RACER).
 - Aug 24, 2021: The CPU-based simulation is released, CUDA is no longer required. Richer exploration environments are provided.
   
 **FUEL** is a powerful framework for **F**ast **U**AV **E**xp**L**oration.
