@@ -27,7 +27,7 @@ Recently, we further develop a fully decentralized approach for exploration task
 
 __Complete videos__: [video1](https://www.youtube.com/watch?v=_dGgZUrWk-8), [video2](https://www.bilibili.com/video/BV1yf4y1P7Vj).
 
-__Authors__: [Boyu Zhou](http://boyuzhou.net) from SYSU and [Shaojie Shen](http://uav.ust.hk/group/) from the [HUKST Aerial Robotics Group](http://uav.ust.hk/).
+__Authors__: [Boyu Zhou](http://sysu-star.com) from SYSU and [Shaojie Shen](http://uav.ust.hk/group/) from the [HUKST Aerial Robotics Group](http://uav.ust.hk/).
 
 Please cite our paper if you use this project in your research:
 - [__FUEL: Fast UAV Exploration using Incremental Frontier Structure and Hierarchical Planning__](https://arxiv.org/abs/2010.11561), Boyu Zhou, Yichen Zhang, Xinyi Chen, Shaojie Shen, IEEE Robotics and Automation Letters (**RA-L**) with ICRA 2021 option
