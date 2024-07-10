@@ -9,6 +9,7 @@
 #include <so3_control/SO3Control.h>
 #include <std_msgs/Bool.h>
 #include <tf/transform_datatypes.h>
+#include <geometry_msgs/Pose.h>
 
 class SO3ControlNodelet : public nodelet::Nodelet {
 public:
@@ -37,6 +38,7 @@ private:
 
   SO3Control controller_;
   ros::Publisher so3_command_pub_;
+  ros::Publisher so3_command_pose_pub_;
   ros::Subscriber odom_sub_;
   ros::Subscriber position_cmd_sub_;
   ros::Subscriber enable_motors_sub_;
@@ -81,6 +83,17 @@ void SO3ControlNodelet::publishSO3Command(void) {
   so3_command->aux.enable_motors = enable_motors_;
   so3_command->aux.use_external_yaw = use_external_yaw_;
   so3_command_pub_.publish(so3_command);
+
+  geometry_msgs::Pose pose_msg;
+  pose_msg.position.x = force(0);
+  pose_msg.position.y = force(1);
+  pose_msg.position.z = force(2);
+  pose_msg.orientation.x = orientation.x();
+  pose_msg.orientation.y = orientation.y();
+  pose_msg.orientation.z = orientation.z();
+  pose_msg.orientation.w = orientation.w();
+
+  so3_command_pose_pub_.publish(pose_msg);
 }
 
 void SO3ControlNodelet::position_cmd_callback(const quadrotor_msgs::PositionCommand::ConstPtr& cmd) {
@@ -167,6 +180,7 @@ void SO3ControlNodelet::onInit(void) {
   n.param("corrections/p", corrections_[2], 0.0);
 
   so3_command_pub_ = n.advertise<quadrotor_msgs::SO3Command>("so3_cmd", 10);
+  so3_command_pose_pub_ = n.advertise<geometry_msgs::Pose>("so3_pose", 10);
 
   odom_sub_ = n.subscribe("odom", 10, &SO3ControlNodelet::odom_callback, this,
                           ros::TransportHints().tcpNoDelay());
