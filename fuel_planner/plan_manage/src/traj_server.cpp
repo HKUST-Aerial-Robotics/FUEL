@@ -516,6 +516,16 @@ int main(int argc, char** argv) {
   cmd.yaw = 0.0;
   cmd.yaw_dot = 0.0;
 
+  pose_cmd.orientation.x = init_pos[0];
+  pose_cmd.orientation.y = init_pos[1];
+  pose_cmd.orientation.z = init_pos[2];
+  pose_cmd.orientation.w = 0.0;
+
+  vel_cmd.orientation.x = 0.0;
+  vel_cmd.orientation.y = 0.0;
+  vel_cmd.orientation.z = 0.0;
+  vel_cmd.orientation.w = 0.0;
+
   percep_utils_.reset(new PerceptionUtils(nh));
 
   // test();
