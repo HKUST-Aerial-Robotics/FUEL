@@ -317,11 +317,11 @@ void cmdCallback(const ros::TimerEvent& e) {
   cmd.yaw_dot = yawdot;
   pos_cmd_pub.publish(cmd);
 
-  pos_cmd.orientation.x = pos(0);
-  pos_cmd.orientation.y = pos(1);
-  pos_cmd.orientation.z = pos(2);
-  pos_cmd.orientation.w = yaw;
-  pos_pose_pub.publish(pos_cmd);
+  pose_cmd.orientation.x = pos(0);
+  pose_cmd.orientation.y = pos(1);
+  pose_cmd.orientation.z = pos(2);
+  pose_cmd.orientation.w = yaw;
+  pos_pose_pub.publish(pose_cmd);
 
   vel_cmd.orientation.x = vel(0);
   vel_cmd.orientation.y = vel(1);
@@ -443,16 +443,14 @@ void test() {
     cmd.acceleration.z = a(2);
     pos_cmd_pub.publish(cmd);
 
-    pos_cmd.orientation.x = pos(0);
-    pos_cmd.orientation.y = pos(1);
-    pos_cmd.orientation.z = pos(2);
-    pos_cmd.orientation.w = yaw;
+    pose_cmd.orientation.x = p(0);
+    pose_cmd.orientation.y = p(1);
+    pose_cmd.orientation.z = p(2);
     pos_pose_pub.publish(pos_cmd);
 
-    vel_cmd.orientation.x = vel(0);
-    vel_cmd.orientation.y = vel(1);
-    vel_cmd.orientation.z = vel(2);
-    vel_cmd.orientation.w = yawdot;
+    vel_cmd.orientation.x = v(0);
+    vel_cmd.orientation.y = v(1);
+    vel_cmd.orientation.z = v(2);
     vel_pose_pub.publish(vel_cmd);
 
     ros::Duration(0.02).sleep();
