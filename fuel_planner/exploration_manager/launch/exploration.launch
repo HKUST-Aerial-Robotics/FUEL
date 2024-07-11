@@ -41,8 +41,8 @@
     <arg name="fy" value="387.229248046875"/>
 
     <!-- maximum velocity and acceleration the drone will reach -->
-    <arg name="max_vel" value="2.0" />
-    <arg name="max_acc" value="2.0" />
+    <arg name="max_vel" value="0.8" />
+    <arg name="max_acc" value="0.8" />
   </include>
 
   <!-- trajectory server -->
