@@ -7,6 +7,7 @@
 #include <ros/ros.h>
 #include <poly_traj/polynomial_traj.h>
 #include <active_perception/perception_utils.h>
+#include <geometry_msgs/Pose.h>
 
 #include <plan_manage/backward.hpp>
 namespace backward {
@@ -17,9 +18,10 @@ using fast_planner::Polynomial;
 using fast_planner::PolynomialTraj;
 using fast_planner::PerceptionUtils;
 
-ros::Publisher cmd_vis_pub, pos_cmd_pub, traj_pub;
+ros::Publisher cmd_vis_pub, pos_cmd_pub, traj_pub, pos_pose_pub;
 nav_msgs::Odometry odom;
 quadrotor_msgs::PositionCommand cmd;
+geometry_msgs::Pose pose_cmd;
 
 // Info of generated traj
 vector<NonUniformBspline> traj_;
@@ -314,6 +316,12 @@ void cmdCallback(const ros::TimerEvent& e) {
   cmd.yaw_dot = yawdot;
   pos_cmd_pub.publish(cmd);
 
+  pos_cmd.orientation.x = pos(0);
+  pos_cmd.orientation.y = pos(1);
+  pos_cmd.orientation.z = pos(2);
+  pos_cmd.orientation.w = yaw;
+  pos_pose_pub.publish(pos_cmd);
+
   // Draw cmd
   // Eigen::Vector3d dir(cos(yaw), sin(yaw), 0.0);
   // drawCmd(pos, 2 * dir, 2, Eigen::Vector4d(1, 1, 0, 0.7));
@@ -428,6 +436,12 @@ void test() {
     cmd.acceleration.z = a(2);
     pos_cmd_pub.publish(cmd);
 
+    pos_cmd.orientation.x = pos(0);
+    pos_cmd.orientation.y = pos(1);
+    pos_cmd.orientation.z = pos(2);
+    pos_cmd.orientation.w = yaw;
+    pos_pose_pub.publish(pos_cmd);
+
     ros::Duration(0.02).sleep();
     tn = (ros::Time::now() - t1).toSec();
   }
@@ -447,6 +461,7 @@ int main(int argc, char** argv) {
   cmd_vis_pub = node.advertise<visualization_msgs::Marker>("planning/position_cmd_vis", 10);
   pos_cmd_pub = node.advertise<quadrotor_msgs::PositionCommand>("/position_cmd", 50);
   traj_pub = node.advertise<visualization_msgs::Marker>("planning/travel_traj", 10);
+  pos_pose_pub = node.advertise<geometry_msgs::Pose>("/position_pose", 50);
 
   ros::Timer cmd_timer = node.createTimer(ros::Duration(0.01), cmdCallback);
   ros::Timer vis_timer = node.createTimer(ros::Duration(0.25), visCallback);
@@ -485,6 +500,11 @@ int main(int argc, char** argv) {
   cmd.acceleration.z = 0.0;
   cmd.yaw = 0.0;
   cmd.yaw_dot = 0.0;
+
+  pose_cmd.orientation.x = init_pos[0];
+  pose_cmd.orientation.y = init_pos[1];
+  pose_cmd.orientation.z = init_pos[2];
+  pose_cmd.orientation.w = 0.0;
 
   percep_utils_.reset(new PerceptionUtils(nh));
 
