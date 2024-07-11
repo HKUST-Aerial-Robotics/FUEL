@@ -7,7 +7,7 @@
 #include <ros/ros.h>
 #include <poly_traj/polynomial_traj.h>
 #include <active_perception/perception_utils.h>
-#include "std_msgs/msg/float32_multi_array.hpp"
+#include "std_msgs/Float32MultiArray.h"
 
 #include <plan_manage/backward.hpp>
 namespace backward {
