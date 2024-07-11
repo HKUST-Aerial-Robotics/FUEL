@@ -456,7 +456,7 @@ int main(int argc, char** argv) {
   cmd_vis_pub = node.advertise<visualization_msgs::Marker>("planning/position_cmd_vis", 10);
   pos_cmd_pub = node.advertise<quadrotor_msgs::PositionCommand>("/position_cmd", 50);
   traj_pub = node.advertise<visualization_msgs::Marker>("planning/travel_traj", 10);
-  pos_vel_pub = node.advertise<std_msgs::msg::Float32MultiArray>("/pos_vel_cmd", 50);
+  pos_vel_pub = node.advertise<std_msgs::Float32MultiArray>("/pos_vel_cmd", 50);
 
   ros::Timer cmd_timer = node.createTimer(ros::Duration(0.01), cmdCallback);
   ros::Timer vis_timer = node.createTimer(ros::Duration(0.25), visCallback);
