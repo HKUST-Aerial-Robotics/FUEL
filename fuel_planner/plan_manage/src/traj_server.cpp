@@ -315,7 +315,7 @@ void cmdCallback(const ros::TimerEvent& e) {
   cmd.yaw_dot = yawdot;
   pos_cmd_pub.publish(cmd);
 
-  auto message = std_msgs::msg::Float32MultiArray();
+  auto message = std_msgs::Float32MultiArray();
   message.data = {pos(0), pos(1), pos(2), yaw, vel(0), vel(1), vel(2), yawdot};  
   pos_vel_pub.publish(message);
 
@@ -433,7 +433,7 @@ void test() {
     cmd.acceleration.z = a(2);
     pos_cmd_pub.publish(cmd);
 
-  auto message = std_msgs::msg::Float32MultiArray();
+  auto message = std_msgs::Float32MultiArray();
   message.data = {p(0), p(1), p(2), v(0), v(1), v(2)};  
   pos_vel_pub.publish(message);
 
