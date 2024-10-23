@@ -58,7 +58,9 @@ Please kindly star :star: this project if it helps you. We take great efforts to
 
 ## Quick Start
 
-This project has been tested on Ubuntu 16.04(ROS Kinetic) and 18.04(ROS Melodic). Take Ubuntu 18.04 as an example, run the following commands to install required tools:
+This project has been tested on Ubuntu 18.04(ROS Melodic) and 20.04(ROS Noetic).
+
+Run the following commands to install required tools:
 
 ```
   sudo apt-get install libarmadillo-dev libnlopt-dev
