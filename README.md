@@ -49,17 +49,19 @@ Please kindly star :star: this project if it helps you. We take great efforts to
 
 ## Table of Contents
 
+- [FUEL](#fuel)
+  - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
   - [Exploring Different Environments](#exploring-different-environments)
   - [Creating a _.pcd_ Environment](#creating-a-pcd-environment)
-  - [Known issues](#known-issues)
+  - [Acknowledgements](#acknowledgements)
 
 ## Quick Start
 
 This project has been tested on Ubuntu 16.04(ROS Kinetic) and 18.04(ROS Melodic). Take Ubuntu 18.04 as an example, run the following commands to install required tools:
 
 ```
-  sudo apt-get install libarmadillo-dev ros-melodic-nlopt
+  sudo apt-get install libarmadillo-dev libnlopt-dev
 ```
 
 <!-- To simulate the depth camera, we use a simulator based on CUDA Toolkit. Please install it first following the [instruction of CUDA](https://developer.nvidia.com/zh-cn/cuda-toolkit). 
@@ -167,48 +169,6 @@ After you've finished, run the following node to save the map in another termina
 
 Normally, a file named __tmp.pcd__ will be saved at ```~/```. You may replace ```~/``` with any locations you want.
 Lastly, you can use this file for exploration, as mentioned [here](#exploring-different-environments).
-
-## Known issues
-
-### Compilation issue
-
-When running this project on Ubuntu 20.04, C++14 is required. Please add the following line in all CMakelists.txt files:
-
-```
-set(CMAKE_CXX_STANDARD 14)
-```
-
-### Unexpected crash
-
-If the ```exploration_node``` dies after triggering a 2D Nav Goal, it is possibly caused by the ros-nlopt library. In this case, we recommend to uninstall it and [install nlopt following the official document](https://nlopt.readthedocs.io/en/latest/NLopt_Installation/). Then in the [CMakeLists.txt of bspline_opt package](https://github.com/HKUST-Aerial-Robotics/FUEL/blob/main/fuel_planner/bspline_opt/CMakeLists.txt), change the associated lines to link the nlopt library:
-
-```
-find_package(NLopt REQUIRED)
-set(NLopt_INCLUDE_DIRS ${NLOPT_INCLUDE_DIR})
-
-...
-
-include_directories( 
-    SYSTEM 
-    include 
-    ${catkin_INCLUDE_DIRS}
-    ${Eigen3_INCLUDE_DIRS} 
-    ${PCL_INCLUDE_DIRS}
-    ${NLOPT_INCLUDE_DIR}
-)
-
-...
-
-add_library( bspline_opt 
-    src/bspline_optimizer.cpp 
-    )
-target_link_libraries( bspline_opt
-    ${catkin_LIBRARIES} 
-    ${NLOPT_LIBRARIES}
-    # /usr/local/lib/libnlopt.so
-    )  
-
-```
 
 ## Acknowledgements
   We use **NLopt** for non-linear optimization and use **LKH** for travelling salesman problem.
