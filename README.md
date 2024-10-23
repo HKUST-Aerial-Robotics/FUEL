@@ -60,10 +60,15 @@ Please kindly star :star: this project if it helps you. We take great efforts to
 
 This project has been tested on Ubuntu 18.04(ROS Melodic) and 20.04(ROS Noetic).
 
-Run the following commands to install required tools:
 
+If you use Ubuntu20.04(ROS Noetic), you can run the following commands to install required tools:
 ```
-  sudo apt-get install libarmadillo-dev libnlopt-dev
+  sudo apt-get install libarmadillo-dev ros-noetic-nlopt # ubuntu20.04
+```
+
+Else, you can run the following commands to install required tools:
+```
+  sudo apt-get install libarmadillo-dev libnlopt-dev # other ubuntu versions
 ```
 
 <!-- To simulate the depth camera, we use a simulator based on CUDA Toolkit. Please install it first following the [instruction of CUDA](https://developer.nvidia.com/zh-cn/cuda-toolkit). 

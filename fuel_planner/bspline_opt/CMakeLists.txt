@@ -10,7 +10,9 @@ find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
 # Check if the system can find nlopt
 find_package(NLopt)
-if(NOT NLopt_FOUND)
+set(TMP_NLopt_FOUND ${NLopt_FOUND})
+
+if(NOT TMP_NLopt_FOUND)
     set(NLOPT_INCLUDE_DIR "/usr/include")  # Default system path
     set(NLOPT_LIBRARY "/usr/lib/x86_64-linux-gnu/libnlopt.so")  # Manually specify library path
 else()
@@ -34,20 +36,38 @@ catkin_package(
  CATKIN_DEPENDS plan_env active_perception
 )
 
-include_directories( 
-    SYSTEM 
-    include 
-    ${catkin_INCLUDE_DIRS}
-    ${Eigen3_INCLUDE_DIRS} 
-    ${PCL_INCLUDE_DIRS}
-    ${NLOPT_INCLUDE_DIRS}  # If NLopt is found, use the result of find_package
-)
+if(NOT TMP_NLopt_FOUND)
+    include_directories( 
+        SYSTEM 
+        include 
+        ${catkin_INCLUDE_DIRS}
+        ${Eigen3_INCLUDE_DIRS} 
+        ${PCL_INCLUDE_DIRS}
+        ${NLOPT_INCLUDE_DIR}  
+    )
 
-add_library( bspline_opt 
-    src/bspline_optimizer.cpp 
+    add_library( bspline_opt 
+        src/bspline_optimizer.cpp 
+        )
+    target_link_libraries( bspline_opt
+        ${catkin_LIBRARIES} 
+        ${NLOPT_LIBRARY}   
+        )
+else()
+    include_directories( 
+        SYSTEM 
+        include 
+        ${catkin_INCLUDE_DIRS}
+        ${Eigen3_INCLUDE_DIRS} 
+        ${PCL_INCLUDE_DIRS}
+        ${NLOPT_INCLUDE_DIRS}  
     )
-target_link_libraries( bspline_opt
-    ${catkin_LIBRARIES} 
-    ${NLOPT_LIBRARIES}  # Link nlopt library
-    ${NLOPT_LIBRARY}    # If nlopt is not found, manually link it as well
-    )
+
+    add_library( bspline_opt 
+        src/bspline_optimizer.cpp 
+        )
+    target_link_libraries( bspline_opt
+        ${catkin_LIBRARIES} 
+        ${NLOPT_LIBRARIES}  # If NLopt is found, use the result of find_package
+        )
+endif()
