@@ -60,15 +60,20 @@ Please kindly star :star: this project if it helps you. We take great efforts to
 
 This project has been tested on Ubuntu 18.04(ROS Melodic) and 20.04(ROS Noetic).
 
+Firstly, you should install __nlopt__:
+```
+git clone https://github.com/stevengj/nlopt.git
+cd nlopt
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+```
 
-If you use Ubuntu20.04(ROS Noetic), you can run the following commands to install required tools:
+Next, you can run the following commands to install other required tools:
 ```
-  sudo apt-get install libarmadillo-dev ros-noetic-nlopt # ubuntu20.04
-```
-
-Else, you can run the following commands to install required tools:
-```
-  sudo apt-get install libarmadillo-dev libnlopt-dev # other ubuntu versions
+sudo apt-get install libarmadillo-dev
 ```
 
 <!-- To simulate the depth camera, we use a simulator based on CUDA Toolkit. Please install it first following the [instruction of CUDA](https://developer.nvidia.com/zh-cn/cuda-toolkit). 
@@ -84,20 +89,20 @@ After successful installation, in the **local_sensing** package in **uav_simulat
 Then simply clone and compile our package (using ssh here):
 
 ```
-  cd ${YOUR_WORKSPACE_PATH}/src
-  git clone git@github.com:HKUST-Aerial-Robotics/FUEL.git
-  cd ../ 
-  catkin_make
+cd ${YOUR_WORKSPACE_PATH}/src
+git clone git@github.com:HKUST-Aerial-Robotics/FUEL.git
+cd ../ 
+catkin_make
 ```
 
 After compilation you can start a sample exploration demo. Firstly run ```Rviz``` for visualization: 
 
 ```
-  source devel/setup.bash && roslaunch exploration_manager rviz.launch
+source devel/setup.bash && roslaunch exploration_manager rviz.launch
 ```
 then run the simulation (run in a new terminals): 
 ```
-  source devel/setup.bash && roslaunch exploration_manager exploration.launch
+source devel/setup.bash && roslaunch exploration_manager exploration.launch
 ```
 
 By default you can see an office-like environment. Trigger the quadrotor to start exploration by the ```2D Nav Goal``` tool in ```Rviz```. A sample is shown below, where unexplored structures are shown in grey and explored ones are shown in colorful voxels. The FoV and trajectories of the quadrotor are also displayed.
