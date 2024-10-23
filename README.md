@@ -60,9 +60,9 @@ Please kindly star :star: this project if it helps you. We take great efforts to
 
 This project has been tested on Ubuntu 18.04(ROS Melodic) and 20.04(ROS Noetic).
 
-Firstly, you should install __nlopt__:
+Firstly, you should install __nlopt v2.7.1__:
 ```
-git clone https://github.com/stevengj/nlopt.git
+git clone -b v2.7.1 https://github.com/stevengj/nlopt.git
 cd nlopt
 mkdir build
 cd build
