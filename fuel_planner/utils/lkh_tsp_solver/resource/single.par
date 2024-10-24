@@ -1,4 +1,0 @@
-PROBLEM_FILE = /home/boboyu/FUEL/src/FUEL/fuel_planner/utils/lkh_tsp_solver/resource/single.tsp
-GAIN23 = NO
-OUTPUT_TOUR_FILE =/home/boboyu/FUEL/src/FUEL/fuel_planner/utils/lkh_tsp_solver/resource/single.txt
-RUNS = 1
