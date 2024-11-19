@@ -184,6 +184,7 @@ int FastExplorationManager::planExploreMotion(
     }
   } else if (ed_->points_.size() == 1) {
     // Only 1 destination, no need to find global tour through TSP
+    frontier_finder_->updateFrontierCostMatrix();
     ed_->global_tour_ = { pos, ed_->points_[0] };
     ed_->refined_tour_.clear();
     ed_->refined_views1_.clear();
