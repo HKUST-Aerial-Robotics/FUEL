@@ -31,8 +31,10 @@ add_library( lkh_tsp_solver
   src/lkh_interface.cpp
 )
 target_link_libraries(lkh_tsp_solver -lm)
+target_compile_options(lkh_tsp_solver PRIVATE -fcommon)
 
 add_executable( lkh_tsp 
   ${SRCS}
 )
 target_link_libraries(lkh_tsp ${catkin_LIBRARIES} -lm)
+target_compile_options(lkh_tsp PRIVATE -fcommon)
