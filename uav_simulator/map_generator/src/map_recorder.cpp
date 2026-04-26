@@ -14,6 +14,11 @@ string file_path;
 void cloudCallback(const sensor_msgs::PointCloud2& msg) {
   pcl::PointCloud<pcl::PointXYZ> cloud;
   pcl::fromROSMsg(msg, cloud);
+  if (cloud.empty()) {
+    ROS_WARN("[Map Recorder]: received empty click map, waiting for clicked walls.");
+    return;
+  }
+
   pcl::io::savePCDFileASCII(file_path + std::string("tmp.pcd"), cloud);
 
   cout << "map saved." << endl;

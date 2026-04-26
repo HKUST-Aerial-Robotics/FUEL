@@ -1,5 +1,7 @@
 #include <traj_utils/planning_visualization.h>
 
+#include <geometry_msgs/Point.h>
+
 using std::cout;
 using std::endl;
 namespace fast_planner {

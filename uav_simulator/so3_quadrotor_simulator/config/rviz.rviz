@@ -1,5 +1,5 @@
 Panels:
-  - Class: rviz/Displays
+  - Class: rviz_common/Displays
     Help Height: 78
     Name: Displays
     Property Tree Widget:
@@ -8,9 +8,9 @@ Panels:
         - /UAV1
       Splitter Ratio: 0.5
     Tree Height: 711
-  - Class: rviz/Selection
+  - Class: rviz_common/Selection
     Name: Selection
-  - Class: rviz/Tool Properties
+  - Class: rviz_common/Tool Properties
     Expanded:
       - /2D Pose Estimate1
       - /2D Nav Goal1
@@ -18,12 +18,12 @@ Panels:
       - /3D Nav Goal1
     Name: Tool Properties
     Splitter Ratio: 0.588679016
-  - Class: rviz/Views
+  - Class: rviz_common/Views
     Expanded:
       - /Current View1
     Name: Views
     Splitter Ratio: 0.5
-  - Class: rviz/Time
+  - Class: rviz_common/Time
     Experimental: false
     Name: Time
     SyncMode: 0
@@ -33,7 +33,7 @@ Visualization Manager:
   Displays:
     - Alpha: 0.5
       Cell Size: 1
-      Class: rviz/Grid
+      Class: rviz_default_plugins/Grid
       Color: 138; 138; 138
       Enabled: true
       Line Style:
@@ -49,7 +49,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Class: rviz/Marker
+    - Class: rviz_default_plugins/Marker
       Enabled: true
       Marker Topic: /odom_visualization_ukf/robot
       Name: UAV
@@ -59,7 +59,7 @@ Visualization Manager:
       Value: true
     - Alpha: 1
       Buffer Length: 1
-      Class: rviz/Path
+      Class: rviz_default_plugins/Path
       Color: 255; 85; 255
       Enabled: true
       Head Diameter: 0.300000012
@@ -83,7 +83,7 @@ Visualization Manager:
     - Alpha: 1
       Axes Length: 1
       Axes Radius: 0.100000001
-      Class: rviz/Pose
+      Class: rviz_default_plugins/Pose
       Color: 0; 255; 0
       Enabled: true
       Head Length: 0.300000012
@@ -95,7 +95,7 @@ Visualization Manager:
       Topic: /odom_visualization_1/pose
       Unreliable: false
       Value: true
-    - Class: rviz/Marker
+    - Class: rviz_default_plugins/Marker
       Enabled: true
       Marker Topic: /odom_visualization_1/velocity
       Name: Velocity
@@ -105,7 +105,7 @@ Visualization Manager:
       Value: true
     - Alpha: 1
       Buffer Length: 1
-      Class: rviz/Path
+      Class: rviz_default_plugins/Path
       Color: 255; 85; 255
       Enabled: true
       Head Diameter: 0.300000012
@@ -126,7 +126,7 @@ Visualization Manager:
       Topic: /CircleNode_1/path
       Unreliable: false
       Value: true
-    - Class: rviz/Axes
+    - Class: rviz_default_plugins/Axes
       Enabled: true
       Length: 1
       Name: Axes
@@ -141,35 +141,23 @@ Visualization Manager:
     Frame Rate: 30
   Name: root
   Tools:
-    - Class: rviz/Interact
+    - Class: rviz_default_plugins/Interact
       Hide Inactive Objects: true
-    - Class: rviz/MoveCamera
-    - Class: rviz/Select
-    - Class: rviz/FocusCamera
-    - Class: rviz/Measure
-    - Class: rviz/SetInitialPose
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+    - Class: rviz_default_plugins/SetInitialPose
       Topic: /initialpose
-    - Class: rviz/SetGoal
+    - Class: rviz_default_plugins/SetGoal
       Topic: /move_base_simple/goal
-    - Class: rviz/PublishPoint
+    - Class: rviz_default_plugins/PublishPoint
       Single click: true
       Topic: /clicked_point
-    - Class: rviz_plugins/GameLikeInput
-      RangeX_max: 4
-      RangeX_min: -4
-      RangeY_max: 2.5
-      RangeY_min: -2.5
-      RangeZ_max: 1.70000005
-      RangeZ_min: 0.800000012
-      TopicPoint: point_list
-      TopicSelect: select_list
-      TopicSwarm: swarm
-    - Class: rviz_plugins/Goal3DTool
-      Topic: goal
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
+      Class: rviz_default_plugins/Orbit
       Distance: 10.507864
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987

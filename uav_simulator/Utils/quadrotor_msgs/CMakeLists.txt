@@ -1,109 +1,72 @@
-#-cmake_minimum_required(VERSION 2.4.6)
-#-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
-
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-#set(ROS_BUILD_TYPE RelWithDebInfo)
-
-#-rosbuild_init()
-
-#set the default path for built executables to the "bin" directory
-#-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-#-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-
-#uncomment if you have defined messages
-#rosbuild_genmsg()
-#uncomment if you have defined services
-#rosbuild_gensrv()
-
-#common commands for building c++ executables and libraries
-#-\rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-#target_link_libraries(${PROJECT_NAME} another_library)
-#rosbuild_add_boost_directories()
-#rosbuild_link_boost(${PROJECT_NAME} thread)
-#rosbuild_add_executable(example examples/example.cpp)
-#target_link_libraries(example ${PROJECT_NAME})
-
-#-rosbuild_add_library(encode_msgs src/encode_msgs.cpp)
-#-rosbuild_add_link_flags(encode_msgs -Wl,--as-needed)
-
-#list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-#find_package(Eigen3 REQUIRED)
-
-#include_directories(${EIGEN3_INCLUDE_DIR})
-#-rosbuild_add_library(decode_msgs src/decode_msgs.cpp)
-#-rosbuild_add_link_flags(decode_msgs -Wl,--as-needed)
-
-#------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(quadrotor_msgs)
 
-find_package(catkin REQUIRED COMPONENTS
-  #armadillo
-  roscpp
-  nav_msgs
-  geometry_msgs
-  message_generation
-)
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type")
+add_compile_options(-O3 -Wall)
 
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-include_directories(
-    ${catkin_INCLUDE_DIRS}
-    include
-    )
-
-
-add_message_files(
-  FILES
-  AuxCommand.msg
-  Corrections.msg
-  Gains.msg
-  OutputData.msg
-  PositionCommand.msg
-  PPROutputData.msg
-  Serial.msg
-  SO3Command.msg
-  StatusData.msg
-  TRPYCommand.msg
-  Odometry.msg
-  PolynomialTrajectory.msg
-  LQRTrajectory.msg
-)
-
-generate_messages(
-    DEPENDENCIES
-    geometry_msgs
-    nav_msgs
-)
-
-catkin_package(
-  #INCLUDE_DIRS include
-  LIBRARIES encode_msgs decode_msgs
-  #CATKIN_DEPENDS geometry_msgs nav_msgs
-  #DEPENDS system_lib
-  CATKIN_DEPENDS message_runtime
-)
-
-# add_executable(test_exe src/test_exe.cpp)
-add_library(decode_msgs src/decode_msgs.cpp)
-add_library(encode_msgs src/encode_msgs.cpp)
-
-# add_dependencies(test_exe quadrotor_msgs_generate_messages_cpp)
-add_dependencies(encode_msgs quadrotor_msgs_generate_messages_cpp)
-add_dependencies(decode_msgs quadrotor_msgs_generate_messages_cpp)
-
+find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(fuel_ros2_compat REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(Eigen3 REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIR})
 
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/AuxCommand.msg"
+  "msg/Corrections.msg"
+  "msg/Gains.msg"
+  "msg/LQRTrajectory.msg"
+  "msg/Odometry.msg"
+  "msg/OutputData.msg"
+  "msg/PPROutputData.msg"
+  "msg/PolynomialTrajectory.msg"
+  "msg/PositionCommand.msg"
+  "msg/SO3Command.msg"
+  "msg/Serial.msg"
+  "msg/StatusData.msg"
+  "msg/TRPYCommand.msg"
+  DEPENDENCIES std_msgs geometry_msgs nav_msgs
+)
 
-# target_link_libraries(test_exe 
-#     decode_msgs 
-#     encode_msgs
-# )
-
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
+add_library(decode_msgs src/decode_msgs.cpp)
+target_include_directories(decode_msgs PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>"
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp>")
+ament_target_dependencies(decode_msgs
+  fuel_ros2_compat
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs)
+target_link_libraries(decode_msgs "${cpp_typesupport_target}")
+add_dependencies(decode_msgs ${PROJECT_NAME})
+add_library(encode_msgs src/encode_msgs.cpp)
+target_include_directories(encode_msgs PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>"
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp>")
+ament_target_dependencies(encode_msgs
+  fuel_ros2_compat
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs)
+target_link_libraries(encode_msgs "${cpp_typesupport_target}")
+add_dependencies(encode_msgs ${PROJECT_NAME})
+install(TARGETS decode_msgs encode_msgs
+  EXPORT export_${PROJECT_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY include/ DESTINATION include)
+ament_export_dependencies(rosidl_default_runtime fuel_ros2_compat rclcpp std_msgs geometry_msgs nav_msgs)
+ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
+ament_package()

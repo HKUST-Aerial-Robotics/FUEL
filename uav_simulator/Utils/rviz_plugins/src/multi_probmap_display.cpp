@@ -320,7 +320,7 @@ void MultiProbMapDisplay::update(float wall_dt, float ros_dt) {
 
 // ***********************************************************************************************************************************
 
-void MultiProbMapDisplay::incomingMap(const multi_map_server::MultiOccupancyGrid::ConstPtr& msg) {
+void MultiProbMapDisplay::incomingMap(const multi_map_server::MultiOccupancyGrid::ConstSharedPtr& msg) {
   updated_map_ = msg;
   boost::mutex::scoped_lock lock(mutex_);
   new_map_ = true;

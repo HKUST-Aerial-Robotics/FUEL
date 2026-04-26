@@ -1,13 +1,13 @@
 Panels:
-  - Class: rviz/Tool Properties
+  - Class: rviz_common/Tool Properties
     Expanded: ~
     Name: Tool Properties
     Splitter Ratio: 0.5
-  - Class: rviz/Tool Properties
+  - Class: rviz_common/Tool Properties
     Expanded: ~
     Name: Tool Properties
     Splitter Ratio: 0.5
-  - Class: rviz/Displays
+  - Class: rviz_common/Displays
     Help Height: 0
     Name: Displays
     Property Tree Widget:
@@ -25,7 +25,7 @@ Panels:
         - /Marker1
       Splitter Ratio: 0.5
     Tree Height: 609
-  - Class: rviz/Views
+  - Class: rviz_common/Views
     Expanded:
       - /Current View1
     Name: Views
@@ -33,11 +33,11 @@ Panels:
 Visualization Manager:
   Class: ""
   Displays:
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
         - Alpha: 0.5
           Cell Size: 1
-          Class: rviz/Grid
+          Class: rviz_default_plugins/Grid
           Color: 160; 160; 164
           Enabled: true
           Line Style:
@@ -53,7 +53,7 @@ Visualization Manager:
           Plane Cell Count: 1000
           Reference Frame: <Fixed Frame>
           Value: true
-        - Class: rviz/Axes
+        - Class: rviz_default_plugins/Axes
           Enabled: true
           Length: 10
           Name: Axes
@@ -62,9 +62,9 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: Basic
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /odom_visualization_ukf/robot
           Name: Robot UKF
@@ -75,7 +75,7 @@ Visualization Manager:
         - Alpha: 1
           Axes Length: 0.5
           Axes Radius: 0.05
-          Class: rviz/Pose
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
           Head Length: 0.3
@@ -86,7 +86,7 @@ Visualization Manager:
           Shape: Axes
           Topic: /odom_visualization_ukf/pose
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /odom_visualization_ukf/velocity
           Name: Velocity UKF
@@ -96,7 +96,7 @@ Visualization Manager:
           Value: true
         - Alpha: 1
           Buffer Length: 1
-          Class: rviz/Path
+          Class: rviz_default_plugins/Path
           Color: 255; 0; 0
           Enabled: true
           Line Style: Lines
@@ -108,7 +108,7 @@ Visualization Manager:
             Z: 0
           Topic: /odom_visualization_ukf/path
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
           Marker Topic: /odom_visualization_ukf/covariance
           Name: Cov UKF
@@ -118,9 +118,9 @@ Visualization Manager:
           Value: false
       Enabled: true
       Name: UKF Odom
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /odom_visualization_slam/robot
           Name: Robot SLAM
@@ -131,7 +131,7 @@ Visualization Manager:
         - Alpha: 1
           Axes Length: 0.3
           Axes Radius: 0.12
-          Class: rviz/Pose
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
           Head Length: 0.3
@@ -142,7 +142,7 @@ Visualization Manager:
           Shape: Axes
           Topic: /odom_visualization_slam/pose
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /odom_visualization_slam/velocity
           Name: Velocity SLAM
@@ -152,7 +152,7 @@ Visualization Manager:
           Value: true
         - Alpha: 1
           Buffer Length: 1
-          Class: rviz/Path
+          Class: rviz_default_plugins/Path
           Color: 255; 255; 0
           Enabled: true
           Line Style: Lines
@@ -164,7 +164,7 @@ Visualization Manager:
             Z: 0
           Topic: /odom_visualization_slam/path
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
           Marker Topic: /odom_visualization_slam/covariance
           Name: Cov SLAM
@@ -174,11 +174,11 @@ Visualization Manager:
           Value: false
       Enabled: false
       Name: SLAM Odom
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
         - Alpha: 1
           Buffer Length: 1
-          Class: rviz/Path
+          Class: rviz_default_plugins/Path
           Color: 0; 0; 0
           Enabled: true
           Line Style: Lines
@@ -192,7 +192,7 @@ Visualization Manager:
           Value: true
         - Alpha: 1
           Buffer Length: 1
-          Class: rviz/Path
+          Class: rviz_default_plugins/Path
           Color: 0; 255; 0
           Enabled: true
           Line Style: Lines
@@ -206,7 +206,7 @@ Visualization Manager:
           Value: true
         - Alpha: 1
           Buffer Length: 1
-          Class: rviz/Path
+          Class: rviz_default_plugins/Path
           Color: 255; 0; 255
           Enabled: true
           Line Style: Lines
@@ -220,7 +220,7 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: Trajectory Generator
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
         - Alpha: 1
           Autocompute Intensity Bounds: true
@@ -280,7 +280,7 @@ Visualization Manager:
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
           Marker Topic: /visual_pose_estimator/loc_connect
           Name: Loc Err Lines
@@ -375,7 +375,7 @@ Visualization Manager:
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /visual_slam/pose_graph_odom
           Name: SLAM Pose Graph
@@ -383,7 +383,7 @@ Visualization Manager:
             {}
           Queue Size: 100
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /visual_slam/pose_graph_loop
           Name: SLAM Loop CLosure
@@ -391,7 +391,7 @@ Visualization Manager:
             {}
           Queue Size: 100
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
           Marker Topic: /visual_slam/pose_graph_loop_tf
           Name: SLAM Loop TF
@@ -401,7 +401,7 @@ Visualization Manager:
           Value: false
       Enabled: true
       Name: Hummingbird
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
         - Alpha: 0.7
           Class: rviz_plugins/ProbMapDisplay
@@ -447,7 +447,7 @@ Visualization Manager:
             Value: true
           Axis: Z
           Channel Name: intensity
-          Class: rviz/LaserScan
+          Class: rviz_default_plugins/LaserScan
           Color: 255; 0; 4
           Color Transformer: FlatColor
           Decay Time: 0
@@ -476,7 +476,7 @@ Visualization Manager:
             Value: true
           Axis: Z
           Channel Name: intensity
-          Class: rviz/LaserScan
+          Class: rviz_default_plugins/LaserScan
           Color: 255; 255; 0
           Color Transformer: FlatColor
           Decay Time: 0
@@ -528,7 +528,7 @@ Visualization Manager:
           Value: true
         - Alpha: 1
           Buffer Length: 1
-          Class: rviz/Path
+          Class: rviz_default_plugins/Path
           Color: 255; 255; 0
           Enabled: true
           Line Style: Lines
@@ -541,7 +541,7 @@ Visualization Manager:
           Topic: /rrts/path
           Value: true
         - Arrow Length: 0.3
-          Class: rviz/PoseArray
+          Class: rviz_default_plugins/PoseArray
           Color: 255; 255; 0
           Enabled: true
           Name: RRT* Pose
@@ -549,9 +549,9 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: Pelican
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /monocular_velocity_estimator/plane
           Name: Plane
@@ -559,7 +559,7 @@ Visualization Manager:
             {}
           Queue Size: 100
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /monocular_velocity_estimator/normal
           Name: Normal
@@ -567,7 +567,7 @@ Visualization Manager:
             {}
           Queue Size: 100
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
           Marker Topic: /monocular_velocity_estimator/velocity
           Name: Velocity
@@ -577,7 +577,7 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: OpticalFlow
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
         - Alpha: 0.7
           Class: rviz_plugins/AerialMapDisplay
@@ -586,9 +586,9 @@ Visualization Manager:
           Name: AerialMapDisplay
           Topic: /aerial_map_publisher/aerial_map
           Value: true
-        - Class: rviz/Group
+        - Class: rviz_common/Group
           Displays:
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_laser/robot
               Name: Robot Laser
@@ -599,7 +599,7 @@ Visualization Manager:
             - Alpha: 1
               Axes Length: 0.5
               Axes Radius: 0.05
-              Class: rviz/Pose
+              Class: rviz_default_plugins/Pose
               Color: 255; 25; 0
               Enabled: true
               Head Length: 0.3
@@ -610,7 +610,7 @@ Visualization Manager:
               Shape: Axes
               Topic: /odom_visualization_ukf_laser/pose
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_laser/velocity
               Name: Velocity Laser
@@ -620,7 +620,7 @@ Visualization Manager:
               Value: true
             - Alpha: 1
               Buffer Length: 1
-              Class: rviz/Path
+              Class: rviz_default_plugins/Path
               Color: 255; 0; 0
               Enabled: true
               Line Style: Lines
@@ -632,7 +632,7 @@ Visualization Manager:
                 Z: 0
               Topic: /odom_visualization_ukf_laser/path
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: false
               Marker Topic: /odom_visualization_ukf_laser/covariance
               Name: Cov Laser
@@ -642,9 +642,9 @@ Visualization Manager:
               Value: false
           Enabled: false
           Name: Laser
-        - Class: rviz/Group
+        - Class: rviz_common/Group
           Displays:
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_vision/robot
               Name: Robot Vision
@@ -655,7 +655,7 @@ Visualization Manager:
             - Alpha: 1
               Axes Length: 0.5
               Axes Radius: 0.05
-              Class: rviz/Pose
+              Class: rviz_default_plugins/Pose
               Color: 255; 25; 0
               Enabled: true
               Head Length: 0.3
@@ -666,7 +666,7 @@ Visualization Manager:
               Shape: Axes
               Topic: /odom_visualization_ukf_vision/pose
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: false
               Marker Topic: /odom_visualization_ukf_vision/velocity
               Name: Velocity Vision
@@ -676,7 +676,7 @@ Visualization Manager:
               Value: false
             - Alpha: 1
               Buffer Length: 1
-              Class: rviz/Path
+              Class: rviz_default_plugins/Path
               Color: 0; 255; 0
               Enabled: true
               Line Style: Lines
@@ -688,7 +688,7 @@ Visualization Manager:
                 Z: 0
               Topic: /odom_visualization_ukf_vision/path
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: false
               Marker Topic: /odom_visualization_ukf_vision/covariance
               Name: Cov Vision
@@ -727,9 +727,9 @@ Visualization Manager:
               Value: true
           Enabled: true
           Name: Vision
-        - Class: rviz/Group
+        - Class: rviz_common/Group
           Displays:
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_gps/robot
               Name: Robot GPS
@@ -740,7 +740,7 @@ Visualization Manager:
             - Alpha: 1
               Axes Length: 0.5
               Axes Radius: 0.05
-              Class: rviz/Pose
+              Class: rviz_default_plugins/Pose
               Color: 255; 25; 0
               Enabled: true
               Head Length: 0.3
@@ -751,7 +751,7 @@ Visualization Manager:
               Shape: Axes
               Topic: /odom_visualization_ukf_gps/pose
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_gps/velocity
               Name: Velocity GPS
@@ -761,7 +761,7 @@ Visualization Manager:
               Value: true
             - Alpha: 1
               Buffer Length: 1
-              Class: rviz/Path
+              Class: rviz_default_plugins/Path
               Color: 255; 255; 0
               Enabled: true
               Line Style: Lines
@@ -773,7 +773,7 @@ Visualization Manager:
                 Z: 0
               Topic: /odom_visualization_ukf_gps/path
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_gps/covariance
               Name: Cov GPS
@@ -783,9 +783,9 @@ Visualization Manager:
               Value: true
           Enabled: false
           Name: GPS
-        - Class: rviz/Group
+        - Class: rviz_common/Group
           Displays:
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_multi/robot
               Name: Robot Multi
@@ -796,7 +796,7 @@ Visualization Manager:
             - Alpha: 1
               Axes Length: 0.5
               Axes Radius: 0.05
-              Class: rviz/Pose
+              Class: rviz_default_plugins/Pose
               Color: 255; 25; 0
               Enabled: true
               Head Length: 0.3
@@ -807,7 +807,7 @@ Visualization Manager:
               Shape: Axes
               Topic: /odom_visualization_ukf_multi/pose
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_multi/velocity
               Name: Velocity Multi
@@ -817,7 +817,7 @@ Visualization Manager:
               Value: true
             - Alpha: 1
               Buffer Length: 1
-              Class: rviz/Path
+              Class: rviz_default_plugins/Path
               Color: 255; 0; 0
               Enabled: true
               Line Style: Lines
@@ -829,7 +829,7 @@ Visualization Manager:
                 Z: 0
               Topic: /odom_visualization_ukf_multi/path
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: false
               Marker Topic: /odom_visualization_ukf_multi/trajectory
               Name: Traj Multi
@@ -837,7 +837,7 @@ Visualization Manager:
                 {}
               Queue Size: 100
               Value: false
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_multi/covariance
               Name: Cov Multi
@@ -845,7 +845,7 @@ Visualization Manager:
                 {}
               Queue Size: 100
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: false
               Marker Topic: /odom_visualization_ukf_multi/covariance_velocity
               Name: Cov Vel Multi
@@ -853,7 +853,7 @@ Visualization Manager:
                 {}
               Queue Size: 100
               Value: false
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: false
               Marker Topic: /multi_sensor_slam/graph
               Name: SLAM Graph
@@ -898,14 +898,14 @@ Visualization Manager:
               Value: true
             - Alpha: 0.5
               Buffer Length: 1
-              Class: rviz/Range
+              Class: rviz_default_plugins/Range
               Color: 255; 0; 255
               Enabled: true
               Name: Laser Height
               Queue Size: 100
               Topic: /odom_visualization_ukf_multi/height
               Value: true
-            - Class: rviz/Marker
+            - Class: rviz_default_plugins/Marker
               Enabled: true
               Marker Topic: /odom_visualization_ukf_multi/sensor
               Name: Sensor Availability
@@ -915,11 +915,11 @@ Visualization Manager:
               Value: true
           Enabled: true
           Name: Multi
-        - Class: rviz/Group
+        - Class: rviz_common/Group
           Displays:
-            - Class: rviz/Group
+            - Class: rviz_common/Group
               Displays:
-                - Class: rviz/Marker
+                - Class: rviz_default_plugins/Marker
                   Enabled: true
                   Marker Topic: /odom_visualization_vins/robot
                   Name: Robot VINS
@@ -930,7 +930,7 @@ Visualization Manager:
                 - Alpha: 1
                   Axes Length: 0.5
                   Axes Radius: 0.05
-                  Class: rviz/Pose
+                  Class: rviz_default_plugins/Pose
                   Color: 255; 25; 0
                   Enabled: true
                   Head Length: 0.3
@@ -941,7 +941,7 @@ Visualization Manager:
                   Shape: Axes
                   Topic: /odom_visualization_vins/pose
                   Value: true
-                - Class: rviz/Marker
+                - Class: rviz_default_plugins/Marker
                   Enabled: true
                   Marker Topic: /odom_visualization_vins/velocity
                   Name: Velocity VINS
@@ -951,7 +951,7 @@ Visualization Manager:
                   Value: true
                 - Alpha: 1
                   Buffer Length: 1
-                  Class: rviz/Path
+                  Class: rviz_default_plugins/Path
                   Color: 255; 0; 0
                   Enabled: false
                   Line Style: Lines
@@ -993,7 +993,7 @@ Visualization Manager:
                   Use rainbow: true
                   Value: true
                 - Arrow Length: 0.3
-                  Class: rviz/PoseArray
+                  Class: rviz_default_plugins/PoseArray
                   Color: 255; 0; 0
                   Enabled: true
                   Name: Poses VINS
@@ -1001,9 +1001,9 @@ Visualization Manager:
                   Value: true
               Enabled: true
               Name: VINS
-            - Class: rviz/Group
+            - Class: rviz_common/Group
               Displays:
-                - Class: rviz/Marker
+                - Class: rviz_default_plugins/Marker
                   Enabled: true
                   Marker Topic: /odom_visualization_nonlinear/robot
                   Name: Robot Nonlinear
@@ -1014,7 +1014,7 @@ Visualization Manager:
                 - Alpha: 1
                   Axes Length: 0.5
                   Axes Radius: 0.05
-                  Class: rviz/Pose
+                  Class: rviz_default_plugins/Pose
                   Color: 255; 25; 0
                   Enabled: true
                   Head Length: 0.3
@@ -1025,7 +1025,7 @@ Visualization Manager:
                   Shape: Axes
                   Topic: /odom_visualization_nonlinear/pose
                   Value: true
-                - Class: rviz/Marker
+                - Class: rviz_default_plugins/Marker
                   Enabled: true
                   Marker Topic: /odom_visualization_nonlinear/velocity
                   Name: Velocity Nonlinear
@@ -1035,7 +1035,7 @@ Visualization Manager:
                   Value: true
                 - Alpha: 1
                   Buffer Length: 1
-                  Class: rviz/Path
+                  Class: rviz_default_plugins/Path
                   Color: 0; 255; 0
                   Enabled: true
                   Line Style: Lines
@@ -1077,7 +1077,7 @@ Visualization Manager:
                   Use rainbow: true
                   Value: true
                 - Arrow Length: 0.3
-                  Class: rviz/PoseArray
+                  Class: rviz_default_plugins/PoseArray
                   Color: 0; 255; 0
                   Enabled: true
                   Name: Poses Nonlinear
@@ -1085,9 +1085,9 @@ Visualization Manager:
                   Value: true
               Enabled: true
               Name: Nonlinear
-            - Class: rviz/Group
+            - Class: rviz_common/Group
               Displays:
-                - Class: rviz/Marker
+                - Class: rviz_default_plugins/Marker
                   Enabled: true
                   Marker Topic: /odom_visualization_imu/robot
                   Name: Robot IMU
@@ -1098,7 +1098,7 @@ Visualization Manager:
                 - Alpha: 1
                   Axes Length: 0.5
                   Axes Radius: 0.05
-                  Class: rviz/Pose
+                  Class: rviz_default_plugins/Pose
                   Color: 255; 25; 0
                   Enabled: false
                   Head Length: 0.3
@@ -1109,7 +1109,7 @@ Visualization Manager:
                   Shape: Axes
                   Topic: /odom_visualization_imu/pose
                   Value: false
-                - Class: rviz/Marker
+                - Class: rviz_default_plugins/Marker
                   Enabled: true
                   Marker Topic: /odom_visualization_imu/velocity
                   Name: Velocity IMU
@@ -1119,7 +1119,7 @@ Visualization Manager:
                   Value: true
                 - Alpha: 1
                   Buffer Length: 1
-                  Class: rviz/Path
+                  Class: rviz_default_plugins/Path
                   Color: 255; 255; 0
                   Enabled: false
                   Line Style: Lines
@@ -1133,9 +1133,9 @@ Visualization Manager:
                   Value: false
               Enabled: false
               Name: IMU
-            - Class: rviz/Group
+            - Class: rviz_common/Group
               Displays:
-                - Class: rviz/Marker
+                - Class: rviz_default_plugins/Marker
                   Enabled: true
                   Marker Topic: /odom_visualization_control/robot
                   Name: Robot Control
@@ -1146,7 +1146,7 @@ Visualization Manager:
                 - Alpha: 1
                   Axes Length: 0.75
                   Axes Radius: 0.075
-                  Class: rviz/Pose
+                  Class: rviz_default_plugins/Pose
                   Color: 0; 0; 255
                   Enabled: false
                   Head Length: 0.3
@@ -1157,7 +1157,7 @@ Visualization Manager:
                   Shape: Axes
                   Topic: /odom_visualization_control/pose
                   Value: false
-                - Class: rviz/Marker
+                - Class: rviz_default_plugins/Marker
                   Enabled: false
                   Marker Topic: /odom_visualization_control/velocity
                   Name: Velocity Control
@@ -1167,7 +1167,7 @@ Visualization Manager:
                   Value: false
                 - Alpha: 1
                   Buffer Length: 1
-                  Class: rviz/Path
+                  Class: rviz_default_plugins/Path
                   Color: 0; 0; 255
                   Enabled: false
                   Line Style: Lines
@@ -1185,7 +1185,7 @@ Visualization Manager:
           Name: VINS
       Enabled: true
       Name: NUC
-    - Class: rviz/Marker
+    - Class: rviz_default_plugins/Marker
       Enabled: true
       Marker Topic: /irobot/irobot_marker
       Name: Marker
@@ -1200,15 +1200,15 @@ Visualization Manager:
     Frame Rate: 30
   Name: root
   Tools:
-    - Class: rviz/MoveCamera
+    - Class: rviz_default_plugins/MoveCamera
     - Class: rviz_plugins/Goal3DTool
       Topic: goal
-    - Class: rviz/SetInitialPose
+    - Class: rviz_default_plugins/SetInitialPose
       Topic: trigger
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
+      Class: rviz_default_plugins/Orbit
       Distance: 0.0262036
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06

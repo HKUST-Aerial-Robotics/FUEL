@@ -3,6 +3,8 @@
 #include "bspline/Bspline.h"
 #include "quadrotor_msgs/PositionCommand.h"
 #include "std_msgs/Empty.h"
+#include "geometry_msgs/Point.h"
+#include "geometry_msgs/Pose.h"
 #include "visualization_msgs/Marker.h"
 #include <ros/ros.h>
 #include <poly_traj/polynomial_traj.h>
@@ -55,15 +57,14 @@ double calcPathLength(const vector<Eigen::Vector3d>& path) {
   return len;
 }
 
-void displayTrajWithColor(vector<Eigen::Vector3d> path, double resolution, Eigen::Vector4d color,
+void displayTrajWithColor(const vector<Eigen::Vector3d>& path, double resolution, Eigen::Vector4d color,
                           int id) {
   visualization_msgs::Marker mk;
   mk.header.frame_id = "world";
   mk.header.stamp = ros::Time::now();
+  mk.ns = "executed_traj";
   mk.type = visualization_msgs::Marker::SPHERE_LIST;
-  mk.action = visualization_msgs::Marker::DELETE;
   mk.id = id;
-  traj_pub.publish(mk);
 
   mk.action = visualization_msgs::Marker::ADD;
   mk.pose.orientation.x = 0.0;
@@ -77,6 +78,13 @@ void displayTrajWithColor(vector<Eigen::Vector3d> path, double resolution, Eigen
   mk.scale.x = resolution;
   mk.scale.y = resolution;
   mk.scale.z = resolution;
+
+  if (path.empty()) {
+    mk.action = visualization_msgs::Marker::DELETE;
+    traj_pub.publish(mk);
+    return;
+  }
+
   geometry_msgs::Point pt;
   for (int i = 0; i < int(path.size()); i++) {
     pt.x = path[i](0);
@@ -85,7 +93,6 @@ void displayTrajWithColor(vector<Eigen::Vector3d> path, double resolution, Eigen
     mk.points.push_back(pt);
   }
   traj_pub.publish(mk);
-  ros::Duration(0.001).sleep();
 }
 
 void drawFOV(const vector<Eigen::Vector3d>& list1, const vector<Eigen::Vector3d>& list2) {
@@ -164,6 +171,8 @@ void drawCmd(const Eigen::Vector3d& pos, const Eigen::Vector3d& vec, const int& 
 }
 
 void replanCallback(std_msgs::Empty msg) {
+  if (!receive_traj_ || start_time_.isZero()) return;
+
   // Informed of new replan, end the current traj after some time
   const double time_out = 0.3;
   ros::Time time_now = ros::Time::now();

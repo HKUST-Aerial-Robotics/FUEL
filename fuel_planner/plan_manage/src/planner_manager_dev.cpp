@@ -2,6 +2,7 @@
 #include <plan_env/sdf_map.h>
 #include <future>
 #include <pcl_conversions/pcl_conversions.h>
+#include <sensor_msgs/PointCloud2.h>
 
 namespace fast_planner {
 void FastPlannerManager::planYawActMap(const Eigen::Vector3d& start_yaw) {

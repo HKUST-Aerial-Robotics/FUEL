@@ -27,7 +27,7 @@ Map3D maps3d[MAX_MAP_CNT];
 // Map origin from UKF
 vector<geometry_msgs::Pose> maps_origin;   
 
-void map2d_callback(const nav_msgs::OccupancyGrid::ConstPtr &msg)
+void map2d_callback(const nav_msgs::OccupancyGrid::ConstSharedPtr &msg)
 {
   // Update msg and publish
   if (grids2d.maps.size() == 0)
@@ -56,7 +56,7 @@ void map2d_callback(const nav_msgs::OccupancyGrid::ConstPtr &msg)
   maps2d[maps2dCnt-1].update(*msg);
 }
 
-void scan_callback(const sensor_msgs::LaserScan::ConstPtr &msg)
+void scan_callback(const sensor_msgs::LaserScan::ConstSharedPtr &msg)
 {
   // Get Map Status
   static bool isSLAMValid = false;
@@ -149,7 +149,7 @@ void scan_callback(const sensor_msgs::LaserScan::ConstPtr &msg)
   maps3d[maps3dCnt-1].SetFloor(currFloor);
 }
 
-void maps_origin_callback(const geometry_msgs::PoseArray::ConstPtr &msg)
+void maps_origin_callback(const geometry_msgs::PoseArray::ConstSharedPtr &msg)
 {
   maps_origin = msg->poses;
 }

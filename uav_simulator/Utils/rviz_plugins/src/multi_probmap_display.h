@@ -82,7 +82,7 @@ protected:
   virtual void subscribe();
   virtual void unsubscribe();
 
-  void incomingMap(const multi_map_server::MultiOccupancyGrid::ConstPtr& msg);
+  void incomingMap(const multi_map_server::MultiOccupancyGrid::ConstSharedPtr& msg);
 
   void clear();
 
@@ -99,8 +99,8 @@ protected:
   RosTopicProperty* topic_property_;
   Property* draw_under_property_;
 
-  multi_map_server::MultiOccupancyGrid::ConstPtr updated_map_;
-  multi_map_server::MultiOccupancyGrid::ConstPtr current_map_;
+  multi_map_server::MultiOccupancyGrid::ConstSharedPtr updated_map_;
+  multi_map_server::MultiOccupancyGrid::ConstSharedPtr current_map_;
   boost::mutex mutex_;
   bool new_map_;
 };

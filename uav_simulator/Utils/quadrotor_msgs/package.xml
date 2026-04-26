@@ -1,20 +1,26 @@
-<package>
+<?xml version="1.0"?>
+<package format="3">
   <name>quadrotor_msgs</name>
   <version>0.0.0</version>
   <description>quadrotor_msgs</description>
-  <maintainer email="todo@todo.todo">Kartik Mohta</maintainer>
-  <url>http://ros.org/wiki/quadrotor_msgs</url>
-  <license>BSD</license>
-  <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>geometry_msgs</build_depend>
-  <build_depend>nav_msgs</build_depend>
-  <build_depend>message_generation</build_depend>
-  <run_depend>geometry_msgs</run_depend>
-  <run_depend>nav_msgs</run_depend>
-  <run_depend>message_runtime</run_depend>
-  <export>
-    <cpp cflags="-I${prefix}/include"
-         lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib"/>
-  </export>
+  <maintainer email="todo@example.com">FUEL Maintainers</maintainer>
+  <license>TODO</license>
 
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>rosidl_default_generators</build_depend>
+
+  <depend>fuel_ros2_compat</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>

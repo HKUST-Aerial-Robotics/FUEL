@@ -1,4 +1,5 @@
 #include <Eigen/Geometry>
+#include <geometry_msgs/Vector3.h>
 #include <nav_msgs/Odometry.h>
 #include <quadrotor_msgs/SO3Command.h>
 #include <quadrotor_simulator/Quadrotor.h>
@@ -138,7 +139,7 @@ static Control getControl(const QuadrotorSimulator::Quadrotor& quad, const Comma
   return control;
 }
 
-static void cmd_callback(const quadrotor_msgs::SO3Command::ConstPtr& cmd) {
+static void cmd_callback(const quadrotor_msgs::SO3Command::ConstSharedPtr& cmd) {
   command.force[0] = cmd->force.x;
   command.force[1] = cmd->force.y;
   command.force[2] = cmd->force.z;
@@ -146,12 +147,12 @@ static void cmd_callback(const quadrotor_msgs::SO3Command::ConstPtr& cmd) {
   command.qy = cmd->orientation.y;
   command.qz = cmd->orientation.z;
   command.qw = cmd->orientation.w;
-  command.kR[0] = cmd->kR[0];
-  command.kR[1] = cmd->kR[1];
-  command.kR[2] = cmd->kR[2];
-  command.kOm[0] = cmd->kOm[0];
-  command.kOm[1] = cmd->kOm[1];
-  command.kOm[2] = cmd->kOm[2];
+  command.kR[0] = cmd->kr[0];
+  command.kR[1] = cmd->kr[1];
+  command.kR[2] = cmd->kr[2];
+  command.kOm[0] = cmd->kom[0];
+  command.kOm[1] = cmd->kom[1];
+  command.kOm[2] = cmd->kom[2];
   command.corrections[0] = cmd->aux.kf_correction;
   command.corrections[1] = cmd->aux.angle_corrections[0];
   command.corrections[2] = cmd->aux.angle_corrections[1];
@@ -159,13 +160,13 @@ static void cmd_callback(const quadrotor_msgs::SO3Command::ConstPtr& cmd) {
   command.use_external_yaw = cmd->aux.use_external_yaw;
 }
 
-static void force_disturbance_callback(const geometry_msgs::Vector3::ConstPtr& f) {
+static void force_disturbance_callback(const geometry_msgs::Vector3::ConstSharedPtr& f) {
   disturbance.f(0) = f->x;
   disturbance.f(1) = f->y;
   disturbance.f(2) = f->z;
 }
 
-static void moment_disturbance_callback(const geometry_msgs::Vector3::ConstPtr& m) {
+static void moment_disturbance_callback(const geometry_msgs::Vector3::ConstSharedPtr& m) {
   disturbance.m(0) = m->x;
   disturbance.m(1) = m->y;
   disturbance.m(2) = m->z;

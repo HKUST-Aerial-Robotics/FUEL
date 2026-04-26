@@ -2,6 +2,8 @@
 #include <quadrotor_msgs/comm_types.h>
 #include <Eigen/Geometry>
 
+#include <cstring>
+
 namespace quadrotor_msgs {
 
 bool decodeOutputData(const std::vector<uint8_t>& data, quadrotor_msgs::OutputData& output) {

@@ -6,6 +6,7 @@
 #include <tf/tf.h>
 #include <armadillo>
 #include <multi_map_server/SparseMap3D.h>
+#include <multi_map_server/VerticalOccupancyGridList.h>
 
 using namespace std;
 

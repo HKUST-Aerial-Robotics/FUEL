@@ -1,35 +1,42 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(waypoint_generator)
 
-set(CMAKE_VERBOSE_MAKEFILE "true")
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-if(COMPILER_SUPPORTS_CXX11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-elseif(COMPILER_SUPPORTS_CXX0X)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-else()
-        message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
 endif()
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type")
+add_compile_options(-O3 -Wall)
 
-set(ADDITIONAL_CXX_FLAG "-Wall -O3 -march=native")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ADDITIONAL_CXX_FLAG}")
-
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  tf
-  nav_msgs
-)
-catkin_package()
-
-include_directories(include)
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+find_package(ament_cmake REQUIRED)
+find_package(fuel_ros2_compat REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 
 add_executable(waypoint_generator src/waypoint_generator.cpp)
-
-target_link_libraries(waypoint_generator
-   ${catkin_LIBRARIES}
-)
+target_include_directories(waypoint_generator PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>")
+ament_target_dependencies(waypoint_generator
+  fuel_ros2_compat
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs)
+install(TARGETS waypoint_generator
+  EXPORT export_${PROJECT_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME})
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/include")
+  install(DIRECTORY include/ DESTINATION include)
+endif()
+ament_export_dependencies(
+  fuel_ros2_compat
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs)
+ament_package()

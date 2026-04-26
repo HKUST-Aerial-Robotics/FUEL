@@ -1,13 +1,5 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(cmake_utils)
-
-find_package(catkin REQUIRED COMPONENTS roscpp)
-
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
-
-file(GLOB CMAKE_UILTS_FILES cmake/*.cmake)
-
-catkin_package(
-  CFG_EXTRAS ${CMAKE_UILTS_FILES}
-)
-
+find_package(ament_cmake REQUIRED)
+install(DIRECTORY cmake/ cmake_modules/ DESTINATION share/${PROJECT_NAME}/cmake OPTIONAL)
+ament_package()

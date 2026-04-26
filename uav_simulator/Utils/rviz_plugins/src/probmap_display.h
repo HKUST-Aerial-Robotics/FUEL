@@ -99,7 +99,7 @@ protected:
   virtual void subscribe();
   virtual void unsubscribe();
 
-  void incomingMap(const nav_msgs::OccupancyGrid::ConstPtr& msg);
+  void incomingMap(const nav_msgs::OccupancyGrid::ConstSharedPtr& msg);
 
   void clear();
 
@@ -129,8 +129,8 @@ protected:
   FloatProperty* alpha_property_;
   Property* draw_under_property_;
 
-  nav_msgs::OccupancyGrid::ConstPtr updated_map_;
-  nav_msgs::OccupancyGrid::ConstPtr current_map_;
+  nav_msgs::OccupancyGrid::ConstSharedPtr updated_map_;
+  nav_msgs::OccupancyGrid::ConstSharedPtr current_map_;
   boost::mutex mutex_;
   bool new_map_;
 };

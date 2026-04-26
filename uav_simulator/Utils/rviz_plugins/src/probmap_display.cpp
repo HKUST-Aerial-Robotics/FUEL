@@ -427,7 +427,7 @@ void ProbMapDisplay::update(float wall_dt, float ros_dt) {
   context_->queueRender();
 }
 
-void ProbMapDisplay::incomingMap(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
+void ProbMapDisplay::incomingMap(const nav_msgs::OccupancyGrid::ConstSharedPtr& msg) {
 
   updated_map_ = msg;
   boost::mutex::scoped_lock lock(mutex_);

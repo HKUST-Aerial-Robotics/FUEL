@@ -29,10 +29,10 @@ public:
 
 private:
   void publishSO3Command(void);
-  void position_cmd_callback(const quadrotor_msgs::PositionCommand::ConstPtr& cmd);
-  void odom_callback(const nav_msgs::Odometry::ConstPtr& odom);
-  void enable_motors_callback(const std_msgs::Bool::ConstPtr& msg);
-  void corrections_callback(const quadrotor_msgs::Corrections::ConstPtr& msg);
+  void position_cmd_callback(const quadrotor_msgs::PositionCommand::ConstSharedPtr& cmd);
+  void odom_callback(const nav_msgs::Odometry::ConstSharedPtr& odom);
+  void enable_motors_callback(const std_msgs::Bool::ConstSharedPtr& msg);
+  void corrections_callback(const quadrotor_msgs::Corrections::ConstSharedPtr& msg);
   void imu_callback(const sensor_msgs::Imu& imu);
 
   SO3Control controller_;
@@ -60,7 +60,7 @@ void SO3ControlNodelet::publishSO3Command(void) {
   const Eigen::Vector3d& force = controller_.getComputedForce();
   const Eigen::Quaterniond& orientation = controller_.getComputedOrientation();
 
-  quadrotor_msgs::SO3Command::Ptr so3_command(new quadrotor_msgs::SO3Command);  //! @note memory leak?
+  quadrotor_msgs::SO3Command::SharedPtr so3_command(new quadrotor_msgs::SO3Command);  //! @note memory leak?
   so3_command->header.stamp = ros::Time::now();
   so3_command->header.frame_id = frame_id_;
   so3_command->force.x = force(0);
@@ -71,8 +71,8 @@ void SO3ControlNodelet::publishSO3Command(void) {
   so3_command->orientation.z = orientation.z();
   so3_command->orientation.w = orientation.w();
   for (int i = 0; i < 3; i++) {
-    so3_command->kR[i] = kR_[i];
-    so3_command->kOm[i] = kOm_[i];
+    so3_command->kr[i] = kR_[i];
+    so3_command->kom[i] = kOm_[i];
   }
   so3_command->aux.current_yaw = current_yaw_;
   so3_command->aux.kf_correction = corrections_[0];
@@ -83,7 +83,7 @@ void SO3ControlNodelet::publishSO3Command(void) {
   so3_command_pub_.publish(so3_command);
 }
 
-void SO3ControlNodelet::position_cmd_callback(const quadrotor_msgs::PositionCommand::ConstPtr& cmd) {
+void SO3ControlNodelet::position_cmd_callback(const quadrotor_msgs::PositionCommand::ConstSharedPtr& cmd) {
   des_pos_ = Eigen::Vector3d(cmd->position.x, cmd->position.y, cmd->position.z);
   des_vel_ = Eigen::Vector3d(cmd->velocity.x, cmd->velocity.y, cmd->velocity.z);
   des_acc_ = Eigen::Vector3d(cmd->acceleration.x, cmd->acceleration.y, cmd->acceleration.z);
@@ -98,7 +98,7 @@ void SO3ControlNodelet::position_cmd_callback(const quadrotor_msgs::PositionComm
   publishSO3Command();
 }
 
-void SO3ControlNodelet::odom_callback(const nav_msgs::Odometry::ConstPtr& odom) {
+void SO3ControlNodelet::odom_callback(const nav_msgs::Odometry::ConstSharedPtr& odom) {
   const Eigen::Vector3d position(odom->pose.pose.position.x, odom->pose.pose.position.y,
                                  odom->pose.pose.position.z);
   const Eigen::Vector3d velocity(odom->twist.twist.linear.x, odom->twist.twist.linear.y,
@@ -121,7 +121,7 @@ void SO3ControlNodelet::odom_callback(const nav_msgs::Odometry::ConstPtr& odom) 
   }
 }
 
-void SO3ControlNodelet::enable_motors_callback(const std_msgs::Bool::ConstPtr& msg) {
+void SO3ControlNodelet::enable_motors_callback(const std_msgs::Bool::ConstSharedPtr& msg) {
   if (msg->data)
     ROS_INFO("Enabling motors");
   else
@@ -130,7 +130,7 @@ void SO3ControlNodelet::enable_motors_callback(const std_msgs::Bool::ConstPtr& m
   enable_motors_ = msg->data;
 }
 
-void SO3ControlNodelet::corrections_callback(const quadrotor_msgs::Corrections::ConstPtr& msg) {
+void SO3ControlNodelet::corrections_callback(const quadrotor_msgs::Corrections::ConstSharedPtr& msg) {
   corrections_[0] = msg->kf_correction;
   corrections_[1] = msg->angle_corrections[0];
   corrections_[2] = msg->angle_corrections[1];

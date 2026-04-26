@@ -1,11 +1,13 @@
 #include <iostream>
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud.h>
-#include <pose_utils.h>
+#include <geometry_msgs/Point32.h>
+#include <geometry_msgs/Pose.h>
 #include <multi_map_server/MultiOccupancyGrid.h>
 #include <multi_map_server/MultiSparseMap3D.h>
 #include <multi_map_server/Map2D.h>
 #include <multi_map_server/Map3D.h>
+#include <pose_utils.h>
 
 ros::Publisher pub1;
 ros::Publisher pub2;
@@ -15,7 +17,7 @@ vector<geometry_msgs::Pose> origins2d;
 vector<Map3D> maps3d;
 vector<geometry_msgs::Pose> origins3d;
 
-void maps2d_callback(const multi_map_server::MultiOccupancyGrid::ConstPtr &msg)
+void maps2d_callback(const multi_map_server::MultiOccupancyGrid::ConstSharedPtr &msg)
 {
   // Merge map
   maps2d.resize(msg->maps.size(), Map2D(4));
@@ -34,7 +36,7 @@ void maps2d_callback(const multi_map_server::MultiOccupancyGrid::ConstPtr &msg)
   pub1.publish(m);
 }
 
-void maps3d_callback(const multi_map_server::MultiSparseMap3D::ConstPtr &msg)
+void maps3d_callback(const multi_map_server::MultiSparseMap3D::ConstSharedPtr &msg)
 {
   // Update incremental map
   maps3d.resize(msg->maps.size());  
@@ -87,4 +89,3 @@ int main(int argc, char** argv)
   ros::spin();
   return 0;
 }
-

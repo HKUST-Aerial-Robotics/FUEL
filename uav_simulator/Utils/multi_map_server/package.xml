@@ -1,38 +1,32 @@
-<package>
-  <description>multi_map_server</description>
+<?xml version="1.0"?>
+<package format="3">
   <name>multi_map_server</name>
   <version>0.0.0</version>
-  <maintainer email="eeshaojie@todo.todo">Shaojie Shen</maintainer>
-  <license>BSD</license>
-  
-  <url>http://ros.org/wiki/multi_map_server</url>
+  <description>multi_map_server</description>
+  <maintainer email="todo@example.com">FUEL Maintainers</maintainer>
+  <license>TODO</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <build_depend>roscpp</build_depend>
-  <build_depend>visualization_msgs</build_depend>
-  <build_depend>geometry_msgs</build_depend>
-  <build_depend>tf</build_depend>
-  <build_depend>nav_msgs</build_depend>
-  <build_depend>std_srvs</build_depend>
-  <build_depend>laser_geometry</build_depend>
-  <build_depend>pose_utils</build_depend>
-  <build_depend>message_generation</build_depend>
-  <build_depend>quadrotor_msgs</build_depend>
+  <build_depend>rosidl_default_generators</build_depend>
 
-  <run_depend>roscpp</run_depend>
-  <run_depend>visualization_msgs</run_depend>
-  <run_depend>geometry_msgs</run_depend>
-  <run_depend>tf</run_depend>
-  <run_depend>nav_msgs</run_depend>
-  <run_depend>std_srvs</run_depend>
-  <run_depend>laser_geometry</run_depend>
-  <run_depend>pose_utils</run_depend>
-  <run_depend>message_runtime</run_depend>
-  <run_depend>quadrotor_msgs</run_depend>
+  <depend>fuel_ros2_compat</depend>
+  <depend>geometry_msgs</depend>
+  <depend>laser_geometry</depend>
+  <depend>nav_msgs</depend>
+  <depend>pose_utils</depend>
+  <depend>quadrotor_msgs</depend>
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>visualization_msgs</depend>
+
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
 
   <export>
-    <cpp cflags="-I${prefix}/include -I${prefix}/msg/cpp"/>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
-

@@ -58,14 +58,15 @@ int main(int argc, char** argv) {
   pcl::toROSMsg(cloud, msg);
   msg.header.frame_id = "world";
 
-  int count = 0;
+  size_t last_subscriber_count = 0;
   while (ros::ok()) {
-    ros::Duration(0.3).sleep();
-    cloud_pub.publish(msg);
-    ++count;
-    if (count > 10) {
-      // break;
+    const size_t subscriber_count = cloud_pub.getNumSubscribers();
+    if (subscriber_count > last_subscriber_count) {
+      cloud_pub.publish(msg);
+      cout << "publish map to " << subscriber_count << " subscriber(s)." << endl;
     }
+    last_subscriber_count = subscriber_count;
+    ros::Duration(0.1).sleep();
   }
 
   cout << "finish publish map." << endl;

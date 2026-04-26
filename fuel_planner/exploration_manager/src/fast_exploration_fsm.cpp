@@ -5,6 +5,7 @@
 
 #include <exploration_manager/fast_exploration_fsm.h>
 #include <exploration_manager/expl_data.h>
+#include <geometry_msgs/Point.h>
 #include <plan_env/edt_environment.h>
 #include <plan_env/sdf_map.h>
 

@@ -6,6 +6,7 @@
 #include <visualization_msgs/Marker.h>
 
 #include <fstream>
+#include <functional>
 
 namespace fast_planner {
 MapROS::MapROS() {
@@ -68,18 +69,21 @@ void MapROS::init() {
   update_range_pub_ = node_.advertise<visualization_msgs::Marker>("/sdf_map/update_range", 10);
   depth_pub_ = node_.advertise<sensor_msgs::PointCloud2>("/sdf_map/depth_cloud", 10);
 
-  depth_sub_.reset(new message_filters::Subscriber<sensor_msgs::Image>(node_, "/map_ros/depth", 50));
-  cloud_sub_.reset(
-      new message_filters::Subscriber<sensor_msgs::PointCloud2>(node_, "/map_ros/cloud", 50));
-  pose_sub_.reset(
-      new message_filters::Subscriber<geometry_msgs::PoseStamped>(node_, "/map_ros/pose", 25));
+  depth_sub_.reset(new message_filters::Subscriber<sensor_msgs::Image>(
+      node_.raw(), "/map_ros/depth", rmw_qos_profile_default));
+  cloud_sub_.reset(new message_filters::Subscriber<sensor_msgs::PointCloud2>(
+      node_.raw(), "/map_ros/cloud", rmw_qos_profile_default));
+  pose_sub_.reset(new message_filters::Subscriber<geometry_msgs::PoseStamped>(
+      node_.raw(), "/map_ros/pose", rmw_qos_profile_default));
 
   sync_image_pose_.reset(new message_filters::Synchronizer<MapROS::SyncPolicyImagePose>(
       MapROS::SyncPolicyImagePose(100), *depth_sub_, *pose_sub_));
-  sync_image_pose_->registerCallback(boost::bind(&MapROS::depthPoseCallback, this, _1, _2));
+  sync_image_pose_->registerCallback(std::bind(&MapROS::depthPoseCallback, this,
+                                               std::placeholders::_1, std::placeholders::_2));
   sync_cloud_pose_.reset(new message_filters::Synchronizer<MapROS::SyncPolicyCloudPose>(
       MapROS::SyncPolicyCloudPose(100), *cloud_sub_, *pose_sub_));
-  sync_cloud_pose_->registerCallback(boost::bind(&MapROS::cloudPoseCallback, this, _1, _2));
+  sync_cloud_pose_->registerCallback(std::bind(&MapROS::cloudPoseCallback, this,
+                                               std::placeholders::_1, std::placeholders::_2));
 
   map_start_time_ = ros::Time::now();
 }

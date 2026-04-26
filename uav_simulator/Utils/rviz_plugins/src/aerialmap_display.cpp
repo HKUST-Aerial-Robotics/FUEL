@@ -434,7 +434,7 @@ void AerialMapDisplay::update(float wall_dt, float ros_dt) {
   context_->queueRender();
 }
 
-void AerialMapDisplay::incomingAerialMap(const nav_msgs::OccupancyGrid::ConstPtr& msg) {
+void AerialMapDisplay::incomingAerialMap(const nav_msgs::OccupancyGrid::ConstSharedPtr& msg) {
 
   updated_map_ = msg;
   boost::mutex::scoped_lock lock(mutex_);

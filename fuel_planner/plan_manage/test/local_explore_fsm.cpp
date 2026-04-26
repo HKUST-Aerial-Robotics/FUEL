@@ -1,6 +1,8 @@
 
 #include <plan_manage/local_explore_fsm.h>
 
+#include <geometry_msgs/Point.h>
+
 namespace fast_planner {
 void LocalExploreFSM::init(ros::NodeHandle& nh) {
   current_wp_ = 0;

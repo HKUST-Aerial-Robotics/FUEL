@@ -1,6 +1,14 @@
 fuel_planner/.vscode
 *.vscode/
 *.clang-format
+__pycache__/
+*.py[cod]
+*~
+
+build/
+devel/
+install/
+log/
 
 fuel_planner/utils/lkh_tsp_solver/resource/*.par
 fuel_planner/utils/lkh_tsp_solver/resource/*.tsp

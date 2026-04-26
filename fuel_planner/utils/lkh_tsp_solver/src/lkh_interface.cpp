@@ -1,5 +1,10 @@
 #include <lkh_tsp_solver/lkh_interface.h>
 
+extern "C" {
+#include "LKH.h"
+#include "Genetic.h"
+}
+
 int solveTSPLKH(const char* input_file) {
   GainType Cost, OldOptimum;
   double Time, LastTime = GetTime();

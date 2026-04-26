@@ -172,7 +172,7 @@ void pubSensorPose(const ros::TimerEvent& e)
 
   geometry_msgs::PoseStamped sensor_pose;
   sensor_pose.header = odom_.header;
-  sensor_pose.header.frame_id = "/map";
+  sensor_pose.header.frame_id = "world";
   sensor_pose.pose.position.x = sensor2world(0, 3);
   sensor_pose.pose.position.y = sensor2world(1, 3);
   sensor_pose.pose.position.z = sensor2world(2, 3);

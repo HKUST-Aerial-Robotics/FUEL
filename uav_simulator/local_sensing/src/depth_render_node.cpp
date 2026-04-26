@@ -5,6 +5,7 @@
 #include <nav_msgs/Odometry.h>
 #include <nav_msgs/Path.h>
 #include <ros/ros.h>
+#include <sensor_msgs/Image.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <std_msgs/Bool.h>
 
@@ -35,6 +36,7 @@ double sensing_horizon, sensing_rate, estimation_rate;
 
 ros::Publisher pub_depth;
 ros::Publisher pub_pose;
+ros::Publisher pub_cloud;
 ros::Subscriber odom_sub;
 ros::Subscriber global_map_sub;
 ros::Timer local_sensing_timer, estimation_timer;
@@ -87,7 +89,7 @@ void pubCameraPose(const ros::TimerEvent& event) {
   // cout<<"pub cam pose"
   geometry_msgs::PoseStamped camera_pose;
   camera_pose.header = odom_.header;
-  camera_pose.header.frame_id = "/map";
+  camera_pose.header.frame_id = "world";
   camera_pose.pose.position.x = cam2world(0, 3);
   camera_pose.pose.position.y = cam2world(1, 3);
   camera_pose.pose.position.z = cam2world(2, 3);
@@ -166,6 +168,35 @@ void renderDepth() {
   out_msg.encoding = sensor_msgs::image_encodings::TYPE_32FC1;
   out_msg.image = depth_mat.clone();
   pub_depth.publish(out_msg.toImageMsg());
+
+  pcl::PointCloud<pcl::PointXYZ> local_cloud;
+  Eigen::Vector4d pose_in_camera;
+  Eigen::Vector4d pose_in_world;
+  for (int u = 0; u < width; ++u) {
+    for (int v = 0; v < height; ++v) {
+      const float depth = depth_mat.at<float>(v, u);
+      if (depth <= 1e-3) continue;
+
+      pose_in_camera << (u - cx) * depth / fx, (v - cy) * depth / fy, depth, 1.0;
+      pose_in_world = cam2world * pose_in_camera;
+      if ((pose_in_world.head<3>() - last_pose_world).norm() > sensing_horizon) continue;
+
+      pcl::PointXYZ pt;
+      pt.x = pose_in_world(0);
+      pt.y = pose_in_world(1);
+      pt.z = pose_in_world(2);
+      local_cloud.points.push_back(pt);
+    }
+  }
+
+  local_cloud.width = local_cloud.points.size();
+  local_cloud.height = 1;
+  local_cloud.is_dense = true;
+  sensor_msgs::PointCloud2 cloud_msg;
+  pcl::toROSMsg(local_cloud, cloud_msg);
+  cloud_msg.header.stamp = last_odom_stamp;
+  cloud_msg.header.frame_id = "world";
+  pub_cloud.publish(cloud_msg);
 }
 
 void renderSensedPoints(const ros::TimerEvent& event) {
@@ -197,6 +228,7 @@ int main(int argc, char** argv) {
   // publisher depth image and color image
   pub_depth = nh.advertise<sensor_msgs::Image>("/pcl_render_node/depth", 1000);
   pub_pose = nh.advertise<geometry_msgs::PoseStamped>("/pcl_render_node/sensor_pose", 1000);
+  pub_cloud = nh.advertise<sensor_msgs::PointCloud2>("/pcl_render_node/cloud", 1);
 
   double sensing_duration = 1.0 / sensing_rate;
   double estimate_duration = 1.0 / estimation_rate;

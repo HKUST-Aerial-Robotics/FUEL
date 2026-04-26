@@ -6,12 +6,16 @@
 #include <message_filters/sync_policies/exact_time.h>
 #include <message_filters/time_synchronizer.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <rmw/qos_profiles.h>
 
 #include <ros/ros.h>
 
 #include <cv_bridge/cv_bridge.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <nav_msgs/Odometry.h>
+#include <sensor_msgs/Image.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <sensor_msgs/image_encodings.h>
 
 #include <memory>
 #include <random>

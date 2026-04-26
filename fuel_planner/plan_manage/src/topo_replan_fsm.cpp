@@ -1,6 +1,8 @@
 
 #include <plan_manage/topo_replan_fsm.h>
 
+#include <geometry_msgs/Point.h>
+
 namespace fast_planner {
 void TopoReplanFSM::init(ros::NodeHandle& nh) {
   current_wp_ = 0;
